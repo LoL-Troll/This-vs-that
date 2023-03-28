@@ -1,0 +1,98 @@
+@font-face {
+    font-family: IBMPlex;
+    src: url(/assets/fonts/IBMPlexSans-Regular.ttf);
+}
+
+* {
+    font-family: IBMPlex;
+}
+
+nav {
+    font-size: calc(0.5rem + 1vw);
+}
+
+h1 {
+    font-weight: bolder;
+    color: red;
+    font-size: 50rem;
+}
+
+.catagory-card {
+    padding: 2rem;
+    border-radius: 2rem;    
+    background-color: #ffffff;
+    /* box-shadow: 1rem 1rem gray; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.catagory-title {
+    font-size: calc(0.5rem + 1vw);
+}
+
+.range {
+	background: #fff;
+	height: 2rem;
+	width: 55%;
+	border-radius: 5rem;
+	box-shadow: 1px 5px 5px rgba(black, 0.3);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+main {
+    margin: 1rem;
+}
+
+.card-img {
+    display: block;
+    float: left;
+    object-fit: contain;
+    width: 10rem;
+    height: 10rem;
+    max-width: 20rem;
+    max-height: 20rem;
+}
+
+.product-card {
+    display: flex;
+    flex-direction: column;
+    border: solid black;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+
+    padding: 1rem 0rem;
+    border-radius: 2rem;
+    background-color: #ffffff;
+
+    min-width: 12rem;
+    width: 100%;
+    max-width: 12rem;
+    /* box-shadow: 1rem 1rem gray; */
+}   
+
+/* .product-content {
+    width: 10rem;
+    max-height: auto;
+} */
+
+/* .row {
+    max-width: 10rem;
+    max-height: 10rem;
+} */
+
+/* .product-img {
+    max-width: 40rem;
+    max-height: 40rem;
+} */
+
+
+.filter-side {
+    width: 20em;
+    padding: 1rem;
+    border-radius: 1rem;
+    /* max-width: 20%; */
+    background-color: gray;
+}
