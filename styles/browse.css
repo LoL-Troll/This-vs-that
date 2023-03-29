@@ -30,53 +30,102 @@ h1 {
 }
 
 
+/* For Price Range selector */
 .price-selector {
+    margin: 2rem 0;
+}
+
+.price-input {
     width: 100%;
-    background-color: lightgray;
-    border-radius: 1rem;
+    display: flex;
+    margin: 1rem 0 3rem;
     padding: 1rem;
 }
 
-.price-content {
+.price-input .field {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 1rem;
-}
-
-.range-slider {
+    flex-direction: column;
     width: 100%;
-    position: relative;
-    margin: 0.5rem 0 2rem 0;
+    height: 45px;
+    align-items: center;
 }
 
-input[type=range]::-webkit-slider-thumb {
+.price-input .separator{
+    width: 130px;
+    display: flex;
+    font-size: 19px;
+    align-items: center;
+    justify-content: center;
+  }
+
+.field input {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #999;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    background: darkred;
-    cursor: pointer;
-    margin-top: -0.2rem;
-    position: relative;
-    z-index: 1;
 }
 
-input[type=range]::-webkit-slider-runnable-track {
+
+.slider {
+    height: 5px;
+    position: relative;
+    background: #ddd;
+    border-radius: 5px;
+}
+
+.slider .progress {
+    height: 100%;
+    left: 25%;
+    right: 25%;
+    position: absolute;
+    border-radius: 5px;
+    background: #17A2B8;
+}
+
+.range-input {
+    position: relative;
+}
+
+.range-input input {
+    position: absolute;
     width: 100%;
     height: 5px;
-    background: #e8e8e8;
-    border-radius: 3px;
-    border: none;
+    top: -5px;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
-input[type=range] {
+input[type="range"]::-webkit-slider-thumb {
+    height: 17px;
+    width: 17px;
+    border-radius: 50%;
+    background: #17A2B8;
+    pointer-events: auto;
     -webkit-appearance: none;
-    width: 100%;
-    background: transparent;
-    position: absolute;
-    left: 0;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }
+
+input[type="range"]::-moz-range-thumb {
+    height: 17px;
+    width: 17px;
+    border: none;
+    border-radius: 50%;
+    background: #17A2B8;
+    pointer-events: auto;
+    -moz-appearance: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+/* End of Price Range Style */
+
 
 main {
     margin: 1rem;

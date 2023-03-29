@@ -54,7 +54,7 @@
                         </li>
 
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="signin.html">
+                            <a class="nav-link" href="/signin.html">
                                 <button class='btn btn-secondary'>Sign In</button>
                             </a>
                         </li>
@@ -73,54 +73,72 @@
                 <hr>
 
                 <div class="price-selector">
-                    <h4>Price</h4>
+                    <div class="wrapper">
+                        <h3>Price Range</h3>
 
-                    <div class="price-content">
-                        <div>
-                            <label>Min</label>
-                            <p id="min-value">0 SAR</p>
+                        <div class="price-input">
+                            <div class="field">
+                                <h5>Min</h5>
+                                <input type="number" class="input-min" value="2500">
+                            </div>
+                            <div class="separator">-</div>
+                            <div class="field">
+                                <h5>Max</h5>
+                                <input type="number" class="input-max" value="7500">
+                            </div>
                         </div>
-
-                        <div>
-                            <label>Max</label>
-                            <p id="max-value">10,000 SAR</p>
+                        
+                        <div class="slider">
+                            <div class="progress"></div>
                         </div>
-                    </div>
-
-                    <div class="range-slider">
-                        <input type="range" class="min-price" value="1" min="1" max="10000">
-                        <input type="range" class="max-price" value="2000" min="0" max="10000">
+                        <div class="range-input">
+                            <input type="range" class="range-min" min="0" max="10000" value="2500" step="50">
+                            <input type="range" class="range-max" min="0" max="10000" value="7500" step="50">
+                        </div>
                     </div>
 
                     <script>
-                        let minValue = document.getElementById("min-value");
-                        let maxValue = document.getElementById("max-value");
+                        const rangeInput = document.querySelectorAll(".range-input input"),
+                            priceInput = document.querySelectorAll(".price-input input"),
+                            range = document.querySelector(".slider .progress");
+                        let priceGap = 1000;
 
-                        function validateRange(minPrice, maxPrice) {
-                            if (minPrice > maxPrice) {
+                        priceInput.forEach(input => {
+                            input.addEventListener("input", e => {
+                                let minPrice = parseInt(priceInput[0].value),
+                                    maxPrice = parseInt(priceInput[1].value);
 
-                                // Swap to Values
-                                let tempValue = maxPrice;
-                                maxPrice = minPrice;
-                                minPrice = tempValue;
-                            }
-
-                            minValue.innerHTML = minPrice + " SAR";
-                            maxValue.innerHTML = maxPrice + " SAR";
-                        }
-
-                        const inputElements = document.querySelectorAll("input");
-
-                        inputElements.forEach((element) => {
-                            element.addEventListener("change", (e) => {
-                                let minPrice = parseInt(inputElements[0].value);
-                                let maxPrice = parseInt(inputElements[1].value);
-
-                                validateRange(minPrice, maxPrice);
+                                if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
+                                    if (e.target.className === "input-min") {
+                                        rangeInput[0].value = minPrice;
+                                        range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
+                                    } else {
+                                        rangeInput[1].value = maxPrice;
+                                        range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+                                    }
+                                }
                             });
                         });
 
-                        validateRange(inputElements[0].value, inputElements[1].value);
+                        rangeInput.forEach(input => {
+                            input.addEventListener("input", e => {
+                                let minVal = parseInt(rangeInput[0].value),
+                                    maxVal = parseInt(rangeInput[1].value);
+
+                                if ((maxVal - minVal) < priceGap) {
+                                    if (e.target.className === "range-min") {
+                                        rangeInput[0].value = maxVal - priceGap
+                                    } else {
+                                        rangeInput[1].value = minVal + priceGap;
+                                    }
+                                } else {
+                                    priceInput[0].value = minVal;
+                                    priceInput[1].value = maxVal;
+                                    range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
+                                    range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+                                }
+                            });
+                        });
                     </script>
                 </div>
 
