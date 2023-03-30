@@ -2,10 +2,20 @@
     font-family: IBMPlex;
     src: url(/assets/fonts/IBMPlexSans-Regular.ttf);
 }
+
+* {
+    font-family: IBMPlex;
+}
+
+nav {
+    font-size: calc(0.5rem + 1vw);
+}
+
+
 /* body {
     background-color: #f5f7fa;
   } */
-.icons{
+.icons {
     object-fit: contain;
     width: 5rem;
     height: 5rem;
