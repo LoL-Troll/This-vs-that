@@ -8,8 +8,10 @@
 }
 
 nav {
+    
     font-size: calc(0.5rem + 1vw);
 }
+
 
 h1 {
     font-weight: bolder;
@@ -144,7 +146,6 @@ main {
 .product-card {
     display: flex;
     flex-direction: column;
-    border: solid black;
     align-items: center;
     justify-content: center;
     align-content: center;
@@ -158,22 +159,74 @@ main {
     max-width: 12rem;
     /* box-shadow: 1rem 1rem gray; */
 }
+.product-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
 
-/* .product-content {
-    width: 10rem;
-    max-height: auto;
-} */
+    padding: 1rem 0rem;
+    border-radius: 2rem;
+    background-color: #ffffff;
 
-/* .product-img {
-    max-width: 40rem;
-    max-height: 40rem;
-} */
+    min-width: 12rem;
+    width: 100%;
+    max-width: 12rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.8px);
+    -webkit-backdrop-filter: blur(9.8px);
+    border: 1px solid rgba(255, 255, 255, 0.82);
+  }
+  
+  .product-card:hover {
+    transform: scale(1.2);
+    box-shadow: 0 30px 45px -15px #959595;
+  }
+header{
+    position: relative;
+}
+@media only screen and (max-width: 600px) {
+    #background {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        max-width: 100vw;
+        z-index: -1;
+        
+      }
+    
+}
+#background {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  max-width: 50vw;
+  z-index: -1;
+  
+}
 
 
 .filter-side {
     width: 20em;
     padding: 1rem;
-    border-radius: 1rem;
-    /* max-width: 20%; */
-    background-color: gray;
+    
+
+  border-radius: 2rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.01);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(9.8px);
+  -webkit-backdrop-filter: blur(9.8px);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+}
+.slider{
+    color: #bab;
 }
