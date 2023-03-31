@@ -1,0 +1,42 @@
+body {
+    background: #eee;
+}
+
+
+.activity-done {
+    font-weight: 600;
+}
+
+.list-group li {
+    margin-bottom: 12px;
+}
+
+.list-group-item {}
+
+.list li {
+    list-style: none;
+    padding: 10px;
+    border: 1px solid #e3dada;
+    /* margin-top: 12px; */
+    border-radius: 5px;
+    background: #fff;
+}
+
+.devices-images > img {
+    height: 4rem;
+    width: auto;
+    margin: 5px;
+}
+
+.checkicon {
+    color: green;
+    font-size: 19px;
+}
+
+.date-time {
+    font-size: 12px;
+}
+
+.profile-image img {
+    margin-left: 3px;
+}
