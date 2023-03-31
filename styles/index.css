@@ -73,24 +73,9 @@ h1 {
   padding: 2rem 0rem;
   border-radius: 2rem;
   background-color: #ffffff;
-  /* box-shadow: 1rem 1rem gray; */
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-/* .container-fluid{
-    background-color: white;
-} */
-/* .navbar{
-    background-color: white;
-} */
-/* .bg-img {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  z-index: -1;
-} */
+
 
 header {
   position: relative;
