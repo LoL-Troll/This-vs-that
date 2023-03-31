@@ -1,0 +1,55 @@
+@font-face {
+    font-family: IBMPlex;
+    src: url(/assets/fonts/IBMPlexSans-Regular.ttf);
+  }
+  
+  * {
+    font-family: IBMPlex;
+  }
+  
+  nav {
+    font-size: calc(0.5rem + 1vw);
+  }
+ 
+  
+  header {
+    position: relative;
+  }
+  @media only screen and (max-width: 600px) {
+    #background {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      max-width: 100vw;
+      z-index: -1;
+    }
+  }
+  #background {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    max-width: 50vw;
+    z-index: -1;
+  }
+
+  .card {
+    padding: 2rem;
+    border-radius: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(9.8px);
+    border: 1px solid rgba(255, 255, 255, 0.82);
+  }
+  .img-center{
+    object-fit: contain;
+    width: 35rem;
+    height: 21rem;
+    max-width: fit-content;
+    max-height: fit-content;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
