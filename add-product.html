@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/add-product.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</head>
+
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand">
+                    <img src="assets/This-vs-That.png" alt="logo" width="100" />
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="navbar-nav mx-3">
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="browse.html">Browse</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="contact.html">Contact</a>
+                        </li>
+                    </ul>
+
+                    <form class="form-inline my-2 my-md-0 ms-auto">
+                        <input class="form-control" type="text" placeholder="Search" />
+                    </form>
+
+                    <!-- source https://getbootstrap.com/docs/5.0/examples/headers/# -->
+                    <div class="flex-shrink-0 dropdown m-5">
+                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle show"
+                            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="true">
+                            <img src="assets/profile-pic.png" alt="profile" width="50" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu text-small shadow show" aria-labelledby="dropdownUser2"
+                            data-popper-placement="bottom-end"
+                            style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(-111px, 34px, 0px);">
+                            <li><a class="dropdown-item" href="profile.html">View profile</a></li>
+                            <li><a class="dropdown-item" href="saved-comparsion.html">Saved comparisons</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="saved-comparsion.html">Add new product</a></li>
+                            <li><a class="dropdown-item" href="saved-comparsion.html">Modify product</a></li>
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="index.html">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="main-body">
+            <div class="gutters-sm">
+
+                <div class="card mb-4">
+                    <h3 class="card-header">Category</h3>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <div class="form-group">
+                                <label class="col-md-6 control-label" for="product_categorie">Product Category</label>
+                                <div class="col-md-6">
+                                    <select id="product_categorie" name="product_categorie" class="form-control">
+                                        <option value="mouse">Mouse</option>
+                                        <option value="keyboard">Keyboard</option>
+                                        <option value="headphone">Headphone</option>
+                                        <option value="monitor">Monitor</option>
+                                        <option value="phone">Phone</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <h3 class="card-header">Product Image</h3>
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="assets/placeholder.jpg" alt="product_img" id="product_img" class="rounded-2"
+                                width="200">
+                            <div class="mt-3">
+                                <input type="file" id="upload-btn" hidden onchange="loadFile(event)" />
+                                <label for="upload-btn" class="btn btn-primary">Upload Product Image</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        var loadFile = function (event) {
+                            var image = document.getElementById("product_img");
+                            image.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                    </script>
+                </div>
+
+
+                <div class="card mb-4 monitor-information">
+                    <h3 class="card-header">Monitor Information</h3>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <!-- Brand -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="brand">Brand</label>
+                                <div class="col-md-6">
+                                    <input name="brand" placeholder="Example: BenQ, Samsung"
+                                        class="form-control input-md" required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- Model -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="Model">Model</label>
+                                <div class="col-md-6">
+                                    <input name="Model" placeholder="Example: Odyssey G9" class="form-control input-md"
+                                        required="" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="card mb-4 general-information">
+                    <h3 class="card-header">General Information</h3>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <!-- Dimensions -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="dim">Dimensions (cm)</label>
+
+                                <div class="col-md-6 d-flex">
+                                    <input name="width" placeholder="Width (cm)" class="form-control input-md m-1"
+                                        required="" type="text">
+                                    <input name="length" placeholder="Length (cm)" class="form-control input-md m-1"
+                                        required="" type="text">
+                                    <input name="height" placeholder="Height (cm)" class="form-control input-md m-1"
+                                        required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- Weight -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="weight">Weight (kg)</label>
+                                <div class="col-md-6">
+                                    <input name="weight" placeholder="Weight (kg)" class="form-control input-md"
+                                        required="" type="text">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4 display-information">
+                    <h3 class="card-header">Display Information</h3>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <!-- Resolution -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="resolution">Resolution (px)</label>
+
+                                <div class="col-md-6 d-flex">
+                                    <input name="horizontal" placeholder="Horizontal (px)"
+                                        class="form-control input-md m-1" required="" type="text">
+
+                                    <input name="vertical" placeholder="Vertical (px)" class="form-control input-md m-1"
+                                        required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- Screen Size -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="screen-size">Screen Size (inch)</label>
+                                <div class="col-md-6">
+                                    <input name="screen-size" placeholder="Example: 32 inch"
+                                        class="form-control input-md" required="" type="text">
+                                </div>
+                            </div>
+
+
+                            <!-- Display Type -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="display">Display Type</label>
+                                <div class="col-md-6">
+                                    <input name="display-type" placeholder="Example: LCD, OLED, LED"
+                                        class="form-control input-md" required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- Panel Type -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="panel">Panel Type</label>
+                                <div class="col-md-6">
+                                    <input name="panel" placeholder="Example: IPS, VA" class="form-control input-md"
+                                        required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- Refresh Rate -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="refresh-rate">Refresh Rate (Hz)</label>
+                                <div class="col-md-6">
+                                    <input name="refresh-rate" placeholder="Example: 1 Hz" class="form-control input-md"
+                                        required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- Respose Time -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="respose-time">Respose Time (ms)</label>
+                                <div class="col-md-6">
+                                    <input name="respose-time" placeholder="Example: 4 ms" class="form-control input-md"
+                                        required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- Pixel Density -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="respose-time">Pixel Density (ppi)</label>
+                                <div class="col-md-6">
+                                    <input name="respose-time" placeholder="Example: 137 ppi"
+                                        class="form-control input-md" required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- Brightness -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="brightness">Brightness (nits)</label>
+                                <div class="col-md-6">
+                                    <input name="brightness" placeholder="Example: 300 nits"
+                                        class="form-control input-md" required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- Touch -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="touch-support">Touch Support:</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="touch-support" value="true">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="touch-support" value="false">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary text-center p-3">Submit</button>
+                </div>
+
+
+
+            </div>
+        </div>
+    </main>
+</body>
+
+
+</html>
