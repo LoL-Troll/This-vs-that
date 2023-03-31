@@ -44,8 +44,8 @@ header {
   max-width: 50vw;
   z-index: -1;
 }
-#fire{
-object-fit: contain;
+#fire {
+  object-fit: contain;
   width: 35rem;
   height: 35rem;
   max-width: fit-content;
