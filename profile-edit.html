@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<!-- source (modified) https://www.bootdey.com/snippets/view/profile-with-data-and-skills#css -->
+<!-- source (modified) https://www.bootdey.com/snippets/view/bs5-edit-profile-account-details -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles/profile.css">
+    <title>Profile</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand">
+                    <img src="assets/This-vs-That.png" alt="logo" width="100" />
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="navbar-nav mx-3">
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="browse.html">Browse</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+
+                    <form class="form-inline my-2 my-md-0 ms-auto">
+                        <input class="form-control" type="text" placeholder="Search" />
+                    </form>
+
+                    <ul class="navbar-nav mx-3">
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="signup.html">
+                                <button class="btn btn-secondary">Sign Up</button>
+                            </a>
+                        </li>
+
+                        <li class="nav-item mx-3">
+                            <a class="nav-link" href="signin.html">
+                                <button class="btn btn-secondary">Sign In</button>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="main-body">
+            <div class="gutters-sm">
+
+                <!-- Profile Card -->
+                <div class="mb-3">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <!-- Profile picture image-->
+                            <img src="assets/profile-pic.png" alt="profile_pic" class="rounded-circle" width="150">
+                            <!-- Profile picture help block-->
+                            <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                            <!-- Profile picture upload button-->
+                            <button class="btn btn-primary" type="button">Upload New Image</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Details Card -->
+                <div class="">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h3 class="card-title">Profile Information</h3>
+                            <hr>
+                            <form>
+                                <!-- Form Group (username)-->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputUsername">Username</label>
+                                    <input class="form-control" id="inputUsername" type="text"
+                                        placeholder="Enter your username" value="Mohammad_2023">
+                                </div>
+
+                                <!-- Form Group (Full Name) -->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="inputFullName">Full Name</label>
+                                    <input class="form-control" id="inputFullName" type="text"
+                                        placeholder="Enter your full name" value="Mohammad Ali">
+                                </div>
+
+                                <!-- Save changes button-->
+                                <div class="text-center">
+                                    <button class="btn btn-primary" type="submit">Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
