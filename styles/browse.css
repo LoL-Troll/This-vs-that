@@ -8,7 +8,7 @@
 }
 
 nav {
-    
+
     font-size: calc(0.5rem + 1vw);
 }
 
@@ -52,13 +52,13 @@ h1 {
     align-items: center;
 }
 
-.price-input .separator{
+.price-input .separator {
     width: 130px;
     display: flex;
     font-size: 19px;
     align-items: center;
     justify-content: center;
-  }
+}
 
 .field input {
     width: 100%;
@@ -126,6 +126,7 @@ input[type="range"]::-moz-range-thumb {
     -moz-appearance: none;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }
+
 /* End of Price Range Style */
 
 
@@ -159,6 +160,7 @@ main {
     max-width: 12rem;
     /* box-shadow: 1rem 1rem gray; */
 }
+
 .product-card {
     display: flex;
     flex-direction: column;
@@ -182,15 +184,17 @@ main {
     backdrop-filter: blur(9.8px);
     -webkit-backdrop-filter: blur(9.8px);
     border: 1px solid rgba(255, 255, 255, 0.82);
-  }
-  
-  .product-card:hover {
+}
+
+.product-card:hover {
     transform: scale(1.2);
     box-shadow: 0 30px 45px -15px #959595;
-  }
-header{
+}
+
+header {
     position: relative;
 }
+
 @media only screen and (max-width: 600px) {
     #background {
         position: absolute;
@@ -198,35 +202,37 @@ header{
         right: 0px;
         max-width: 100vw;
         z-index: -1;
-        
-      }
-    
+
+    }
+
 }
+
 #background {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  max-width: 50vw;
-  z-index: -1;
-  
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    max-width: 50vw;
+    z-index: -1;
+
 }
 
 
 .filter-side {
     width: 20em;
     padding: 1rem;
-    
 
-  border-radius: 2rem;
-  background-color: #ffffff;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.01);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(9.8px);
-  -webkit-backdrop-filter: blur(9.8px);
-  border: 1px solid rgba(255, 255, 255, 0.82);
+
+    border-radius: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.8px);
+    -webkit-backdrop-filter: blur(9.8px);
+    border: 1px solid rgba(255, 255, 255, 0.82);
 }
-.slider{
+
+.slider {
     color: #bab;
 }
