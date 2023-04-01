@@ -1,7 +1,6 @@
 body {
     color: #1a202c;
     text-align: left;
-    background-color: #e2e8f0;
 }
 
 .main-body {
@@ -56,4 +55,12 @@ body {
 
 .shadow-none {
     box-shadow: none !important;
+}
+
+#background {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  max-width: 50vw;
+  z-index: -1;
 }

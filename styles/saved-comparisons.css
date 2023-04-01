@@ -1,8 +1,3 @@
-body {
-    background: #eee;
-}
-
-
 .activity-done {
     font-weight: 600;
 }
@@ -40,3 +35,11 @@ body {
 .profile-image img {
     margin-left: 3px;
 }
+
+#background {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    max-width: 50vw;
+    z-index: -1;
+  }

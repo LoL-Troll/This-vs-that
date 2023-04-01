@@ -18,63 +18,105 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a href="/" class="navbar-brand">
-                    <img src="assets/This-vs-That.png" alt="logo" width="100" />
+        <img
+          src="assets/tp238-poster-11-googlefocus-ps.png"
+          id="background"
+          alt="bg-img"
+        />
+        <nav class="navbar navbar-expand-lg bg-trans">
+          <div class="container-fluid">
+            <a href="/" class="navbar-brand">
+              <img src="assets/This-vs-That.png" alt="logo" width="100" />
+            </a>
+  
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbar"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+  
+            <div class="collapse navbar-collapse" id="navbar">
+              <ul class="navbar-nav mx-3">
+                <li class="nav-item mx-3">
+                  <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item mx-3">
+                  <a class="nav-link" href="browse.html">Browse</a>
+                </li>
+                <li class="nav-item mx-3">
+                  <a class="nav-link" href="about.html">About</a>
+                </li>
+                <li class="nav-item mx-3">
+                  <a class="nav-link" href="#">Contact</a>
+                </li>
+              </ul>
+  
+              <form class="form-inline my-2 my-md-0 ms-auto">
+                <input class="form-control" type="text" placeholder="Search" />
+              </form>
+  
+              <!-- source https://getbootstrap.com/docs/5.0/examples/headers/# -->
+              <div class="flex-shrink-0 dropdown m-5">
+                <a
+                  href="#"
+                  class="d-block link-dark text-decoration-none dropdown-toggle show"
+                  id="dropdownUser2"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="true"
+                >
+                  <img
+                    src="assets/profile-pic.png"
+                    alt="profile"
+                    width="50"
+                    class="rounded-circle"
+                  />
                 </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbar">
-                    <ul class="navbar-nav mx-3">
-                        <li class="nav-item mx-3">
-                            <a class="nav-link" href="/">Home</a>
-                        </li>
-                        <li class="nav-item mx-3">
-                            <a class="nav-link" href="browse.html">Browse</a>
-                        </li>
-                        <li class="nav-item mx-3">
-                            <a class="nav-link" href="about.html">About</a>
-                        </li>
-                        <li class="nav-item mx-3">
-                            <a class="nav-link" href="contact.html">Contact</a>
-                        </li>
-                    </ul>
-
-                    <form class="form-inline my-2 my-md-0 ms-auto">
-                        <input class="form-control" type="text" placeholder="Search" />
-                    </form>
-
-                    <!-- source https://getbootstrap.com/docs/5.0/examples/headers/# -->
-                    <div class="flex-shrink-0 dropdown m-5">
-                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle show"
-                            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="true">
-                            <img src="assets/profile-pic.png" alt="profile" width="50" class="rounded-circle">
-                        </a>
-                        <ul class="dropdown-menu text-small shadow show" aria-labelledby="dropdownUser2"
-                            data-popper-placement="bottom-end"
-                            style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(-111px, 34px, 0px);">
-                            <li><a class="dropdown-item" href="profile.html">View profile</a></li>
-                            <li><a class="dropdown-item" href="saved-comparsion.html">Saved comparisons</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="saved-comparsion.html">Add new product</a></li>
-                            <li><a class="dropdown-item" href="saved-comparsion.html">Modify product</a></li>
-
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="index.html">Sign out</a></li>
-                        </ul>
-                    </div>
-                </div>
+                <ul
+                  class="dropdown-menu text-small shadow show"
+                  aria-labelledby="dropdownUser2"
+                  data-popper-placement="bottom-end"
+                  style="
+                    position: absolute;
+                    inset: 0px auto auto 0px;
+                    margin: 0px;
+                    transform: translate3d(-111px, 34px, 0px);
+                  "
+                >
+                  <li>
+                    <a class="dropdown-item" href="profile.html">View profile</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="saved-comparsion.html"
+                      >Saved comparisons</a
+                    >
+                  </li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="add-product.html"
+                      >Add new product</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="saved-comparsion.html"
+                      >Modify product</a
+                    >
+                  </li>
+  
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li><a class="dropdown-item" href="index.html">Sign out</a></li>
+                </ul>
+              </div>
             </div>
+          </div>
         </nav>
-    </header>
+      </header>
 
     <main class="container">
         <div class="main-body">
