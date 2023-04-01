@@ -19,10 +19,11 @@
   <!-- Add icon library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="styles/item.css" />
+  <link rel="stylesheet" href="interactiveStars.css">
 
   <!-- Common Website Style -->
   <link rel="stylesheet" href="styles/common-style.css">
-
+  <link rel="stylesheet" href="checkedStars.css">
 </head>
 
 <body>
@@ -129,23 +130,53 @@
                   </div>
                 </div>
               </div>
+
+
+
+              <!-- Post Review -->
+
               <div class="card-footer py-3 border-0 rounded ">
                 <div class="d-flex flex-start w-100">
-                  <img class="rounded-circle shadow-1-strong me-3"
-                    src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
+                  <img class="rounded-circle shadow-1-strong me-3" src="assets/profile-pic.png" alt="avatar" width="40"
                     height="40" />
                   <div class="form-outline w-100">
-                    <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
-                    <label class="form-label" for="textAreaExample">Review</label>
+                    <form>
+                      <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
+                      <label class="form-label" for="textAreaExample">Review</label>
+                      <br>
+
+                      <!-- Stars Rating (source: https://codepen.io/anefzaoui/pen/NWPZzMa) -->
+                      <fieldset class="rate">
+                        <input type="radio" id="rating10" name="rating" value="10" />
+                        <label class="label-rate" for="rating10" title="5 stars"></label>
+                        <input type="radio" id="rating9" name="rating" value="9" />
+                        <label class="label-rate half" for="rating9" title="4 1/2 stars"></label>
+                        <input type="radio" id="rating8" name="rating" value="8" />
+                        <label class="label-rate" for="rating8" title="4 stars"></label>
+                        <input type="radio" id="rating7" name="rating" value="7" />
+                        <label class="label-rate half" for="rating7" title="3 1/2 stars"></label>
+                        <input type="radio" id="rating6" name="rating" value="6" />
+                        <label class="label-rate" for="rating6" title="3 stars"></label>
+                        <input type="radio" id="rating5" name="rating" value="5" />
+                        <label class="label-rate half" for="rating5" title="2 1/2 stars"></label>
+                        <input type="radio" id="rating4" name="rating" value="4" />
+                        <label class="label-rate" for="rating4" title="2 stars"></label>
+                        <input type="radio" id="rating3" name="rating" value="3" />
+                        <label class="label-rate half" for="rating3" title="1 1/2 stars"></label>
+                        <input type="radio" id="rating2" name="rating" value="2" />
+                        <label class="label-rate" for="rating2" title="1 star"></label>
+                        <input type="radio" id="rating1" name="rating" value="1" />
+                        <label class="label-rate half" for="rating1" title="1/2 star"></label>
+                      </fieldset>
+
+
+                      <div class="float-end mt-2 pt-1">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                          Post Review
+                        </button>
+                      </div>
+                    </form>
                   </div>
-                </div>
-                <div class="float-end mt-2 pt-1">
-                  <button type="button" class="btn btn-primary btn-sm">
-                    Post review
-                  </button>
-                  <button type="button" class="btn btn-outline-primary btn-sm">
-                    Cancel
-                  </button>
                 </div>
               </div>
             </div>
@@ -153,6 +184,9 @@
         </div>
       </div>
     </section>
+
+    <!-- source (modified): https://mdbootstrap.com/docs/standard/extended/comments/ -->
+    <!-- Reviews -->
     <section class="gradient-custom">
       <div class="container my-5 py-5">
         <div class="row d-flex justify-content-center">
@@ -164,15 +198,21 @@
                 <div class="row">
                   <div class="col">
                     <div class="d-flex flex-start">
-                      <img class="rounded-circle shadow-1-strong me-3"
-                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp" alt="avatar" width="65"
-                        height="65" />
+                      <img class="rounded-circle shadow-1-strong me-3" src="assets/profile-pic.png" alt="avatar"
+                        width="65" height="65" />
                       <div class="flex-grow-1 flex-shrink-1">
                         <div>
-                          <div class="d-flex justify-content-between align-items-center">
+                          <div class="d-flex justify-content-start align-items-center">
                             <p class="mb-1">
-                              Maria Smantha
-                              <span class="small">- 2 hours ago</span>
+                              Ahmad Khalid &nbsp;
+                            <div class="checkedStars">
+                              <i class="fa fa-star activeChecked"></i>
+                              <i class="fa fa-star activeChecked"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                            <span class="small">&nbsp;- 2 hours ago</span>
                             </p>
 
                           </div>
@@ -186,15 +226,21 @@
                     </div>
 
                     <div class="d-flex flex-start mt-4">
-                      <img class="rounded-circle shadow-1-strong me-3"
-                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(12).webp" alt="avatar" width="65"
-                        height="65" />
+                      <img class="rounded-circle shadow-1-strong me-3" src="assets/profile-pic.png" alt="avatar"
+                        width="65" height="65" />
                       <div class="flex-grow-1 flex-shrink-1">
                         <div>
-                          <div class="d-flex justify-content-between align-items-center">
+                          <div class="d-flex justify-content-start align-items-center">
                             <p class="mb-1">
-                              Natalie Smith
-                              <span class="small">- 2 hours ago</span>
+                              Saleh Fahd &nbsp;
+                            <div class="checkedStars">
+                              <i class="fa fa-star activeChecked"></i>
+                              <i class="fa fa-star activeChecked"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+                            <span class="small">&nbsp;- 2 hours ago</span>
                             </p>
                           </div>
                           <p class="small mb-0">
@@ -216,6 +262,52 @@
       </div>
     </section>
   </main>
+
+  <script>
+    let clicked = 0;
+    const stars = document.querySelectorAll(".stars i");
+
+    stars.forEach((star, index1) => {
+      star.addEventListener("mouseover", () => {
+
+        stars.forEach((star, index2) => {
+
+          if (clicked == 0) {
+            index1 >= index2 ? star.classList.add("active") : star.classList.remove("active")
+          }
+
+          if (clicked == 1) {
+
+            star.addEventListener("click", () => {
+              stars.forEach((star, index2) => {
+                index1 >= index2 ? star.classList.add("active") : star.classList.remove("active")
+              });
+
+              return index2;
+            });
+          }
+
+          star.addEventListener("click", () => {
+            index1 >= index2 ? star.classList.add("active") : star.classList.remove("active")
+            clicked = 1;
+          });
+
+        });
+      });
+
+    });
+
+    stars.forEach((star, index1) => {
+      star.addEventListener("mouseout", () => {
+        stars.forEach((star, index2) => {
+          if (clicked == 0) {
+            star.classList.remove("active")
+          }
+        });
+      });
+    });
+  </script>
+
 </body>
 
 </html>
