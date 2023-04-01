@@ -19,9 +19,12 @@
   <!-- Add icon library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="styles/item.css" />
+  <link rel="stylesheet" href="interactiveStars.css">
 
   <!-- Common Website Style -->
   <link rel="stylesheet" href="styles/common-style.css">
+    <link rel="stylesheet" href="checkedStars.css">
+  
 
 </head>
 
@@ -137,6 +140,13 @@
                   <div class="form-outline w-100">
                     <textarea class="form-control" id="textAreaExample" rows="4"></textarea>
                     <label class="form-label" for="textAreaExample">Review</label>
+                    <div class="stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
                   </div>
                 </div>
                 <div class="float-end mt-2 pt-1">
@@ -169,10 +179,17 @@
                         height="65" />
                       <div class="flex-grow-1 flex-shrink-1">
                         <div>
-                          <div class="d-flex justify-content-between align-items-center">
+                          <div class="d-flex justify-content-start align-items-center">
                             <p class="mb-1">
-                              Maria Smantha
-                              <span class="small">- 2 hours ago</span>
+                              Maria Smantha &nbsp;
+                              <div class="checkedStars">
+                                <i class="fa fa-star activeChecked"></i>
+                                <i class="fa fa-star activeChecked"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                              <span class="small">&nbsp;- 2 hours ago</span>
                             </p>
 
                           </div>
@@ -191,10 +208,17 @@
                         height="65" />
                       <div class="flex-grow-1 flex-shrink-1">
                         <div>
-                          <div class="d-flex justify-content-between align-items-center">
+                          <div class="d-flex justify-content-start align-items-center">
                             <p class="mb-1">
-                              Natalie Smith
-                              <span class="small">- 2 hours ago</span>
+                              Natalie Smith &nbsp;
+                              <div class="checkedStars">
+                                <i class="fa fa-star activeChecked"></i>
+                                <i class="fa fa-star activeChecked"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                              <span class="small">&nbsp;- 2 hours ago</span>
                             </p>
                           </div>
                           <p class="small mb-0">
@@ -216,6 +240,51 @@
       </div>
     </section>
   </main>
+
+  <script>
+    let clicked = 0;
+        const stars = document.querySelectorAll(".stars i");    
+
+        stars.forEach((star, index1) => {
+            star.addEventListener("mouseover", () => {
+                
+                stars.forEach((star, index2) => {
+                    
+                    if(clicked == 0){
+                        index1 >= index2 ? star.classList.add("active"): star.classList.remove("active")
+                    }
+                    
+                    if(clicked == 1){
+                        
+                        star.addEventListener("click", () => {
+                            stars.forEach((star, index2) => {
+                                index1 >= index2 ? star.classList.add("active"): star.classList.remove("active")
+                            });
+                            
+                            return index2;
+                        });
+                    }
+
+                    star.addEventListener("click", () => {
+                            index1 >= index2 ? star.classList.add("active"): star.classList.remove("active")
+                            clicked = 1;
+                    });
+                    
+                });
+            });
+
+        });
+
+        stars.forEach((star, index1) => {   
+            star.addEventListener("mouseout", () => {
+                stars.forEach((star, index2) => {
+                    if(clicked == 0){
+                        star.classList.remove("active")
+                    }
+                });
+            });
+        });
+  </script>
 </body>
 
 </html>
