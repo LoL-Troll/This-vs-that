@@ -1,0 +1,11 @@
+.checkedStars i{
+    font-size:large;
+    color: gray;
+    display: inline-block;
+    cursor: pointer;
+    
+}
+
+.checkedStars i.activeChecked{
+    color: orange;
+}
