@@ -28,6 +28,7 @@ nav {
 header {
   position: relative;
 }
+
 @media only screen and (max-width: 600px) {
   #background {
     position: absolute;
@@ -37,6 +38,7 @@ header {
     z-index: -1;
   }
 }
+
 #background {
   position: absolute;
   top: 0px;
@@ -44,6 +46,7 @@ header {
   max-width: 50vw;
   z-index: -1;
 }
+
 #fire {
   object-fit: contain;
   width: 35rem;

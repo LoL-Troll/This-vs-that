@@ -2,22 +2,30 @@
 <html lang="en">
 
 <head>
+    <!-- Page Information -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>This vs That | Browse Devices</title>
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
         crossorigin="anonymous"></script>
+
+    <!-- Common Website Style -->
+    <link rel="stylesheet" href="styles/common-style.css">
+    <!-- Page Specific Style -->
     <link rel="stylesheet" href="styles/browse.css">
+
+    <!-- Scripts -->
     <script src="scripts/browse.js"></script>
 </head>
 
 <body>
     <header>
-        <img src="assets/tp238-poster-11-googlefocus-ps.png" id="background" alt="bg-img">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <a href="/" class="navbar-brand">
@@ -40,7 +48,7 @@
                             <a class="nav-link" href="about.html">About</a>
                         </li>
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="contact.html">Contact</a>
                         </li>
                     </ul>
 
@@ -51,15 +59,13 @@
                     <ul class="navbar-nav mx-3">
                         <li class="nav-item mx-3">
                             <a class="nav-link" href="signup.html">
-
-                                <button class='btn btn-warning'>Sign Up</button>
+                                <button class="btn btn-warning">Sign Up</button>
                             </a>
                         </li>
 
                         <li class="nav-item mx-3">
-                            <a class="nav-link" href="/signin.html">
-
-                                <button class='btn btn-warning'>Sign In</button>
+                            <a class="nav-link" href="signin.html">
+                                <button class="btn btn-warning">Sign In</button>
                             </a>
                         </li>
                     </ul>
@@ -70,10 +76,11 @@
 
     <main>
         <div class="d-flex flex-row">
+            <!-- Filter -->
             <div class="filter-side">
                 <h2>Filter</h2>
 
-               
+
                 <hr>
 
                 <div class="price-selector">
@@ -91,7 +98,7 @@
                                 <input type="number" class="input-max" value="7500">
                             </div>
                         </div>
-                        
+
                         <div class="slider">
                             <div class="progress"></div>
                         </div>
@@ -301,120 +308,126 @@
                 <button type="submit" class="btn btn-light apply-filter">Apply Filter</button>
             </div>
 
+            <!-- Products -->
             <section class="catagories container-fluid justify-content-center text-center px-auto mx-auto">
                 <div class="row column-gap-5 row-gap-5 justify-content-center ">
-                    <div class="product-card col-lg col-auto">
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/galaxynote20.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">Galaxy Note 20</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
-                        <img src="assets/galaxys23.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy S23</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
-                        <img src="assets/galaxyzfold4.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy Z-Fold 4</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
-                        <img src="assets/iphone12.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 12</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
-                        <img src="assets/iphone13.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 13</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
-                        <img src="assets/iphone14.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 14</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/galaxynote20.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">Galaxy Note 20</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/galaxys23.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">Galaxy S23</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/galaxyzfold4.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">Galaxy Z-Fold 4</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/iphone12.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">iPhone 12</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
-                        <img src="assets/galaxys23.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy S23</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
-                        <img src="assets/galaxyzfold4.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy Z-Fold 4</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
-                        <img src="assets/iphone12.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 12</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/iphone13.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">iPhone 13</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
-                        <img src="assets/iphone13.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 13</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/iphone14.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">iPhone 14</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/galaxynote20.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">Galaxy Note 20</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/galaxys23.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">Galaxy S23</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/galaxyzfold4.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">Galaxy Z-Fold 4</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/iphone12.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">iPhone 12</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
+                        <img src="assets/galaxys23.png" alt="Headphones" class="card-img">
+                        <p class="card-title product-title mt-auto">Galaxy S23</p>
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
+                        <img src="assets/galaxyzfold4.png" alt="Headphones" class="card-img">
+                        <p class="card-title product-title mt-auto">Galaxy Z-Fold 4</p>
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
+                        <img src="assets/iphone12.png" alt="Headphones" class="card-img">
+                        <p class="card-title product-title mt-auto">iPhone 12</p>
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/iphone13.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">iPhone 13</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
+                        <img src="assets/iphone13.png" alt="Headphones" class="card-img">
+                        <p class="card-title product-title mt-auto">iPhone 13</p>
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/iphone14.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">iPhone 14</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/galaxynote20.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">Galaxy Note 20</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/galaxys23.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">Galaxy S23</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/galaxyzfold4.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">Galaxy Z-Fold 4</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/iphone12.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">iPhone 12</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/iphone13.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">iPhone 13</p>
-                    </div>
-                    <div class="product-card col-lg col-auto">
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/iphone14.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">iPhone 14</p>
-                    </div>
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
+                        <img src="assets/galaxynote20.png" alt="Headphones" class="card-img">
+                        <p class="card-title product-title mt-auto">Galaxy Note 20</p>
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
+                        <img src="assets/galaxys23.png" alt="Headphones" class="card-img">
+                        <p class="card-title product-title mt-auto">Galaxy S23</p>
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
+                        <img src="assets/galaxyzfold4.png" alt="Headphones" class="card-img">
+                        <p class="card-title product-title mt-auto">Galaxy Z-Fold 4</p>
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
+                        <img src="assets/iphone12.png" alt="Headphones" class="card-img">
+                        <p class="card-title product-title mt-auto">iPhone 12</p>
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
+                        <img src="assets/iphone13.png" alt="Headphones" class="card-img">
+                        <p class="card-title product-title mt-auto">iPhone 13</p>
+                    </a>
+                    <a href="item.html" class="product-card col-lg col-auto">
+                        <img src="assets/iphone14.png" alt="Headphones" class="card-img">
+                        <p class="card-title product-title mt-auto">iPhone 14</p>
+                    </a>
                 </div>
 
             </section>
