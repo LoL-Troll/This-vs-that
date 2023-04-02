@@ -21,6 +21,8 @@
     <!-- Page Specific Style -->
     <link rel="stylesheet" href="styles/add-product.css">
 
+    <!-- Scripts -->
+    <script src="scripts/add-product.js"></script>
 </head>
 
 
@@ -95,7 +97,8 @@
                             <div class="form-group">
                                 <label class="col-md-6 control-label" for="product_categorie">Product Category</label>
                                 <div class="col-md-6">
-                                    <select id="product_categorie" name="product_categorie" class="form-control">
+                                    <select id="product_categorie" name="product_categorie" class="form-control"
+                                        onchange="updatePage()">
                                         <option value="mouse">Mouse</option>
                                         <option value="keyboard">Keyboard</option>
                                         <option value="headphone">Headphone</option>
@@ -108,87 +111,92 @@
                     </div>
                 </div>
 
-                <div class="card mb-4">
-                    <h3 class="card-header">Product Image</h3>
-                    <div class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center">
-                            <img src="assets/placeholder.jpg" alt="product_img" id="product_img" class="rounded-2"
-                                width="200">
-                            <div class="mt-3">
-                                <input type="file" id="upload-btn" hidden onchange="loadFile(event)" />
-                                <label for="upload-btn" class="btn btn-primary">Upload Product Image</label>
+                <!-- general data -->
+                <div id="common-information" class="device-information">
+                    <!-- product image -->
+                    <div class="card mb-4">
+                        <h3 class="card-header">Product Image</h3>
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img src="assets/placeholder.jpg" alt="product_img" id="product_img" class="rounded-2"
+                                    width="200">
+                                <div class="mt-3">
+                                    <input type="file" id="upload-btn" hidden onchange="loadFile(event)" />
+                                    <label for="upload-btn" class="btn btn-primary">Upload Product Image</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            var loadFile = function (event) {
+                                var image = document.getElementById("product_img");
+                                image.src = URL.createObjectURL(event.target.files[0]);
+                            };
+                        </script>
+                    </div>
+
+                    <!-- model info -->
+                    <div class="card mb-4 model-information">
+                        <h3 class="card-header">Model Information</h3>
+                        <div class="card-body">
+                            <div class="d-flex flex-column">
+                                <!-- Brand -->
+                                <div class="form-group mb-3">
+                                    <label class="col-md-6 control-label" for="brand">Brand</label>
+                                    <div class="col-md-6">
+                                        <input name="brand" placeholder="Example: BenQ, Samsung"
+                                            class="form-control input-md" required="" type="text">
+                                    </div>
+                                </div>
+
+                                <!-- Model -->
+                                <div class="form-group mb-3">
+                                    <label class="col-md-6 control-label" for="Model">Model Name</label>
+                                    <div class="col-md-6">
+                                        <input name="Model" placeholder="Example: Odyssey G9"
+                                            class="form-control input-md" required="" type="text">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <script>
-                        var loadFile = function (event) {
-                            var image = document.getElementById("product_img");
-                            image.src = URL.createObjectURL(event.target.files[0]);
-                        };
-                    </script>
-                </div>
+                    <!-- general info -->
+                    <div class="card mb-4 general-information">
+                        <h3 class="card-header">General Information</h3>
+                        <div class="card-body">
+                            <div class="d-flex flex-column">
+                                <!-- Dimensions -->
+                                <div class="form-group mb-3">
+                                    <label class="col-md-6 control-label" for="dim">Dimensions (cm)</label>
 
-
-                <div class="card mb-4 monitor-information">
-                    <h3 class="card-header">Monitor Information</h3>
-                    <div class="card-body">
-                        <div class="d-flex flex-column">
-                            <!-- Brand -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="brand">Brand</label>
-                                <div class="col-md-6">
-                                    <input name="brand" placeholder="Example: BenQ, Samsung"
-                                        class="form-control input-md" required="" type="text">
+                                    <div class="col-md-6 d-flex">
+                                        <input name="width" placeholder="Width (cm)" class="form-control input-md m-1"
+                                            required="" type="text">
+                                        <input name="length" placeholder="Length (cm)" class="form-control input-md m-1"
+                                            required="" type="text">
+                                        <input name="height" placeholder="Height (cm)" class="form-control input-md m-1"
+                                            required="" type="text">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Model -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="Model">Model</label>
-                                <div class="col-md-6">
-                                    <input name="Model" placeholder="Example: Odyssey G9" class="form-control input-md"
-                                        required="" type="text">
+                                <!-- Weight -->
+                                <div class="form-group mb-3">
+                                    <label class="col-md-6 control-label" for="weight">Weight (kg)</label>
+                                    <div class="col-md-6">
+                                        <input name="weight" placeholder="Weight (kg)" class="form-control input-md"
+                                            required="" type="text">
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
 
-
-                <div class="card mb-4 general-information">
-                    <h3 class="card-header">General Information</h3>
-                    <div class="card-body">
-                        <div class="d-flex flex-column">
-                            <!-- Dimensions -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="dim">Dimensions (cm)</label>
-
-                                <div class="col-md-6 d-flex">
-                                    <input name="width" placeholder="Width (cm)" class="form-control input-md m-1"
-                                        required="" type="text">
-                                    <input name="length" placeholder="Length (cm)" class="form-control input-md m-1"
-                                        required="" type="text">
-                                    <input name="height" placeholder="Height (cm)" class="form-control input-md m-1"
-                                        required="" type="text">
-                                </div>
-                            </div>
-
-                            <!-- Weight -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="weight">Weight (kg)</label>
-                                <div class="col-md-6">
-                                    <input name="weight" placeholder="Weight (kg)" class="form-control input-md"
-                                        required="" type="text">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Monitor Specs -->
-                <div class="card mb-4 display-information">
+                <div id="display-information" class="card mb-4 device-information">
                     <h3 class="card-header">Display Information</h3>
                     <div class="card-body">
                         <div class="d-flex flex-column">
@@ -288,7 +296,7 @@
                 </div>
 
                 <!-- Phone Specs -->
-                <div class="card mb-4 display-information">
+                <div id="phone-information" class="card mb-4 device-information">
                     <h3 class="card-header">Mobile Information</h3>
                     <div class="card-body">
                         <div class="d-flex flex-column">
