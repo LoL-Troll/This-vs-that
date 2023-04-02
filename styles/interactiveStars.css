@@ -1,0 +1,16 @@
+.stars i{
+    font-size:large;
+    color: gray;
+    display: inline-block;
+    cursor: pointer;
+    
+}
+
+.stars i.active{
+    color: orange;
+}
+
+.stars i.inactive{
+    color: gray;
+}
+
