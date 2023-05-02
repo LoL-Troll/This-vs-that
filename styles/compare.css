@@ -3,10 +3,20 @@
     src: url(/assets/fonts/IBMPlexSans-Regular.ttf);
 }
 
-.icons{
+.icons {
     object-fit: contain;
     width: 5rem;
     height: 5rem;
     max-width: fit-content;
     max-height: fit-content;
+}
+
+.card-img-top {
+    margin: 0px auto;
+    display: block;
+    object-fit: contain;
+    width: 15rem;
+    height: 15rem;
+    max-width: 30rem;
+    max-height: 30rem;
 }
