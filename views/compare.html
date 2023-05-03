@@ -1,0 +1,219 @@
+{% extends "layout.html" %}
+
+{% block title %} This vs That | Compare {% endblock %}
+
+{% block pageStyle %}
+    <link rel="stylesheet" href="/styles/compare.css">
+{% endblock %}
+
+{% block pageScripts %}
+    <script src="scripts/compare.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+
+            <!-- Device 1 card -->
+            <div class="col" id="device-1">
+                <section class="mx-auto my-5" style="max-width: 23rem">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="assets/iphone12.png" class="card-img-top" alt="..."/>
+                            <h2 class="card-title font-weight-bold text-center">Iphone 12</h2>
+
+                        </div>
+                        <div class="collapse" id="collapseContent1">
+                            <div class="container">
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn text-white bg-dark link p-md-1 my-1" data-bs-toggle="collapse"
+                            href="#collapseContent1" role="button" aria-expanded="false"
+                            aria-controls="collapseContent1">More</a>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Device 2 card -->
+            <div class="col" id="device-2" style="display: none;">
+                <section class="mx-auto my-5" style="max-width: 23rem">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="assets/iphone13.png" class="card-img-top" alt="..."/>
+                            <h2 class="card-title font-weight-bold text-center">Iphone 13</h2>
+                        </div>
+                        <div class="collapse" id="collapseContent2">
+                            <div class="container">
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn text-white bg-dark link p-md-1 my-1" data-bs-toggle="collapse"
+                            href="#collapseContent2" role="button" aria-expanded="false"
+                            aria-controls="collapseContent1">More</a>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Device 3 card -->
+            <div class="col" id="device-3" style="display: none;">
+                <section class="mx-auto my-5" style="max-width: 23rem">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="assets/iphone14.png" class="card-img-top" alt="..."/>
+                            <h2 class="card-title font-weight-bold text-center">Iphone 14</h2>
+                        </div>
+                        <div class="collapse" id="collapseContent3">
+                            <div class="container">
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn text-white bg-dark link p-md-1 my-1" data-bs-toggle="collapse"
+                            href="#collapseContent3" role="button" aria-expanded="false"
+                            aria-controls="collapseContent1">More</a>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Device 4 card -->
+            <div class="col" id="device-4" style="display: none;">
+                <section class="mx-auto my-5" style="max-width: 23rem">
+                    <div class="card">
+                        <div class="card-body">
+                            <img src="assets/galaxynote20.jpg" class="card-img-top" alt="..."/>
+                            <h2 class="card-title font-weight-bold text-center">Galaxy Note20</h2>
+                        </div>
+                        <div class="collapse" id="collapseContent4">
+                            <div class="container">
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <img src="assets/resolution.png" class="icons" alt="icon">
+                                    <div class="col">
+                                        <h4>Resolution</h4>
+                                        <p>1920x1080</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="btn text-white bg-dark link p-md-1 my-1" data-bs-toggle="collapse"
+                            href="#collapseContent4" role="button" aria-expanded="false"
+                            aria-controls="collapseContent1">More</a>
+                    </div>
+                </section>
+            </div>
+
+            <!-- More -->
+            <div class="col" id="more" onclick="addDevice()">
+                <section class="mx-auto my-5  " style="max-width: 23rem">
+                    <div class="card">
+                        <div class="card-body">
+                            <button class="btn btn"><img src="assets/more.png" class="img-fluid" alt=""></button>
+                            <h2 class="card-title font-weight-bold text-center">More devices</h2>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}

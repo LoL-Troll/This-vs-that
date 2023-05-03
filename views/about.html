@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %} This vs That | About {% endblock %}
+
+{% block pageStyle %}
+    <link rel="stylesheet" href="styles/about.css">
+{% endblock %}
+
+{% block content %}
+    <main class="p-5">
+        <div class="text-center">
+            <img src="assets/about.png" class="img-center" id="fire" alt="">
+        </div>
+        <h1 class="text-center">We are changing the game</h1>
+
+        <div class="d-flex flex-row justify-content-around" style="height: 30%;">
+
+            <div class="cards d-flex  flex-column">
+                <h3 class="text-center">Our story</h3>
+                <p class="text-center">
+
+
+                    This vs That started with 4 students in KFUPM with an idea of comparing many technological products
+                </p>
+            </div>
+
+            <div class="cards d-flex  flex-column">
+                <h3 class="text-center">Our mission</h3>
+                <p class="text-center">
+
+
+                    Serve the users to decide which products suits them best and create a live community that shares
+                    their ideas about
+                    any products they have used
+
+                </p>
+            </div>
+
+        </div>
+
+        <div class="d-flex flex-row justify-content-around" style="margin-top: 5%;">
+
+            <div class="d-flex flex-column">
+                <p>Already have an account?</p>
+                <a href="signin.html" type="submit" class="btn btn-primary btn-block mb-4">
+                    Sign in
+                </a>
+            </div>
+
+            <div class="d-flex flex-column">
+                <p>Join the community</p>
+                <a href="signup.html" type="submit" class="btn btn-primary btn-block mb-4">
+                    Sign up
+                </a>
+            </div>
+        </div>
+    </main>
+{% endblock %}

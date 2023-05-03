@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %} This vs That | Sign Up {% endblock %}
+
+{% block pageStyle %}
+    <link rel="stylesheet" href="styles/index.css">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="px-4 py-5 my-auto px-md-5 text-center text-lg-start">
+            <div class="container">
+                <div class="row gx-lg-5 align-items-center justify-content-center">
+
+                    <div class="col-lg-4 mb-4 mb-lg-0">
+                        <a href="/">
+                            <img src="assets/This-vs-That.png" style="width: 24rem;" class="img-fluid" alt="Logo">
+                        </a>
+                    </div>
+
+                    <div class="col-lg-6 mb-5 mb-lg-0 m-auto justify-content-center align-content-center">
+                        <div class="card p-4">
+                            <h1 class="card-title text-center">Sign Up</h1>
+                            <div class="card-body px-md-5">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-15 mb-4">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="name">Name</label>
+                                                <input type="text" id="name" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-15 mb-4">
+                                            <div class="form-outline">
+                                                <label class="form-label" for="username">Username</label>
+                                                <input type="text" id="username" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="email">Email address</label>
+                                        <input type="email" id="email" class="form-control"/>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="password">Password</label>
+                                        <input type="password" id="password" class="form-control"/>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-block mb-4">
+                                        Sign up
+                                    </button>
+
+                                    <p>Already Have an Account? <a href="signin.html">Sign In</a>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %} This vs That | Home {% endblock %}
+
+{% block pageStyle %}
+    <link rel="stylesheet" href="/styles/index.css">
+{% endblock %}
+
+{% block content %}
+
+    <main class="p-5">
+        <h1 class="text-center">Select Products To Compare</h1>
+
+        <section class="catagories container text-center">
+            <div class="row column-gap-5 m-5 row-gap-5">
+                <a href="browse.html" class="catagory-card col-lg col-auto">
+                    <img src="assets/Headphone.png" alt="Headphones" class="img-fluid">
+                    <h3 class="catagory-title">Headphones</h3>
+                </a>
+
+                <a href="browse.html" class="catagory-card col-lg col-auto">
+                    <img src="assets/keyboard.png" alt="Keyboards" class="img-fluid">
+                    <h3 class="catagory-title">Keyboards</h3>
+                </a>
+
+                <a href="browse.html" class="catagory-card col-lg col-auto">
+                    <img src="assets/monitor.png" alt="Monitors" class="img-fluid">
+                    <h3 class="catagory-title">Monitors</h3>
+                </a>
+
+                <a href="browse.html" class="catagory-card col-lg col-auto">
+                    <img src="assets/mouse.png" alt="Mouses" class="img-fluid">
+                    <h3 class="catagory-title">Mouses</h3>
+                </a>
+
+                <a href="browse.html" class="catagory-card col-lg col-auto">
+                    <img src="assets/phone.png" alt="Phones" class="img-fluid">
+                    <h3 class="catagory-title">Phones</h3>
+                </a>
+            </div>
+
+        </section>
+
+        <hr>
+
+        <section class="mx-3">
+            <div class="d-flex justify-content-between">
+                <h2>Recently Viewed</h2>
+                <a href="history.html" class="text-decoration-none text-secondary">
+                    <h4 class="">View All</h4>
+                </a>
+            </div>
+
+            <div class="container">
+                <div class="row px-auto">
+                    <a href="item.html" class="device-card-1 col text-center">
+                        <img src="assets/iphone.png" alt="Phones" class="img-fluid">
+                        <h6>Phones</h6>
+                    </a>
+                    <a href="item.html" class="device-card-1 col text-center">
+                        <img src="assets/iphone.png" alt="Phones" class="img-fluid">
+                        <h6>Phones</h6>
+                    </a>
+                    <a href="item.html" class="device-card-1 col text-center">
+                        <img src="assets/iphone.png" alt="Phones" class="img-fluid">
+                        <h6>Phones</h6>
+                    </a>
+                    <a href="item.html" class="device-card-1 col text-center">
+                        <img src="assets/iphone.png" alt="Phones" class="img-fluid">
+                        <h6>Phones</h6>
+                    </a>
+                    <a href="item.html" class="device-card-1 col text-center">
+                        <img src="assets/iphone.png" alt="Phones" class="img-fluid">
+                        <h6>Phones</h6>
+                    </a>
+                    <a href="item.html" class="device-card-1 col text-center">
+                        <img src="assets/iphone.png" alt="Phones" class="img-fluid">
+                        <h6>Phones</h6>
+                    </a>
+                    <a href="item.html" class="device-card-1 col text-center">
+                        <img src="assets/iphone.png" alt="Phones" class="img-fluid">
+                        <h6>Phones</h6>
+                    </a>
+                    <a href="item.html" class="device-card-1 col text-center">
+                        <img src="assets/iphone.png" alt="Phones" class="img-fluid">
+                        <h6>Phones</h6>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+{% endblock %}
