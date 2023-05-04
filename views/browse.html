@@ -3,371 +3,202 @@
 {% block title %} This vs That | Browse Devices {% endblock %}
 
 {% block pageStyle %}
-    <link rel="stylesheet" href="/styles/browse.css">
+<link rel="stylesheet" href="/styles/browse.css">
 {% endblock %}
 
 {% block pageScripts %}
-    <script src="scripts/browse.js"></script>
+<script src="scripts/browse.js"></script>
 {% endblock %}
 
 {% block content %}
 
-    <main>
-        <div class="d-flex flex-row">
-            <!-- Filter -->
-            <div class="filter-side">
+<main>
+    <div class="d-flex flex-row">
+        <!-- Filter -->
+        <div class="filter-side ">
+
+            <div class="d-flex flex-row align-content-between row">
                 <h2>Filter</h2>
-
-                <hr>
-
-                <div class="price-selector">
-                    <div class="wrapper">
-                        <h3>Price Range</h3>
-
-                        <div class="price-input">
-                            <div class="field">
-                                <h5>Min</h5>
-                                <input type="number" class="input-min" value="2500">
-                            </div>
-                            <div class="separator">-</div>
-                            <div class="field">
-                                <h5>Max</h5>
-                                <input type="number" class="input-max" value="7500">
-                            </div>
-                        </div>
-
-                        <div class="slider">
-                            <div class="progress"></div>
-                        </div>
-                        <div class="range-input">
-                            <input type="range" class="range-min" min="0" max="10000" value="2500" step="50">
-                            <input type="range" class="range-max" min="0" max="10000" value="7500" step="50">
-                        </div>
-                    </div>
-
-                    <script>
-                        const rangeInput = document.querySelectorAll(".range-input input"),
-                            priceInput = document.querySelectorAll(".price-input input"),
-                            range = document.querySelector(".slider .progress");
-                        let priceGap = 1000;
-
-                        priceInput.forEach(input => {
-                            input.addEventListener("input", e => {
-                                let minPrice = parseInt(priceInput[0].value),
-                                    maxPrice = parseInt(priceInput[1].value);
-
-                                if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
-                                    if (e.target.className === "input-min") {
-                                        rangeInput[0].value = minPrice;
-                                        range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
-                                    } else {
-                                        rangeInput[1].value = maxPrice;
-                                        range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
-                                    }
-                                }
-                            });
-                        });
-
-                        rangeInput.forEach(input => {
-                            input.addEventListener("input", e => {
-                                let minVal = parseInt(rangeInput[0].value),
-                                    maxVal = parseInt(rangeInput[1].value);
-
-                                if ((maxVal - minVal) < priceGap) {
-                                    if (e.target.className === "range-min") {
-                                        rangeInput[0].value = maxVal - priceGap
-                                    } else {
-                                        rangeInput[1].value = minVal + priceGap;
-                                    }
-                                } else {
-                                    priceInput[0].value = minVal;
-                                    priceInput[1].value = maxVal;
-                                    range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
-                                    range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
-                                }
-                            });
-                        });
-                    </script>
-                </div>
-
-                <div class="d-flex flex-column">
-                    <h4>Type</h4>
-                    <div>
-                        <input type="checkbox" name="Type" id="mouse" value="mouse" onchange="showMouseBrands()">
-                        <label>Mouse</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="Type" id="keyboard" value="keyboard"
-                            onchange="showKeyboardBrands()">
-                        <label>keyboard</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="Type" id="headphone" value="headphone"
-                            onchange="showHeadphoneBrands()">
-                        <label>Headphone</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="Type" id="monitor" value="monitor" onchange="showMonitorBrands()">
-                        <label>Monitor</label>
-                    </div>
-                    <div>
-                        <input type="checkbox" name="Type" id="phone" value="phone" onchange="showPhoneBrands()">
-                        <label>Phone</label>
-                    </div>
-
-                </div>
-
-                <!-- Filter Brands -->
-                <div>
-                    <h4>Brand</h4>
-                    <div id="mouse-brands-filter" style="display: none;">
-                        <h5>Mouse Brands</h5>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-razer" value="razer">
-                            <label>Razer</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-logitech" value="logitech">
-                            <label>Logitech</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-steelseries" value="steelseries">
-                            <label>Steelseries</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-glorious" value="glorious">
-                            <label>Glorious</label>
-                        </div>
-                    </div>
-
-                    <div id="keyboard-brands-filter" style="display: none;">
-                        <h5>Keybaord Brands</h5>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-razer" value="razer">
-                            <label>Razer</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-logitech" value="logitech">
-                            <label>Logitech</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-corsair" value="corsair">
-                            <label>Corsair</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-steelseries" value="steelseries">
-                            <label>Steelseries</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-glorious" value="glorious">
-                            <label>Glorious</label>
-                        </div>
-                    </div>
-
-                    <div id="headphone-brands-filter" style="display: none;">
-                        <h5>Headphone Brands</h5>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-sony" value="sony">
-                            <label>Sony</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-sennheiser" value="sennheiser">
-                            <label>Sennheiser</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-Logitech" value="Logitech">
-                            <label>Logitech</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-steelseries" value="steelseries">
-                            <label>Steelseries</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-razer" value="razer">
-                            <label>Razer</label>
-                        </div>
-                    </div>
-
-                    <div id="monitor-brands-filter" style="display: none;">
-                        <h5>Monitor Brands</h5>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-asus" value="asus">
-                            <label>Asus</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-benq" value="benq">
-                            <label>BenQ</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-samsung" value="samsung">
-                            <label>Samsung</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-hp" value="hp">
-                            <label>HP</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-lg" value="lg">
-                            <label>LG</label>
-                        </div>
-                    </div>
-
-                    <div id="phone-brands-filter" style="display: none;">
-                        <h5>Phone Brands</h5>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-apple" value="apple">
-                            <label>Apple</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-samsung" value="samsung">
-                            <label>Samsung Galaxy</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-huawei" value="huawei">
-                            <label>Huawei</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-xiaomi" value="xiaomi">
-                            <label>Xiaomi</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="brand" id="brand-oneplus" value="oneplus">
-                            <label>Oneplus</label>
-                        </div>
-                    </div>
-
-                </div>
-
                 <button type="submit" class="btn btn-light apply-filter">Apply Filter</button>
             </div>
 
-            <!-- Products -->
-            <section class="catagories container-fluid justify-content-center text-center px-auto mx-auto">
-                <div class="row column-gap-5 row-gap-5 justify-content-center ">
-                    {% for item in items %}
-                    <a href="item.html" class="product-card col-lg col-auto">
-                      <img src="{{item.picture}}" alt="{{item.category}}" class="card-img" />
-                      <p class="card-title product-title mt-auto">{{item.name}}</p>
-                    </a>
-                    {%endfor%}
+            <hr>
 
-                    <!-- <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxynote20.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy Note 20</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxys23.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy S23</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxyzfold4.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy Z-Fold 4</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone12.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 12</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone13.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 13</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone14.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 14</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxynote20.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy Note 20</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxys23.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy S23</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxyzfold4.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy Z-Fold 4</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone12.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 12</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxys23.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy S23</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxyzfold4.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy Z-Fold 4</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone12.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 12</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone13.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 13</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone13.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 13</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone14.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 14</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxynote20.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy Note 20</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxys23.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy S23</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxyzfold4.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy Z-Fold 4</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone12.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 12</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone13.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 13</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone14.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 14</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxynote20.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy Note 20</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxys23.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy S23</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxyzfold4.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy Z-Fold 4</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone12.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 12</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone13.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 13</p>
-                    </a>
-                    <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/iphone14.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">iPhone 14</p>
-                    </a> -->
+            <!-- <div class="price-selector">
+                <div class="wrapper">
+                    <h3>Price Range</h3>
+
+                    <div class="price-input">
+                        <div class="field">
+                            <h5>Min</h5>
+                            <input type="number" class="input-min" value="2500">
+                        </div>
+                        <div class="separator">-</div>
+                        <div class="field">
+                            <h5>Max</h5>
+                            <input type="number" class="input-max" value="7500">
+                        </div>
+                    </div>
+
+                    <div class="slider">
+                        <div class="progress"></div>
+                    </div>
+                    <div class="range-input">
+                        <input type="range" class="range-min" min="0" max="10000" value="2500" step="50">
+                        <input type="range" class="range-max" min="0" max="10000" value="7500" step="50">
+                    </div>
                 </div>
 
-            </section>
+                <script>
+                    const rangeInput = document.querySelectorAll(".range-input input"),
+                        priceInput = document.querySelectorAll(".price-input input"),
+                        range = document.querySelector(".slider .progress");
+                    let priceGap = 1000;
 
+                    priceInput.forEach(input => {
+                        input.addEventListener("input", e => {
+                            let minPrice = parseInt(priceInput[0].value),
+                                maxPrice = parseInt(priceInput[1].value);
+
+                            if ((maxPrice - minPrice >= priceGap) && maxPrice <= rangeInput[1].max) {
+                                if (e.target.className === "input-min") {
+                                    rangeInput[0].value = minPrice;
+                                    range.style.left = ((minPrice / rangeInput[0].max) * 100) + "%";
+                                } else {
+                                    rangeInput[1].value = maxPrice;
+                                    range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+                                }
+                            }
+                        });
+                    });
+
+                    rangeInput.forEach(input => {
+                        input.addEventListener("input", e => {
+                            let minVal = parseInt(rangeInput[0].value),
+                                maxVal = parseInt(rangeInput[1].value);
+
+                            if ((maxVal - minVal) < priceGap) {
+                                if (e.target.className === "range-min") {
+                                    rangeInput[0].value = maxVal - priceGap
+                                } else {
+                                    rangeInput[1].value = minVal + priceGap;
+                                }
+                            } else {
+                                priceInput[0].value = minVal;
+                                priceInput[1].value = maxVal;
+                                range.style.left = ((minVal / rangeInput[0].max) * 100) + "%";
+                                range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+                            }
+                        });
+                    });
+                </script>
+            </div> -->
+
+            <div class="d-flex flex-column">
+                <h4>Type</h4>
+
+                <div>
+                    <input type="checkbox" name="Type" id="mouse" value="mouse" onchange="showMouseBrands()">
+                    <label>Mouse</label>
+                </div>
+
+                <div>
+                    <input type="checkbox" name="Type" id="keyboard" value="keyboard" onchange="showKeyboardBrands()">
+                    <label>keyboard</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="Type" id="headphone" value="headphone"
+                        onchange="showHeadphoneBrands()">
+                    <label>Headset</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="Type" id="monitor" value="monitor" onchange="showMonitorBrands()">
+                    <label>Monitor</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="Type" id="phone" value="phone" onchange="showPhoneBrands()">
+                    <label>Phone</label>
+                </div>
+
+            </div>
+
+            <!-- Filter Brands -->
+            <div>
+
+                
+                <h4 id="brands-title">Brand</h4>
+
+                <div id="mouse-brands-filter" style="display: none;">
+                    <h5>Mouse Brands</h5>
+
+                    {% for brand in mouseBrands %}
+                    <div>
+                        <input type="checkbox" name="brand" id="brand-{{brand.manufacturer}}" value="{{brand.manufacturer}}">
+                        <label>{{brand.manufacturer}}</label>
+                    </div>
+                    {%endfor%}
+                </div>
+
+                <div id="keyboard-brands-filter" style="display: none;">                    
+                    <h5>Keyboard Brands</h5>
+
+                    {% for brand in keyboardBrands %}
+                    <div>
+                        <input type="checkbox" name="brand" id="brand-{{brand.manufacturer}}" value="{{brand.manufacturer}}">
+                        <label>{{brand.manufacturer}}</label>
+                    </div>
+                    {%endfor%}
+                </div>
+
+                <div id="headphone-brands-filter" style="display: none;">
+                    <h5>Headset Brands</h5>
+
+                    {% for brand in headsetBrands %}
+                    <div>
+                        <input type="checkbox" name="brand" id="brand-{{brand.manufacturer}}" value="{{brand.manufacturer}}">
+                        <label>{{brand.manufacturer}}</label>
+                    </div>
+                    {%endfor%}
+                </div>
+
+                <div id="monitor-brands-filter" style="display: none;">
+                    <h5>Keyboard Brands</h5>
+
+                    {% for brand in monitorBrands %}
+                    <div>
+                        <input type="checkbox" name="brand" id="brand-{{brand.manufacturer}}" value="{{brand.manufacturer}}">
+                        <label>{{brand.manufacturer}}</label>
+                    </div>
+                    {%endfor%}
+                </div>
+
+                <div id="phone-brands-filter" style="display: none;">
+                    <h5>Phone Brands</h5>
+
+                    {% for brand in phoneBrands %}
+                    <div>
+                        <input type="checkbox" name="brand" id="brand-{{brand.manufacturer}}" value="{{brand.manufacturer}}">
+                        <label>{{brand.manufacturer}}</label>
+                    </div>
+                    {%endfor%}
+                </div>
+
+            </div>
+
+            <button type="submit" class="btn btn-light apply-filter">Apply Filter</button>
         </div>
 
-    </main>
+        <!-- Products -->
+        <section class="catagories container-fluid justify-content-center text-center px-auto mx-auto">
+            <div class="row column-gap-5 row-gap-5 justify-content-center ">
+                {% for item in items %}
+                <a href="item.html" class="product-card col-lg col-auto">
+                    <img src="{{item.picture}}" alt="{{item.category}}" class="card-img" />
+                    <p class="card-title product-title mt-auto">{{item.name}}</p>
+                </a>
+                {%endfor%}
+            </div>
+        </section>
+    </div>
+</main>
 {% endblock %}

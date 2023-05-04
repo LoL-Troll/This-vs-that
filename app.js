@@ -24,8 +24,7 @@ const db = require("./db.js");
 
 
 app.get("/", async (req, res) => {
-    let x = await db.getAllDevices();
-    res.render('index.html', { list: x });
+    res.render('index.html');
 });
 
 
@@ -40,8 +39,22 @@ app.get("/add-product.html", (req, res) => {
 });
 
 app.get("/browse.html", async (req, res) => {
+
+    // Redirect instead of render?
     let devices = await db.getAllDevices();
-    res.render('browse.html',{items: devices});
+    let headsetBrands = await db.getDeviceBrands("headset");
+    let mouseBrands = await db.getDeviceBrands("mouse");
+    let keyboardBrands = await db.getDeviceBrands("keyboard");
+    let phoneBrands = await db.getDeviceBrands("phone");
+    let monitorBrands = await db.getDeviceBrands("monitor");
+    res.render('browse.html', {
+        items: devices, 
+        headsetBrands: headsetBrands, 
+        mouseBrands: mouseBrands,
+        keyboardBrands: keyboardBrands, 
+        phoneBrands: phoneBrands,
+        monitorBrands: monitorBrands
+    });
 });
 
 app.get("/compare.html", (req, res) => {
@@ -86,7 +99,17 @@ app.get("/signin.html", (req, res) => {
 });
 
 app.get("/signup.html", (req, res) => {
+
     res.render('signup.html');
+});
+
+app.post("/signup", async (req, res) => {
+    var username = req.body.username;
+    var email = req.body.email;
+    var password = req.body.password;
+    await db.registeringUsers(username, email, password);
+
+    res.redirect("/signin.html");
 });
 
 
