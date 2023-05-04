@@ -16,6 +16,16 @@ async function getAllDevices() {
     return result;
 }
 
+
+async function getBrands(category) {
+    const db = await open();
+    const result = db.get(`select manufacturer from device where category = ${category}`);
+    await db.close();
+
+    return result;
+}
+
 module.exports = {
     getAllDevices
+    ,getBrands
 }

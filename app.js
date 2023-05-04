@@ -4,97 +4,90 @@ const nunjucks = require("nunjucks");
 const app = express();
 const port = 8000;
 
-app.use("/styles", express.static('styles'));
-app.use("/assets", express.static('assets'));
-app.use("/scripts", express.static('scripts'));
+app.use("/styles", express.static("styles"));
+app.use("/assets", express.static("assets"));
+app.use("/scripts", express.static("scripts"));
 
-nunjucks.configure('views', {
-    autoescape: true,
-    express: app
+nunjucks.configure("views", {
+  autoescape: true,
+  express: app,
 });
 
 app.listen(port, (e) => {
-
-    console.log("listing on port " + port);
+  console.log("listing on port " + port);
 });
 
 // TODO middleware to check login ?
 
 const db = require("./db.js");
 
-
 app.get("/", async (req, res) => {
-    let x = await db.getAllDevices();
-    res.render('index.html', { list: x });
+  let x = await db.getAllDevices();
+  res.render("index.html", { list: x });
 });
 
-
-
 app.get("/about.html", (req, res) => {
-    res.render('about.html');
+  res.render("about.html");
 });
 
 app.get("/add-product.html", (req, res) => {
-    // admin only
-    res.render('add-product.html');
+  // admin only
+  res.render("add-product.html");
 });
 
 app.get("/browse.html", async (req, res) => {
-    let devices = await db.getAllDevices();
-    res.render('browse.html',{items: devices});
+  let devices = await db.getAllDevices();
+  res.render("browse.html", { items: devices });
 });
 
 app.get("/compare.html", (req, res) => {
-    res.render('compare.html');
+  res.render("compare.html");
 });
 
 app.get("/contact.html", (req, res) => {
-    res.render('contact.html');
+  res.render("contact.html");
 });
 
 app.get("/history.html", (req, res) => {
-    // user only
-    res.render('history.html');
+  // user only
+  res.render("history.html");
 });
 
 app.get("/item.html", (req, res) => {
-    res.render('item.html');
+  res.render("item.html");
 });
 
 app.get("/modify-product.html", (req, res) => {
-    res.render('modify-product.html');
+  res.render("modify-product.html");
 });
+// function modifiyList() {
+//     var s = document.getElementsByName('product_categorie')[0];
+//     var option = s.options[s.selectedIndex].text;
+//     console.log(option);
+// }
 
 app.get("/profile-edit.html", (req, res) => {
-    res.render('profile-edit.html');
+  res.render("profile-edit.html");
 });
 
 app.get("/profile-password.html", (req, res) => {
-    res.render('profile-password.html');
+  res.render("profile-password.html");
 });
 
 app.get("/profile.html", (req, res) => {
-    res.render('profile.html');
+  res.render("profile.html");
 });
 
 app.get("/saved-comparison.html", (req, res) => {
-    res.render('saved-comparison.html');
+  res.render("saved-comparison.html");
 });
 
 app.get("/signin.html", (req, res) => {
-    res.render('signin.html');
+  res.render("signin.html");
 });
 
 app.get("/signup.html", (req, res) => {
-    res.render('signup.html');
+  res.render("signup.html");
 });
 
-
-
-
-
-
-
-
-
-
+// module.exports = { modifiyList };

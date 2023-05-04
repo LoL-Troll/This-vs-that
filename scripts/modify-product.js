@@ -1,4 +1,6 @@
 function updatePage() {
+    const db = require("./db.js");
+    
     var s = document.getElementsByName('product_categorie')[0];
     var option = s.options[s.selectedIndex].text;
 
@@ -11,19 +13,20 @@ function updatePage() {
     }
 
     if (option === "Monitor") {
-        document.getElementById('phoneContainer').style.display = 'none';
+        
+        // document.getElementById('phoneContainer').style.display = 'none';
 
-        document.getElementById('monitorContainer').style.display = 'block';
-        document.getElementById('common-information').style.display = 'block';
-        document.getElementById('display-information').style.display = 'block';
-        document.getElementById('ghostMonitor').style.display = 'block';
+        // document.getElementById('monitorContainer').style.display = 'block';
+        // document.getElementById('common-information').style.display = 'block';
+        // document.getElementById('display-information').style.display = 'block';
+        // document.getElementById('ghostMonitor').style.display = 'block';
     } else if (option === "Phone") {
-        document.getElementById('monitorContainer').style.display = 'none';
+        // document.getElementById('monitorContainer').style.display = 'none';
 
-        document.getElementById('phoneContainer').style.display = 'block';
-        document.getElementById('common-information').style.display = 'block';
-        document.getElementById('phone-information').style.display = 'block';
-        document.getElementById('ghostPhone').style.display = 'block';
+        // document.getElementById('phoneContainer').style.display = 'block';
+        // document.getElementById('common-information').style.display = 'block';
+        // document.getElementById('phone-information').style.display = 'block';
+        // document.getElementById('ghostPhone').style.display = 'block';
     }
 }
 
