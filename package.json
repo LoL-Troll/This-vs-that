@@ -9,7 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aa-sqlite": "^1.0.29",
     "express": "^4.18.2",
-    "nunjucks": "^3.2.4"
+    "nunjucks": "^3.2.4",
+    "sqlite": "^4.2.0",
+    "sqlite3": "^5.1.6"
   }
 }
