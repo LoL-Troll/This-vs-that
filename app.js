@@ -1,5 +1,5 @@
 const express = require("express");
-const nunjucks = require("nunjucks")
+const nunjucks = require("nunjucks");
 
 const app = express();
 const port = 8000;
@@ -14,15 +14,19 @@ nunjucks.configure('views', {
 });
 
 app.listen(port, (e) => {
+
     console.log("listing on port " + port);
 });
 
-    // TODO middleware to check login ?
+// TODO middleware to check login ?
 
+const db = require("./db.js");
 
-app.get("/", (req, res) => {
-    res.render('index.html', {name: "YAHYA"});
+app.get("/", async (req, res) => {
+    let x = await db.getAllDevices();
+    res.render('index.html', { list: x });
 });
+
 
 
 app.get("/about.html", (req, res) => {
