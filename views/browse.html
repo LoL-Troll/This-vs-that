@@ -244,12 +244,14 @@
             <!-- Products -->
             <section class="catagories container-fluid justify-content-center text-center px-auto mx-auto">
                 <div class="row column-gap-5 row-gap-5 justify-content-center ">
+                    {% for item in items %}
                     <a href="item.html" class="product-card col-lg col-auto">
-                        <img src="assets/galaxynote20.png" alt="Headphones" class="card-img">
-                        <p class="card-title product-title mt-auto">Galaxy Note 20</p>
+                      <img src="{{item.picture}}" alt="{{item.category}}" class="card-img" />
+                      <p class="card-title product-title mt-auto">{{item.name}}</p>
                     </a>
+                    {%endfor%}
 
-                    <a href="item.html" class="product-card col-lg col-auto">
+                    <!-- <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/galaxynote20.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">Galaxy Note 20</p>
                     </a>
@@ -360,7 +362,7 @@
                     <a href="item.html" class="product-card col-lg col-auto">
                         <img src="assets/iphone14.png" alt="Headphones" class="card-img">
                         <p class="card-title product-title mt-auto">iPhone 14</p>
-                    </a>
+                    </a> -->
                 </div>
 
             </section>

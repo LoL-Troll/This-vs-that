@@ -22,6 +22,7 @@ app.listen(port, (e) => {
 
 const db = require("./db.js");
 
+
 app.get("/", async (req, res) => {
     let x = await db.getAllDevices();
     res.render('index.html', { list: x });
@@ -38,8 +39,9 @@ app.get("/add-product.html", (req, res) => {
     res.render('add-product.html');
 });
 
-app.get("/browse.html", (req, res) => {
-    res.render('browse.html');
+app.get("/browse.html", async (req, res) => {
+    let devices = await db.getAllDevices();
+    res.render('browse.html',{items: devices});
 });
 
 app.get("/compare.html", (req, res) => {
