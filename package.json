@@ -1,0 +1,19 @@
+{
+  "name": "myproject",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "aa-sqlite": "^1.0.29",
+    "express": "~3.4.4",
+    "nodeman": "^1.1.2",
+    "sqlite3": "^5.1.6"
+  },
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

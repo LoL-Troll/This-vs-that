@@ -1,0 +1,33 @@
+[{
+    "id": "12",
+    "name": "Samsung Galaxy S23 Ultra",
+    "manufacturer": "Samsung",
+    "model": "Galaxy S23 Ultra",
+    "picture": "https://fdn2.gsmarena.com/vv/bigpic/asus-rog-phone-6d.jpg"
+},
+{
+    "Length (mm)": 163.4,
+    "Width (mm)": 78.1,
+    "Depth (mm)": 8.9,
+    "Weight (kg)": 234,
+    "IP Rating": "IP68",
+    "Screen Size": 6.8,
+    "Screen to Body Ratio": "89.90%",
+    "Display Type": "AMOLED",
+    "Frequency": "120Hz",
+    "Resolution": "3088 x 1440",
+    "Pixel Density": 500,
+    "CPU": "Octa-core",
+    "Chipset": "Qualcomm SM8550-AC Snapdragon 8 Gen 2 (4 nm)",
+    "GPU": "Adreno 740",
+    "Memory": "256GB 8GB RAM, 256GB 12GB RAM, 512GB 12GB RAM, 1TB 12GB RAM",
+    "Camera": "200MP",
+    "Battery": "5000",
+    "Charnig Speed": 45,
+    "OS": "Android 13, One UI 5.1",
+    "Headphone Jack": false,
+    "Sensors": "Fingerprint (under display, ultrasonic), accelerometer, gyro, proximity, compass, barometer",
+    "Colors": "Phantom Black, Green, Cream, Lavender, Graphite, Sky Blue, Lime, Red, BMW M Edition",
+    "Selfie Camera": "12MP"
+}]
+
