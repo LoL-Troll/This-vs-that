@@ -39,19 +39,38 @@ app.get("/add-product.html", (req, res) => {
 });
 
 app.get("/browse.html", async (req, res) => {
+    let sort = req.query.sort;
+    let type = req.query.Type;
 
+    let mouse_brand = req.query.mouse_brand;
+    let keyboard_brand = req.query.keyboard_brand;
+    let monitor_brand = req.query.monitor_brand;
+    let headset_brand = req.query.headset_brand;
+    let phone_brand = req.query.phone_brand;
+
+
+
+    console.log(sort + " " + type + ".");
     // Redirect instead of render?
-    let devices = await db.getAllDevices();
+    let devices = await db.getAllDevices
+        (type, {
+            mouse_brand: mouse_brand,
+            keyboard_brand: keyboard_brand,
+            monitor_brand: monitor_brand,
+            headset_brand: headset_brand,
+            phone_brand: phone_brand
+        }, sort
+        );
     let headsetBrands = await db.getDeviceBrands("headset");
     let mouseBrands = await db.getDeviceBrands("mouse");
     let keyboardBrands = await db.getDeviceBrands("keyboard");
     let phoneBrands = await db.getDeviceBrands("phone");
     let monitorBrands = await db.getDeviceBrands("monitor");
     res.render('browse.html', {
-        items: devices, 
-        headsetBrands: headsetBrands, 
+        items: devices,
+        headsetBrands: headsetBrands,
         mouseBrands: mouseBrands,
-        keyboardBrands: keyboardBrands, 
+        keyboardBrands: keyboardBrands,
         phoneBrands: phoneBrands,
         monitorBrands: monitorBrands
     });
