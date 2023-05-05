@@ -81,6 +81,23 @@ async function getDeviceBrands(category) {
     return result;
 }
 
+async function getDeviceByID(id){
+    const db = await open();
+
+    const result = db.all(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
+    await db.close();
+
+    return result;
+}
+
+async function getDeviceType(id){
+    const db = await open();
+    const result = db.all(`SELECT category FROM device WHERE id = ${id}`);
+    await db.close();
+
+    return result;
+}
+
 async function registeringUsers(username, email, password) {
     console.log("Entered the DB");
     const db = await open();
@@ -92,6 +109,8 @@ async function registeringUsers(username, email, password) {
 module.exports = {
     getAllDevices,
     registeringUsers,
+    getDeviceBrands,
+    getDeviceByID,
     getDeviceBrands
 }
 
