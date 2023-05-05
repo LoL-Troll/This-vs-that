@@ -17,14 +17,24 @@
         <!-- Filter -->
         <div class="filter-side ">
 
-            <div class="d-flex flex-row align-content-between row">
-                <h2>Filter</h2>
-                <button type="submit" class="btn btn-light apply-filter">Apply Filter</button>
-            </div>
+            <form action="/browse.html" method="get">
+                <div class="d-flex flex-row align-content-between row">
+                    <h2>Filter</h2>
+                    <button type="submit" class="btn btn-light apply-filter">Apply Filter</button>
+                </div>
 
-            <hr>
+                <h4>Sort By</h4>
+                <select name="sort" id="sort" class="m-auto">
+                    <option value="type" selected>Device Type</option>
+                    <option value="AZname" >A to Z (Name)</option>
+                    <option value="ZAname">Z to A (Name)</option>
+                    <option value="AZmodel">A to Z (Model)</option>
+                    <option value="ZAmodel">Z to A (Model)</option>
+                </select>
 
-            <!-- <div class="price-selector">
+                <hr>
+
+                <!-- <div class="price-selector">
                 <div class="wrapper">
                     <h3>Price Range</h3>
 
@@ -94,98 +104,110 @@
                 </script>
             </div> -->
 
-            <div class="d-flex flex-column">
-                <h4>Type</h4>
+                <div class="d-flex flex-column">
+                    <h4>Type</h4>
 
-                <div>
-                    <input type="checkbox" name="Type" id="mouse" value="mouse" onchange="showMouseBrands()">
-                    <label>Mouse</label>
-                </div>
-
-                <div>
-                    <input type="checkbox" name="Type" id="keyboard" value="keyboard" onchange="showKeyboardBrands()">
-                    <label>keyboard</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="Type" id="headphone" value="headphone"
-                        onchange="showHeadphoneBrands()">
-                    <label>Headset</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="Type" id="monitor" value="monitor" onchange="showMonitorBrands()">
-                    <label>Monitor</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="Type" id="phone" value="phone" onchange="showPhoneBrands()">
-                    <label>Phone</label>
-                </div>
-
-            </div>
-
-            <!-- Filter Brands -->
-            <div>
-
-                
-                <h4 id="brands-title">Brand</h4>
-
-                <div id="mouse-brands-filter" style="display: none;">
-                    <h5>Mouse Brands</h5>
-
-                    {% for brand in mouseBrands %}
                     <div>
-                        <input type="checkbox" name="brand" id="brand-{{brand.manufacturer}}" value="{{brand.manufacturer}}">
-                        <label>{{brand.manufacturer}}</label>
+                        <input type="checkbox" name="Type" id="mouse" value="'mouse'" onchange="showMouseBrands()">
+                        <label>Mouse</label>
                     </div>
-                    {%endfor%}
-                </div>
 
-                <div id="keyboard-brands-filter" style="display: none;">                    
-                    <h5>Keyboard Brands</h5>
-
-                    {% for brand in keyboardBrands %}
                     <div>
-                        <input type="checkbox" name="brand" id="brand-{{brand.manufacturer}}" value="{{brand.manufacturer}}">
-                        <label>{{brand.manufacturer}}</label>
+                        <input type="checkbox" name="Type" id="keyboard" value="'keyboard'"
+                            onchange="showKeyboardBrands()">
+                        <label>keyboard</label>
                     </div>
-                    {%endfor%}
-                </div>
-
-                <div id="headphone-brands-filter" style="display: none;">
-                    <h5>Headset Brands</h5>
-
-                    {% for brand in headsetBrands %}
                     <div>
-                        <input type="checkbox" name="brand" id="brand-{{brand.manufacturer}}" value="{{brand.manufacturer}}">
-                        <label>{{brand.manufacturer}}</label>
+                        <input type="checkbox" name="Type" id="headphone" value="'headset'"
+                            onchange="showHeadphoneBrands()">
+                        <label>Headset</label>
                     </div>
-                    {%endfor%}
-                </div>
-
-                <div id="monitor-brands-filter" style="display: none;">
-                    <h5>Keyboard Brands</h5>
-
-                    {% for brand in monitorBrands %}
                     <div>
-                        <input type="checkbox" name="brand" id="brand-{{brand.manufacturer}}" value="{{brand.manufacturer}}">
-                        <label>{{brand.manufacturer}}</label>
+                        <input type="checkbox" name="Type" id="monitor" value="'monitor'" onchange="showMonitorBrands()">
+                        <label>Monitor</label>
                     </div>
-                    {%endfor%}
-                </div>
-
-                <div id="phone-brands-filter" style="display: none;">
-                    <h5>Phone Brands</h5>
-
-                    {% for brand in phoneBrands %}
                     <div>
-                        <input type="checkbox" name="brand" id="brand-{{brand.manufacturer}}" value="{{brand.manufacturer}}">
-                        <label>{{brand.manufacturer}}</label>
+                        <input type="checkbox" name="Type" id="phone" value="'phone'" onchange="showPhoneBrands()">
+                        <label>Phone</label>
                     </div>
-                    {%endfor%}
+
                 </div>
 
-            </div>
+                <!-- Filter Brands -->
+                <div>
 
-            <button type="submit" class="btn btn-light apply-filter">Apply Filter</button>
+                    <br>
+                    <h4 id="brands-title" style="display: none;">Brand</h4>
+
+                    <div id="mouse-brands-filter" style="display: none;">
+                        <h5>Mouse Brands</h5>
+
+                        {% for brand in mouseBrands %}
+                        <div>
+                            <input type="checkbox" name="mouse_brand" id="brand-{{brand.manufacturer}}"
+                                value="'{{brand.manufacturer}}'">
+                            <label>{{brand.manufacturer}}</label>
+                        </div>
+                        {%endfor%}
+                        <br>
+                    </div>
+
+                    <div id="keyboard-brands-filter" style="display: none;">
+                        <h5>Keyboard Brands</h5>
+
+                        {% for brand in keyboardBrands %}
+                        <div>
+                            <input type="checkbox" name="keyboard_brand" id="brand-{{brand.manufacturer}}"
+                                value="'{{brand.manufacturer}}'">
+                            <label>{{brand.manufacturer}}</label>
+                        </div>
+                        {%endfor%}
+                        <br>
+                    </div>
+
+                    <div id="headphone-brands-filter" style="display: none;">
+                        <h5>Headset Brands</h5>
+
+                        {% for brand in headsetBrands %}
+                        <div>
+                            <input type="checkbox" name="headset_brand" id="brand-{{brand.manufacturer}}"
+                                value="'{{brand.manufacturer}}'">
+                            <label>{{brand.manufacturer}}</label>
+                        </div>
+                        {%endfor%}
+                        <br>
+                    </div>
+
+                    <div id="monitor-brands-filter" style="display: none;">
+                        <h5>Keyboard Brands</h5>
+
+                        {% for brand in monitorBrands %}
+                        <div>
+                            <input type="checkbox" name="monitor_brand" id="brand-{{brand.manufacturer}}"
+                                value="'{{brand.manufacturer}}'">
+                            <label>{{brand.manufacturer}}</label>
+                        </div>
+                        {%endfor%}
+                        <br>
+                    </div>
+
+                    <div id="phone-brands-filter" style="display: none;">
+                        <h5>Phone Brands</h5>
+
+                        {% for brand in phoneBrands %}
+                        <div>
+                            <input type="checkbox" name="phone_brand" id="brand-{{brand.manufacturer}}"
+                                value="'{{brand.manufacturer}}'">
+                            <label>{{brand.manufacturer}}</label>
+                        </div>
+                        {%endfor%}
+                        <br>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-light apply-filter">Apply Filter</button>
+            </form>
         </div>
 
         <!-- Products -->
@@ -197,6 +219,7 @@
                     <p class="card-title product-title mt-auto">{{item.name}}</p>
                 </a>
                 {%endfor%}
+                <br>
             </div>
         </section>
     </div>

@@ -1,7 +1,12 @@
-
+selectedBrands = 0
 
 function showBrandsTitle() {
-
+  brandsTitle = document.getElementById("brands-title");
+  if (selectedBrands === 0) {
+    brandsTitle.style.display = 'none';
+  } else {
+    brandsTitle.style.display = 'block';
+  }
 }
 
 function showPhoneBrands() {
@@ -11,9 +16,14 @@ function showPhoneBrands() {
 
   if (checkbox.checked) {
     box.style.display = 'block';
+    selectedBrands++;
   } else {
     box.style.display = 'none';
+    selectedBrands--;
   }
+
+  showBrandsTitle;
+  showBrandsTitle();
 }
 
 function showMonitorBrands() {
@@ -23,9 +33,12 @@ function showMonitorBrands() {
 
   if (checkbox.checked) {
     box.style.display = 'block';
+    selectedBrands++;
   } else {
     box.style.display = 'none';
+    selectedBrands--;
   }
+  showBrandsTitle();
 }
 
 function showHeadphoneBrands() {
@@ -35,9 +48,12 @@ function showHeadphoneBrands() {
 
   if (checkbox.checked) {
     box.style.display = 'block';
+    selectedBrands++;
   } else {
     box.style.display = 'none';
+    selectedBrands--;
   }
+  showBrandsTitle();
 }
 
 function showMouseBrands() {
@@ -47,9 +63,12 @@ function showMouseBrands() {
 
   if (checkbox.checked) {
     box.style.display = 'block';
+    selectedBrands++;
   } else {
     box.style.display = 'none';
+    selectedBrands--;
   }
+  showBrandsTitle();
 }
 
 function showKeyboardBrands() {
@@ -59,9 +78,12 @@ function showKeyboardBrands() {
 
   if (checkbox.checked) {
     box.style.display = 'block';
+    selectedBrands++;
   } else {
     box.style.display = 'none';
+    selectedBrands--;
   }
+  showBrandsTitle();
 }
 
 
