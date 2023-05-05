@@ -96,609 +96,610 @@
                       <div class="collapse" id="collapseContent1">
                         <div class="container d-flex flex-column">
                           <!-- The attributes of the device -->
-                          
+
                           {% if (data["category"] == "phone")%}
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Length (mm)</h4>
-                                <p>{{data["length"]}}</p>
-                              </div>
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Length (mm)</h4>
+                              <p>{{data["length"]}}</p>
                             </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Width (mm)</h4>
-                                <p>{{data["width"]}}</p>
-                              </div>
-                            </div>
-                            
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Depth (mm)</h4>
-                                <p>{{data["depth"]}}</p>
-                              </div>
-                            </div>
-                            
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Weight (kg)</h4>
-                                <p>{{data["weight"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>IP Rating</h4>
-                                <p>{{data["IP_rating"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Screen Size (inch)</h4>
-                                <p>{{data["screen_size"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Screen to Body Ratio</h4>
-                                <p>{{data["screen_to_body_ratio"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Display Type</h4>
-                                <p>{{data["display_type"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Frequency (Hz)</h4>
-                                <p>{{data["frequency"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Resolution (vxh)</h4>
-                                <p>{{data["resolution_v"] + " x " + data["resolution_h"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Pixel Density (ppi)</h4>
-                                <p>{{data["pixel_density"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>CPU</h4>
-                                <p>{{data["cpu"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Chipset</h4>
-                                <p>{{data["chipset"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>GPU</h4>
-                                <p>{{data["gpu"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Memory (GB)</h4>
-                                <p>{{data["memory"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Camera (MP)</h4>
-                                <p>{{data["camera"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Selfie Camera (MP)</h4>
-                                <p>{{data["phone_selfie_camera"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Battery (mAh)</h4>
-                                <p>{{data["battery"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Charging Speed (W)</h4>
-                                <p>{{data["charging_speed"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>OS</h4>
-                                <p>{{data["os"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Headphone Jack</h4>
-                                <p>{{data["headphone_jack"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Sensors</h4>
-                                <p>{{data["sensors"]}}</p>
-                              </div>
-                            </div>
-
-                            <div class="row">
-                              <!-- add the icon to the attributes -->
-                              {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                              <div class="col">
-                                <h4>Colors</h4>
-                                <p>{{data["colors"]}}</p>
-                              </div>
-                            </div>
-                        {% elif (data["category"] == "monitor") %}
-                        <div class="row">
-                          <!-- add the icon to the attributes -->
-                          {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                          <div class="col">
-                            <h4>Screen Size (inch)</h4>
-                            <p>{{data["size"]}}</p>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <!-- add the icon to the attributes -->
-                          {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                          <div class="col">
-                            <h4>Resolution (vxh)</h4>
-                            <p>{{data["resolution_x"] + " x " + data["resolution_y"]}}</p>
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Width (mm)</h4>
+                              <p>{{data["width"]}}</p>
+                            </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <!-- add the icon to the attributes -->
-                          {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                          <div class="col">
-                            <h4>Aspect Ratio</h4>
-                            <p>{{data["aspect_ratio_x"] + ":" + data["aspect_ratio_y"]}}</p>
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Depth (mm)</h4>
+                              <p>{{data["depth"]}}</p>
+                            </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <!-- add the icon to the attributes -->
-                          {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                          <div class="col">
-                            <h4>Refresh Rate (Hz)</h4>
-                            <p>{{data["refresh_rate"]}}</p>
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Weight (kg)</h4>
+                              <p>{{data["weight"]}}</p>
+                            </div>
                           </div>
-                        </div>
-                        
-                        <div class="row">
-                          <!-- add the icon to the attributes -->
-                          {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                          <div class="col">
-                            <h4>Response Time (ms)</h4>
-                            <p>{{data["response_time"]}}</p>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>IP Rating</h4>
+                              <p>{{data["IP_rating"]}}</p>
+                            </div>
                           </div>
-                        </div>
-                        
-                        <div class="row">
-                          <!-- add the icon to the attributes -->
-                          {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                          <div class="col">
-                            <h4>Panel Type</h4>
-                            <p>{{data["panel_type"]}}</p>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Screen Size (inch)</h4>
+                              <p>{{data["screen_size"]}}</p>
+                            </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <!-- add the icon to the attributes -->
-                          {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                          <div class="col">
-                            <h4>Peak Brightness (nits)</h4>
-                            <p>{{data["brightness"]}}</p>
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Screen to Body Ratio</h4>
+                              <p>{{data["screen_to_body_ratio"]}}</p>
+                            </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <!-- add the icon to the attributes -->
-                          {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                          <div class="col">
-                            <h4>Curve Screen</h4>
-                            <p>{{data["curve_screen"]}}</p>
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Display Type</h4>
+                              <p>{{data["display_type"]}}</p>
+                            </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <!-- add the icon to the attributes -->
-                          {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                          <div class="col">
-                            <h4>Speakers</h4>
-                            <p>{{data["speakers"]}}</p>
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Frequency (Hz)</h4>
+                              <p>{{data["frequency"]}}</p>
+                            </div>
                           </div>
-                        </div>
 
-                        <div class="row">
-                          <!-- add the icon to the attributes -->
-                          {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                          <div class="col">
-                            <h4>Colors</h4>
-                            <p>{{data["color"]}}</p>
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Resolution (vxh)</h4>
+                              <p>{{data["resolution_v"] + " x " + data["resolution_h"]}}</p>
+                            </div>
                           </div>
-                        </div>
-                      {% elif (data["category"] == "mouse") %}
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Length (mm)</h4>
-                          <p>{{data["length"]}}</p>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Pixel Density (ppi)</h4>
+                              <p>{{data["pixel_density"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>CPU</h4>
+                              <p>{{data["cpu"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Chipset</h4>
+                              <p>{{data["chipset"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>GPU</h4>
+                              <p>{{data["gpu"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Memory (GB)</h4>
+                              <p>{{data["memory"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Camera (MP)</h4>
+                              <p>{{data["camera"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Selfie Camera (MP)</h4>
+                              <p>{{data["phone_selfie_camera"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Battery (mAh)</h4>
+                              <p>{{data["battery"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Charging Speed (W)</h4>
+                              <p>{{data["charging_speed"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>OS</h4>
+                              <p>{{data["os"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Headphone Jack</h4>
+                              <p>{{data["headphone_jack"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Sensors</h4>
+                              <p>{{data["sensors"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Colors</h4>
+                              <p>{{data["colors"]}}</p>
+                            </div>
+                          </div>
+                          {% elif (data["category"] == "monitor") %}
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Screen Size (inch)</h4>
+                              <p>{{data["size"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Resolution (vxh)</h4>
+                              <p>{{data["resolution_x"] + " x " + data["resolution_y"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Aspect Ratio</h4>
+                              <p>{{data["aspect_ratio_x"] + ":" + data["aspect_ratio_y"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Refresh Rate (Hz)</h4>
+                              <p>{{data["refresh_rate"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Response Time (ms)</h4>
+                              <p>{{data["response_time"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Panel Type</h4>
+                              <p>{{data["panel_type"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Peak Brightness (nits)</h4>
+                              <p>{{data["brightness"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Curve Screen</h4>
+                              <p>{{data["curve_screen"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Speakers</h4>
+                              <p>{{data["speakers"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Colors</h4>
+                              <p>{{data["color"]}}</p>
+                            </div>
+                          </div>
+                          {% elif (data["category"] == "mouse") %}
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Length (mm)</h4>
+                              <p>{{data["length"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Width (mm)</h4>
+                              <p>{{data["width"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Depth (mm)</h4>
+                              <p>{{data["depth"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Weight (kg)</h4>
+                              <p>{{data["weight"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Sensor Type</h4>
+                              <p>{{data["sensor_type"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>DPI</h4>
+                              <p>{{data["dpi"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Max Acceleration (G)</h4>
+                              <p>{{data["max_acceleration"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Max Tracking Speed (IPS)</h4>
+                              <p>{{data["max_tracking_speed"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Polling Rate (Hz)</h4>
+                              <p>{{data["polling_rate"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Onboard Memory</h4>
+                              <p>{{data["onboard_memory"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Connectivity</h4>
+                              <p>{{data["connectivity"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Num of Buttons</h4>
+                              <p>{{data["number_of_buttons"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Chipset</h4>
+                              <p>{{data["chipset"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Colors</h4>
+                              <p>{{data["color"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>LED Lighting</h4>
+                              <p>{{data["led_lighting"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Adjustable Weights</h4>
+                              <p>{{data["adjustable_weight"]}}</p>
+                            </div>
+                          </div>
+                          {% elif (data["category"] == "keyboard") %}
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Style</h4>
+                              <p>{{data["style"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Switch Type</h4>
+                              <p>{{data["switch_type"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Backlit</h4>
+                              <p>{{data["backlit"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Tenkeyless</h4>
+                              <p>{{data["tenkeyless"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Connection Type</h4>
+                              <p>{{data["connection_type"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Colors</h4>
+                              <p>{{data["color"]}}</p>
+                            </div>
+                          </div>
+                          {% elif (data["category"] == "headset") %}
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Type</h4>
+                              <p>{{data["type"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Max Frequency Response (kHz)</h4>
+                              <p>{{data["max_frequency_response"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Microphone</h4>
+                              <p>{{data["microphone"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Wireless</h4>
+                              <p>{{data["wireless"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Enclose Type</h4>
+                              <p>{{data["encloser_type"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Colors</h4>
+                              <p>{{data["color"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Active Noise Cancellation</h4>
+                              <p>{{data["active_noise_cancelling"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Channels</h4>
+                              <p>{{data["channels"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Sensitivity</h4>
+                              <p>{{data["sensitivity"]}}</p>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <!-- add the icon to the attributes -->
+                            {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
+                            <div class="col">
+                              <h4>Impedance</h4>
+                              <p>{{data["impedance"]}}</p>
+                            </div>
+                          </div>
+
+                          {% endif %}
+
+
+
+
+
+
+
+
+
                         </div>
                       </div>
 
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Width (mm)</h4>
-                          <p>{{data["width"]}}</p>
-                        </div>
-                      </div>
-                      
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Depth (mm)</h4>
-                          <p>{{data["depth"]}}</p>
-                        </div>
-                      </div>
-                      
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Weight (kg)</h4>
-                          <p>{{data["weight"]}}</p>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Sensor Type</h4>
-                          <p>{{data["sensor_type"]}}</p>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>DPI</h4>
-                          <p>{{data["dpi"]}}</p>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Max Acceleration (G)</h4>
-                          <p>{{data["max_acceleration"]}}</p>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Max Tracking Speed (IPS)</h4>
-                          <p>{{data["max_tracking_speed"]}}</p>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Polling Rate (Hz)</h4>
-                          <p>{{data["polling_rate"]}}</p>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Onboard Memory</h4>
-                          <p>{{data["onboard_memory"]}}</p>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Connectivity</h4>
-                          <p>{{data["connectivity"]}}</p>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Num of Buttons</h4>
-                          <p>{{data["number_of_buttons"]}}</p>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Chipset</h4>
-                          <p>{{data["chipset"]}}</p>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Colors</h4>
-                          <p>{{data["color"]}}</p>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>LED Lighting</h4>
-                          <p>{{data["led_lighting"]}}</p>
-                        </div>
-                      </div>
-
-                      <div class="row">
-                        <!-- add the icon to the attributes -->
-                        {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                        <div class="col">
-                          <h4>Adjustable Weights</h4>
-                          <p>{{data["adjustable_weight"]}}</p>
-                        </div>
-                      </div>
-                    {% elif (data["category"] == "keyboard") %}
-                    <div class="row">
-                      <!-- add the icon to the attributes -->
-                      {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                      <div class="col">
-                        <h4>Style</h4>
-                        <p>{{data["style"]}}</p>
-                      </div>
                     </div>
 
-                    <div class="row">
-                      <!-- add the icon to the attributes -->
-                      {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                      <div class="col">
-                        <h4>Switch Type</h4>
-                        <p>{{data["switch_type"]}}</p>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <!-- add the icon to the attributes -->
-                      {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                      <div class="col">
-                        <h4>Backlit</h4>
-                        <p>{{data["backlit"]}}</p>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <!-- add the icon to the attributes -->
-                      {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                      <div class="col">
-                        <h4>Tenkeyless</h4>
-                        <p>{{data["tenkeyless"]}}</p>
-                      </div>
-                    </div>
-
-                    <div class="row">
-                      <!-- add the icon to the attributes -->
-                      {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                      <div class="col">
-                        <h4>Connection Type</h4>
-                        <p>{{data["connection_type"]}}</p>
-                      </div>
-                    </div>
-                    
-                    <div class="row">
-                      <!-- add the icon to the attributes -->
-                      {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                      <div class="col">
-                        <h4>Colors</h4>
-                        <p>{{data["color"]}}</p>
-                      </div>
-                    </div>  
-                  {% elif (data["category"] == "headset") %}
-                  <div class="row">
-                    <!-- add the icon to the attributes -->
-                    {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                    <div class="col">
-                      <h4>Type</h4>
-                      <p>{{data["type"]}}</p>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <!-- add the icon to the attributes -->
-                    {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                    <div class="col">
-                      <h4>Max Frequency Response (kHz)</h4>
-                      <p>{{data["max_frequency_response"]}}</p>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <!-- add the icon to the attributes -->
-                    {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                    <div class="col">
-                      <h4>Microphone</h4>
-                      <p>{{data["microphone"]}}</p>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <!-- add the icon to the attributes -->
-                    {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                    <div class="col">
-                      <h4>Wireless</h4>
-                      <p>{{data["wireless"]}}</p>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <!-- add the icon to the attributes -->
-                    {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                    <div class="col">
-                      <h4>Enclose Type</h4>
-                      <p>{{data["encloser_type"]}}</p>
-                    </div>
-                  </div>
-                  
-                  <div class="row">
-                    <!-- add the icon to the attributes -->
-                    {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                    <div class="col">
-                      <h4>Colors</h4>
-                      <p>{{data["color"]}}</p>
-                    </div>
-                  </div>
-                  
-                  <div class="row">
-                    <!-- add the icon to the attributes -->
-                    {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                    <div class="col">
-                      <h4>Active Noise Cancellation</h4>
-                      <p>{{data["active_noise_cancelling"]}}</p>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <!-- add the icon to the attributes -->
-                    {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                    <div class="col">
-                      <h4>Channels</h4>
-                      <p>{{data["channels"]}}</p>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <!-- add the icon to the attributes -->
-                    {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                    <div class="col">
-                      <h4>Sensitivity</h4>
-                      <p>{{data["sensitivity"]}}</p>
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <!-- add the icon to the attributes -->
-                    {# <img src="assets/"+{{picture}}+"" class="icons" alt="icon"> #}
-                    <div class="col">
-                      <h4>Impedance</h4>
-                      <p>{{data["impedance"]}}</p>
-                    </div>
-                  </div>
-
-                  {% endif %}
-
-                        
-
-                        
-                      
-
-
-
-
-                        </div>
-                      </div>
-
-                    </div>
-
-                    <a class="btn text-white bg-primary link p-md-1 my-1 d-flex align-items-center justify-content-center" href="compare.html">
+                    <a class="btn text-white bg-primary link p-md-1 my-1 d-flex align-items-center justify-content-center"
+                      href="compare.html">
                       Compare Against Another Device
                     </a>
                     <a class="btn text-white bg-dark link p-md-1 my-1 d-flex align-items-center justify-content-center"
