@@ -10,7 +10,7 @@ async function open() {
 
 async function getAllDevices() {
     const db = await open();
-    const result = db.all('select * from device');
+    const result = await db.all('select * from device');
     await db.close();
 
     return result;
@@ -19,7 +19,7 @@ async function getAllDevices() {
 async function getUser(email, password) {
     const db = await open();
     // sqlite is case sensitive (a != A), use COLLATE NOCASE to make it insensitive
-    const result = db.get(`select * from user where email = "${email}" COLLATE NOCASE and password = ${password}`);
+    const result = await db.get(`select * from user where email = "${email}" COLLATE NOCASE and password = ${password}`);
     await db.close();
 
     return result;
@@ -73,10 +73,9 @@ async function getAllDevices(category, brands, sort) {
         sortBy = "order by category asc";
     }
 
-    // console.log(`select * from device where ${filterCategory} and (${filterBrands})`);
 
     const db = await open();
-    const result = db.all(`select * from device where ${filterCategory} and (${filterBrands}) ${sortBy}`);
+    const result = await db.all(`select * from device where ${filterCategory} and (${filterBrands}) ${sortBy}`);
     await db.close();
 
     return result;
@@ -84,33 +83,43 @@ async function getAllDevices(category, brands, sort) {
 
 async function getDeviceBrands(category) {
     const db = await open();
-    const result = db.all(`select distinct manufacturer from device where category = "${category}"`);
+    const result = await db.all(`select distinct manufacturer from device where category = "${category}"`);
     await db.close();
 
     return result;
 }
 
-async function getDeviceByID(id){
+async function getDeviceByID(id) {
     const db = await open();
 
-    const result = db.all(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
+    console.log(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
+    const result = await db.all(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
+    console.log(result);
     await db.close();
 
     return result;
 }
 
-async function getDeviceType(id){
+async function getDeviceType(id) {
     const db = await open();
-    const result = db.all(`SELECT category FROM device WHERE id = ${id}`);
+    const result = await db.all(`SELECT category FROM device WHERE id = ${id}`);
+    await db.close();
+
+    return result;
+}
+
+async function searchDevices(value) {
+    const db = await open();
+    const result = await db.all(`SELECT * FROM device WHERE name LIKE '%${value}%' 
+    OR manufacturer LIKE '%${value}%' OR model LIKE '%${value}%'`);
     await db.close();
 
     return result;
 }
 
 async function registeringUsers(name, username, email, password) {
-    console.log("Entered the DB");
     const db = await open();
-    db.run(`INSERT INTO user (name, username, email, password, usertype) VALUES ("${name}","${username}","${email}","${password}", "user")`);
+    await db.run(`INSERT INTO user (name, username, email, password, usertype) VALUES ("${name}","${username}","${email}","${password}", "user")`);
     await db.close();
 }
 
@@ -120,6 +129,7 @@ module.exports = {
     getDeviceBrands,
     getDeviceByID,
     getDeviceBrands,
-    getUser
+    getUser,
+    searchDevices
 }
 
