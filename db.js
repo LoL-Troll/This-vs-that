@@ -16,6 +16,15 @@ async function getAllDevices() {
     return result;
 }
 
+async function getUser(email, password) {
+    const db = await open();
+    // sqlite is case sensitive (a != A), use COLLATE NOCASE to make it insensitive
+    const result = db.get(`select * from user where email = "${email}" COLLATE NOCASE and password = ${password}`);
+    await db.close();
+
+    return result;
+}
+
 async function getAllDevices(category, brands, sort) {
     filterCategory = "TRUE";
     filterBrands = "TRUE";
@@ -48,7 +57,7 @@ async function getAllDevices(category, brands, sort) {
 
     // if there are filters for phone brands
     if (brands.phone_brand != undefined) {
-        filterBrands += (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (manufacturer in (${brands.phone_brand}))`;
+        filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (manufacturer in (${brands.phone_brand}))`;
     }
 
     let sortBy = "";
@@ -98,11 +107,10 @@ async function getDeviceType(id){
     return result;
 }
 
-async function registeringUsers(username, email, password) {
+async function registeringUsers(name, username, email, password) {
     console.log("Entered the DB");
     const db = await open();
-    console.log(username);
-    db.run(`INSERT INTO user (username, email, password) VALUES ("${username}","${email}","${password}")`);
+    db.run(`INSERT INTO user (name, username, email, password, usertype) VALUES ("${name}","${username}","${email}","${password}", "user")`);
     await db.close();
 }
 
@@ -111,6 +119,7 @@ module.exports = {
     registeringUsers,
     getDeviceBrands,
     getDeviceByID,
-    getDeviceBrands
+    getDeviceBrands,
+    getUser
 }
 
