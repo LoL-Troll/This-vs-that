@@ -89,8 +89,9 @@ app.get("/history.html", (req, res) => {
     res.render('history.html');
 });
 
-app.get("/item.html", (req, res) => {
-    res.render('item.html');
+app.get("/item.html", async (req, res) => {
+    let devices = (await db.getDeviceByID(380))[0];    
+    res.render(`item.html`, {data:devices});
 });
 
 app.get("/modify-product.html", (req, res) => {
