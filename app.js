@@ -50,8 +50,6 @@ app.get("/browse.html", async (req, res) => {
 
 
 
-    console.log(sort + " " + type + ".");
-    // Redirect instead of render?
     let devices = await db.getAllDevices
         (type, {
             mouse_brand: mouse_brand,
@@ -89,10 +87,51 @@ app.get("/history.html", (req, res) => {
     res.render('history.html');
 });
 
-app.get("/item.html", async (req, res) => {
-    let devices = (await db.getDeviceByID(380))[0];    
+app.get("/item", async (req, res) => {
+    let devices = (await db.getDeviceByID(req.query.id))[0];    
     res.render(`item.html`, {data:devices});
 });
+
+app.get('/browse-select.html', async (req, res) => {
+    let troll = []
+    let sort = req.query.sort;
+    let type = req.query.Type;
+
+    let mouse_brand = req.query.mouse_brand;
+    let keyboard_brand = req.query.keyboard_brand;
+    let monitor_brand = req.query.monitor_brand;
+    let headset_brand = req.query.headset_brand;
+    let phone_brand = req.query.phone_brand;
+
+
+
+    // Redirect instead of render?
+    let devices = await db.getAllDevices
+        (type, {
+            mouse_brand: mouse_brand,
+            keyboard_brand: keyboard_brand,
+            monitor_brand: monitor_brand,
+            headset_brand: headset_brand,
+            phone_brand: phone_brand
+        }, sort
+        );
+    let headsetBrands = await db.getDeviceBrands("headset");
+    let mouseBrands = await db.getDeviceBrands("mouse");
+    let keyboardBrands = await db.getDeviceBrands("keyboard");
+    let phoneBrands = await db.getDeviceBrands("phone");
+    let monitorBrands = await db.getDeviceBrands("monitor");
+    res.render('browse-select.html', {
+        items: devices,
+        headsetBrands: headsetBrands,
+        mouseBrands: mouseBrands,
+        keyboardBrands: keyboardBrands,
+        phoneBrands: phoneBrands,
+        monitorBrands: monitorBrands,
+        selectedItems: troll
+    });
+
+
+  });
 
 app.get("/modify-product.html", (req, res) => {
     res.render('modify-product.html');

@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 
-{% block title %} This vs That | Browse Devices {% endblock %}
+{% block title %} This vs That | Select Devices {% endblock %}
 
 {% block pageStyle %}
-<link rel="stylesheet" href="/styles/browse.css">
+<link rel="stylesheet" href="/styles/browse-select.css">
 {% endblock %}
 
 {% block pageScripts %}
-<script src="scripts/browse.js"></script>
+<script src="scripts/browse-select.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -212,16 +212,21 @@
 
         <!-- Products -->
         <section class="catagories container-fluid justify-content-center text-center px-auto mx-auto">
-            <div class="row column-gap-5 row-gap-5 justify-content-center ">
+            <div class="row column-gap-5 row-gap-5 justify-content-center">
                 {% for item in items %}
-                <a href="item?id={{item.id}}" class="product-card col-lg col-auto">
+                <button id={{item.id}} isSelected="" class="myButton product-card col-lg col-auto" onclick="selectButton(this)">
                     <img src="{{item.picture}}" alt="{{item.category}}" class="card-img" />
                     <p class="card-title product-title mt-auto">{{item.name}}</p>
-                </a>
+                </button>
                 {%endfor%}
                 <br>
             </div>
+            
         </section>
     </div>
+    <div class="floating-btn">
+        <button onclick="">Confirm</button>
+    </div>
+
 </main>
 {% endblock %}

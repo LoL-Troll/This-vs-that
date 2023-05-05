@@ -48,7 +48,7 @@ async function getAllDevices(category, brands, sort) {
 
     // if there are filters for phone brands
     if (brands.phone_brand != undefined) {
-        filterBrands += (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (manufacturer in (${brands.phone_brand}))`;
+        filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (manufacturer in (${brands.phone_brand}))`;
     }
 
     let sortBy = "";
