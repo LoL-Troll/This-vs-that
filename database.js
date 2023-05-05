@@ -16,16 +16,26 @@ async function getAllDevices() {
     return result;
 }
 
-async function getDeviceByKey(key){
+async function getDeviceByID(id){
     const db = await open();
-    const result = db.all('SELECT * FROM device NATURAL JOIN  ')
+
+    const result = db.all(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
+    await db.close();
+
+    return result;
 }
 
-async function getDeviceType(key){
+async function getDeviceType(id){
     const db = await open();
-    const result = db.all('SELECT type FROM device NATURAL JOIN ')
+    const result = db.all(`SELECT category FROM device WHERE id = ${id}`);
+    await db.close();
+
+    return result;
 }
 
 module.exports = {
-    getAllDevices
+    getAllDevices,
+    getDeviceType,
+    getDeviceByID
 }
+
