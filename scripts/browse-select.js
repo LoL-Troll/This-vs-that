@@ -28,6 +28,7 @@ function addItem(item){
     }
     console.log("These are the selected items id" + selectedItems)
 }
+
 function removeItem(item){
     if(selectedItems.includes(item)){
         selectedItems = removeElementFromArray(selectedItems, item);
@@ -45,5 +46,10 @@ function removeElementFromArray(arr,val){
 }
 
 function sendElements(){
-    
+    let returnedString = "compare?"
+    for (let index = 1; index < selectedItems.length; index++) {
+        returnedString += "id" + index + "=" + selectedItems[index-1] + "&"
+    }
+    returnedString += "id" + selectedItems.length + "=" + selectedItems[selectedItems.length-1]
+    return returnedString;
 }

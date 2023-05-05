@@ -12,6 +12,7 @@
 
 {% block content %}
 
+
 <main>
     <div class="d-flex flex-row">
         <!-- Filter -->
@@ -22,7 +23,7 @@
                     <h2>Filter</h2>
                     <button type="submit" class="btn btn-light apply-filter">Apply Filter</button>
                 </div>
-
+                                
                 <h4>Sort By</h4>
                 <select name="sort" id="sort" class="m-auto">
                     <option value="type" selected>Device Type</option>
@@ -224,9 +225,13 @@
             
         </section>
     </div>
-    <div class="floating-btn">
-        <button onclick="">Confirm</button>
+    <div class="floating-btn" onclick="window.location.href=`${sendElements()}`">
+        <div style="color: gray;">Compare</div>
     </div>
-
+    <script defer>
+        var id = String({{id}});
+        var button = document.getElementById(id)
+        selectButton(button);
+    </script>
 </main>
 {% endblock %}

@@ -74,8 +74,13 @@ app.get("/browse.html", async (req, res) => {
     });
 });
 
-app.get("/compare.html", (req, res) => {
-    res.render('compare.html');
+app.get("/compare", async (req, res) => {
+    let devices = [];
+
+    for (const key in req.query) {
+        devices.push((await db.getDeviceByID(req.query[key]))[0]);
+    }
+    res.render('compare.html', { devices: devices });
 });
 
 app.get("/contact.html", (req, res) => {
@@ -88,14 +93,15 @@ app.get("/history.html", (req, res) => {
 });
 
 app.get("/item", async (req, res) => {
-    let devices = (await db.getDeviceByID(req.query.id))[0];    
-    res.render(`item.html`, {data:devices});
+    let devices = (await db.getDeviceByID(req.query.id))[0];
+    res.render(`item.html`, { data: devices });
 });
 
 app.get('/browse-select.html', async (req, res) => {
-    let troll = []
     let sort = req.query.sort;
     let type = req.query.Type;
+    let id = req.query.id;
+    
 
     let mouse_brand = req.query.mouse_brand;
     let keyboard_brand = req.query.keyboard_brand;
@@ -127,11 +133,11 @@ app.get('/browse-select.html', async (req, res) => {
         keyboardBrands: keyboardBrands,
         phoneBrands: phoneBrands,
         monitorBrands: monitorBrands,
-        selectedItems: troll
+        id: id
     });
 
 
-  });
+});
 
 app.get("/modify-product.html", (req, res) => {
     res.render('modify-product.html');
