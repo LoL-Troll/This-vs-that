@@ -12,7 +12,7 @@ app.use("/scripts", express.static('scripts'));
 const db = require("./db.js");
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const pageData = { signedIn: false, isAdmin: undefined, userData: undefined};
+const pageData = { signedIn: false, isAdmin: undefined, userData: undefined };
 
 
 // Middlewares
@@ -64,7 +64,11 @@ app.get("/about.html", (req, res) => {
 app.get("/add-product.html", (req, res) => {
     // admin only 
     // if session.isadmin
-    res.render('add-product.html', { ...pageData });
+    if (pageData.isAdmin) {
+        res.render('add-product.html', { ...pageData });
+    } else {
+        res.redirect("/");
+    }
     // else 404
 });
 
@@ -78,19 +82,21 @@ app.get("/browse.html", async (req, res) => {
     let headset_brand = req.query.headset_brand;
     let phone_brand = req.query.phone_brand;
 
+    let devices;
+    if (req.query.search) {  // if there is search just apply it without filter
+        devices = await db.searchDevices(req.query.search);
+    } else { // if there is not search just apply filter
+        devices = await db.getAllDevices
+            (type, {
+                mouse_brand: mouse_brand,
+                keyboard_brand: keyboard_brand,
+                monitor_brand: monitor_brand,
+                headset_brand: headset_brand,
+                phone_brand: phone_brand
+            }, sort
+            );
+    }
 
-
-    console.log(sort + " " + type + ".");
-    // Redirect instead of render?
-    let devices = await db.getAllDevices
-        (type, {
-            mouse_brand: mouse_brand,
-            keyboard_brand: keyboard_brand,
-            monitor_brand: monitor_brand,
-            headset_brand: headset_brand,
-            phone_brand: phone_brand
-        }, sort
-        );
     let headsetBrands = await db.getDeviceBrands("headset");
     let mouseBrands = await db.getDeviceBrands("mouse");
     let keyboardBrands = await db.getDeviceBrands("keyboard");
@@ -117,32 +123,64 @@ app.get("/contact.html", (req, res) => {
 
 app.get("/history.html", (req, res) => {
     // user only
-    res.render('history.html', { ...pageData });
+    if (pageData.signedIn) {
+
+        res.render('history.html', { ...pageData });
+    } else {
+        res.redirect("/");
+    }
+
 });
 
-app.get("/item.html", async (req, res) => {
-    let devices = (await db.getDeviceByID(380))[0];
-    res.render(`item.html`, { ...pageData, data: devices });
+app.get("/item", async (req, res) => {
+    let devices = (await db.getDeviceByID(req.query.id))[0];
+    res.render(`item.html`, { data: devices });
 });
+
 
 app.get("/modify-product.html", (req, res) => {
-    res.render('modify-product.html', { ...pageData });
+    if (pageData.isAdmin) {
+        res.render('modify-product.html', { ...pageData });
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/profile-edit.html", (req, res) => {
-    res.render('profile-edit.html', { ...pageData });
+    if (pageData.signedIn) {
+        res.render('profile-edit.html', { ...pageData });
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/profile-password.html", (req, res) => {
-    res.render('profile-password.html', { ...pageData });
+    if (pageData.signedIn) {
+        res.render('profile-password.html', { ...pageData });
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/profile.html", (req, res) => {
-    res.render('profile.html', { ...pageData });
+    if (pageData.signedIn) {
+        res.render('profile.html', { ...pageData });
+    } else {
+        res.redirect("/");
+    }
 });
 
 app.get("/saved-comparison.html", (req, res) => {
-    res.render('saved-comparison.html', { ...pageData });
+    if (pageData.signedIn) {
+        res.render('saved-comparison.html', { ...pageData });
+    } else {
+        res.redirect("/");
+    }
+});
+
+app.post("/search", async (req, res) => {
+    console.log(req.body);
+    res.redirect("browse.html?search=" + req.body.search);
 });
 
 app.get("/signin.html", (req, res) => {
@@ -158,7 +196,7 @@ app.post("/signin.html", async (req, res) => {
     // check and get user data
     user = await db.getUser(email, password);
 
-   
+
     if (user) { // if correct
         req.session.userId = user.userid;
         req.session.isAdmin = user.userType == "admin";
@@ -186,7 +224,6 @@ app.get("/signup.html", (req, res) => {
 
 
 app.post("/signup.html", async (req, res) => {
-    console.log(req.body);
     let name = req.body.name;
     let username = req.body.username;
     let email = req.body.email;
