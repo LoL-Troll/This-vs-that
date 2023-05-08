@@ -19,7 +19,28 @@ async function getAllDevices() {
 async function getUser(email, password) {
     const db = await open();
     // sqlite is case sensitive (a != A), use COLLATE NOCASE to make it insensitive
-    const result = await db.get(`select * from user where email = "${email}" COLLATE NOCASE and password = ${password}`);
+    const result = await db.get(`select * from user where email = "${email}" COLLATE NOCASE and password = "${password}"`);
+    await db.close();
+
+    return result;
+}
+
+async function updateUser(id, user) {
+    const db = await open();
+
+    console.log(`    update user set 
+    name = "${user.name}",   
+    username = "${user.username}", 
+    password = "${user.password}" 
+    where userid = ${id};`);
+
+    const result = await db.run(`
+    update user set 
+    name = "${user.name}",   
+    username = "${user.username}", 
+    password = "${user.password}" 
+    where userid = ${id};
+    `);
     await db.close();
 
     return result;
@@ -130,6 +151,7 @@ module.exports = {
     getDeviceByID,
     getDeviceBrands,
     getUser,
-    searchDevices
+    searchDevices,
+    updateUser
 }
 

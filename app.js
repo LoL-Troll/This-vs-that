@@ -146,12 +146,27 @@ app.get("/modify-product.html", (req, res) => {
     }
 });
 
-app.get("/profile-edit.html", (req, res) => {
+app.get("/profile-edit.html", async (req, res) => {
     if (pageData.signedIn) {
         res.render('profile-edit.html', { ...pageData });
     } else {
         res.redirect("/");
     }
+});
+
+
+app.post("/profile-edit", async (req, res) => {
+    let newName = req.body.name;
+    let newUsername = req.body.username;
+    // todo profile picture
+    pageData.userData.name = newName;
+    pageData.userData.username = newUsername;
+
+    console.log(newName, newUsername, pageData.userData.userid, pageData.userData)
+
+    await db.updateUser(pageData.userData.userid, pageData.userData);
+
+    res.redirect("/profile.html");
 });
 
 app.get("/profile-password.html", (req, res) => {
@@ -191,10 +206,11 @@ app.post("/signin.html", async (req, res) => {
     // user input
     let email = req.body.email;
     let password = req.body.password;
-    console.log(req.body)
+    console.log(req.body);
 
     // check and get user data
     user = await db.getUser(email, password);
+    console.log(user);
 
 
     if (user) { // if correct
