@@ -249,6 +249,78 @@ app.post("/signup.html", async (req, res) => {
 });
 
 
+app.get("/item.html", async(req, res) => {
+    // user only
+    const reviews = await db.getAllReviews();
+    
+    res.render('/item.html' , {reviews: reviews});
+    
+});
+
+app.post("/postingReview", async(req,res) =>{
+    console.log("Entered the postingReview");
+    var comment = req.body.comment;
+    var rating = req.body.rating;
+    await db.postingReview(comment,rating);
+    res.get("/item.html");
+});
+
+app.post("/signup",  async(req,res) => {
+    console.log("Entered the node js");
+    var username = req.body.username;
+    var email = req.body.email;
+    var password = req.body.password;
+    await db.registeringUsers(username,email,password);
+    res.redirect("/signin.html");
+});
+
+app.post("/postingProduct", async(req,res) =>{
+    console.log("Entered the postingProduct");
+
+    //General Information
+    var product_categorie = req.body.product_categorie;
+
+    var image = req.body.image;
+    var brand = req.body.brand;
+    var model = req.body.model;
+    var width = req.body.width;
+    var height = req.body.height;
+    var length = req.body.length;
+    var weight = req.body.weight;
+
+    //Common betweeen Phone and Monitor
+    var horizontal = req.body.horizontal;
+    var vertical = req.body.vertical;
+    var screen_size = req.body.screen_size;
+    var refresh_rate = req.body.refresh_rate;
+    var pixel_density = req.body.pixel_density
+    var brightness = req.body.brightness;
+
+    //Monitor
+    var display_type = req.body.display_type;
+    var panel = req.body.panel;
+    var refresh_rate = req.body.refresh_rate;
+    var response_time = req.body.response_time;
+
+    //Phone
+    var ram = req.body.ram;
+    var battery = req.body.battery;
+    var storage = req.body.internal_storage;
+    var mega_pixel = req.body.mega_pixel;
+    var sim = req.body.sim;
+    var charging = req.body.charging_speed;
+    var resistance = req.body.resistance;
+    var wirless_charing = req.body.wirless_charing
+    var fingerprint = req.body.Fingerprint;
+
+    if(product_categorie === "Monitor"){
+        db.addMonitor(screen_size,horizontal,vertical,refresh_rate,response_time, panel, brightness);
+        db.addDevice(model, brand, image, product_categorie);
+        res.render("/add-product.html");
+    }
+
+});
+
 
 
 

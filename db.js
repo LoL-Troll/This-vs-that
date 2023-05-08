@@ -144,6 +144,41 @@ async function registeringUsers(name, username, email, password) {
     await db.close();
 }
 
+
+async function postingReview(txtArea, rating){
+    console.log("Entered the DB")
+    const db = await open();
+    db.run(`INSERT INTO review (userID, deviceID, comment, rating) VALUES ("${userID}","${deviceID}","${comment}", "${rating}")`)
+    await db.close();
+}
+
+async function getAllReviews(){
+    const db = await open();
+    const result = db.all('select * from review');
+    await db.close();
+
+    return result;
+}
+
+async function addDevice(model, brand, image, product_category){
+    const db = await open();
+
+    db.run(`INSERT INTO device (name, manufacturer, model, picture, category) 
+    VALUES ("x","${brand}","${model}", "${product_category}")`);
+
+    await db.close();
+}
+
+async function addMonitor(screen_size,horizontal,vertical,refresh_rate,response_time, panel, brightness){
+    const db = await open();
+
+    db.run(`INSERT INTO monitor (size, resolution_x, resolution_x, refresh_rate, response_time, panel_type, brightness, aspect_ratio_x, aspect_ratio_y, wide_screen, curve_screen, speakers, color) 
+    VALUES ("${screen_size}","${horizontal}","${vertical}", "${refresh_rate}","${response_time}","${panel}","${brightness}"
+    "1","1","yes","yes","yes","black")`);
+
+    await db.close();
+}
+
 module.exports = {
     getAllDevices,
     registeringUsers,
@@ -152,6 +187,12 @@ module.exports = {
     getDeviceBrands,
     getUser,
     searchDevices,
-    updateUser
+    updateUser,
+    postingReview,
+    getAllReviews,
+    addDevice,
+    addMonitor
 }
+
+
 
