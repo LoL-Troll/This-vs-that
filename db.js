@@ -16,6 +16,16 @@ async function getAllDevices() {
     return result;
 }
 
+async function getUserById(id) {
+    const db = await open();
+    // sqlite is case sensitive (a != A), use COLLATE NOCASE to make it insensitive
+    console.log(`select * from user where userId = ${id}`)
+    const result = await db.get(`select * from user where userId = ${id}`);
+    await db.close();
+
+    return result;
+}
+
 async function getUser(email, password) {
     const db = await open();
     // sqlite is case sensitive (a != A), use COLLATE NOCASE to make it insensitive
@@ -25,21 +35,29 @@ async function getUser(email, password) {
     return result;
 }
 
-async function updateUser(id, user) {
+async function updateUser(id, user, image) {
     const db = await open();
-
-    console.log(`    update user set 
-    name = "${user.name}",   
-    username = "${user.username}", 
-    password = "${user.password}" 
-    where userid = ${id};`);
 
     const result = await db.run(`
     update user set 
     name = "${user.name}",   
     username = "${user.username}", 
-    password = "${user.password}" 
+    password = "${user.password}",
+    picture = "${image}"
     where userid = ${id};
+    `);
+    await db.close();
+
+    return result;
+}
+
+async function updatePassword(id, oldPass, newPass) {
+    const db = await open();
+
+    const result = await db.run(`
+    update user set 
+    password = "${newPass}"   
+    where userid = ${id} AND password = "${oldPass}";
     `);
     await db.close();
 
@@ -188,10 +206,12 @@ module.exports = {
     getUser,
     searchDevices,
     updateUser,
+    updatePassword,
     postingReview,
     getAllReviews,
     addDevice,
-    addMonitor
+    addMonitor,
+    getUserById
 }
 
 

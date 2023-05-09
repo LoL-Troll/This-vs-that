@@ -1,5 +1,9 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
+const fileUpload = require('express-fileupload');
+const db = require("./db.js");
+const session = require('express-session');
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = 8000;
@@ -8,32 +12,39 @@ app.use("/styles", express.static('styles'));
 app.use("/assets", express.static('assets'));
 app.use("/scripts", express.static('scripts'));
 
-// public varibles
-const db = require("./db.js");
-const session = require('express-session');
-const bodyParser = require('body-parser');
+
 const pageData = { signedIn: false, isAdmin: undefined, userData: undefined };
 
 
 // Middlewares
 app.use(session({
-    name: 'session',
-    keys: ['key1', 'key2'],
-    secret: "hash",
+    secret: 'key',
+    resave: false,
+    saveUninitialized: false,
 }));
+
+app.use(
+    fileUpload({
+        limits: {
+            fileSize: 10000000,
+        },
+        abortOnLimit: true,
+    })
+);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
+// session cookie handler
+app.use(async (req, res, next) => {
     // if there is a cookie, and user is signed in
     if (req.session && req.session.userId) {
-        pageData.signedIn = true;
-        pageData.isAdmin = req.session.isAdmin;
-    }
-    else { // user is signed out
-        pageData.signedIn = false;
-        pageData.isAdmin = false;
-        pageData.userData = undefined;
+        console.log(req.session.userId);
+        const user = await db.getUserById(req.session.userId);
+        
+        // TODO cache
+        console.log(user);
+        req.user = user;
+        console.log(req.user);
     }
     next();
 });
@@ -48,24 +59,23 @@ app.listen(port, (e) => {
     console.log("listing on port " + port);
 });
 
-
-//////////////
-// Handlers //
-//////////////
+// Handlers 
 app.get("/", async (req, res) => {
-    res.render('index.html', { ...pageData });
+    console.log(req.user);
+
+    res.render('index.html', { user: req.user });
 });
 
 
 app.get("/about.html", (req, res) => {
-    res.render('about.html', { ...pageData });
+    res.render('about.html', { user: req.user });
 });
 
 app.get("/add-product.html", (req, res) => {
     // admin only 
     // if session.isadmin
     if (pageData.isAdmin) {
-        res.render('add-product.html', { ...pageData });
+        res.render('add-product.html', { user: req.user });
     } else {
         res.redirect("/");
     }
@@ -103,7 +113,7 @@ app.get("/browse.html", async (req, res) => {
     let phoneBrands = await db.getDeviceBrands("phone");
     let monitorBrands = await db.getDeviceBrands("monitor");
     res.render('browse.html', {
-        ...pageData,
+        user: req.user,
         items: devices,
         headsetBrands: headsetBrands,
         mouseBrands: mouseBrands,
@@ -114,18 +124,18 @@ app.get("/browse.html", async (req, res) => {
 });
 
 app.get("/compare.html", (req, res) => {
-    res.render('compare.html', { ...pageData });
+    res.render('compare.html', { user: req.user });
 });
 
 app.get("/contact.html", (req, res) => {
-    res.render('contact.html', { ...pageData });
+    res.render('contact.html', { user: req.user });
 });
 
 app.get("/history.html", (req, res) => {
     // user only
     if (pageData.signedIn) {
 
-        res.render('history.html', { ...pageData });
+        res.render('history.html', { user: req.user });
     } else {
         res.redirect("/");
     }
@@ -140,7 +150,7 @@ app.get("/item", async (req, res) => {
 
 app.get("/modify-product.html", (req, res) => {
     if (pageData.isAdmin) {
-        res.render('modify-product.html', { ...pageData });
+        res.render('modify-product.html', { user: req.user });
     } else {
         res.redirect("/");
     }
@@ -148,7 +158,7 @@ app.get("/modify-product.html", (req, res) => {
 
 app.get("/profile-edit.html", async (req, res) => {
     if (pageData.signedIn) {
-        res.render('profile-edit.html', { ...pageData });
+        res.render('profile-edit.html', { user: req.user });
     } else {
         res.redirect("/");
     }
@@ -156,30 +166,58 @@ app.get("/profile-edit.html", async (req, res) => {
 
 
 app.post("/profile-edit", async (req, res) => {
+    const profile_img = req.files.image;
+    // req.session.userId + ".jpg"
+    image_path = "./assets/profile_pics/" + req.session.userId + ".jpg"
+    profile_img.mv(image_path);
+
+    console.log(profile_img);
+
     let newName = req.body.name;
     let newUsername = req.body.username;
     // todo profile picture
     pageData.userData.name = newName;
     pageData.userData.username = newUsername;
 
-    console.log(newName, newUsername, pageData.userData.userid, pageData.userData)
 
-    await db.updateUser(pageData.userData.userid, pageData.userData);
+    console.log(newName, newUsername, pageData.userData.userid, pageData.userData);
+
+    await db.updateUser(pageData.userData.userid, pageData.userData, image_path);
 
     res.redirect("/profile.html");
 });
 
 app.get("/profile-password.html", (req, res) => {
     if (pageData.signedIn) {
-        res.render('profile-password.html', { ...pageData });
+        res.render('profile-password.html', { user: req.user });
     } else {
         res.redirect("/");
     }
 });
 
+app.post("/password-change", async (req, res) => {
+    oldPass = req.body.oldPassword;
+    newPass = req.body.newPassword;
+
+    newPassConfirm = req.body.newPasswordConfirm;
+
+    if (newPass === newPassConfirm) {
+        const result = await db.updatePassword(req.session.userId, oldPass, newPass);
+        if (result.changes) {
+            console.log("Changed Password Successfully");
+            res.redirect("/profile-edit.html");
+        } else {
+            console.log("Password does not match old password");
+        }
+    } else {
+        console.log("the two password does not match");
+    }
+
+});
+
 app.get("/profile.html", (req, res) => {
     if (pageData.signedIn) {
-        res.render('profile.html', { ...pageData });
+        res.render('profile.html', { user: req.user });
     } else {
         res.redirect("/");
     }
@@ -187,7 +225,7 @@ app.get("/profile.html", (req, res) => {
 
 app.get("/saved-comparison.html", (req, res) => {
     if (pageData.signedIn) {
-        res.render('saved-comparison.html', { ...pageData });
+        res.render('saved-comparison.html', { user: req.user });
     } else {
         res.redirect("/");
     }
@@ -199,24 +237,21 @@ app.post("/search", async (req, res) => {
 });
 
 app.get("/signin.html", (req, res) => {
-    res.render('signin.html', { ...pageData });
+    res.render('signin.html', { user: req.user });
 });
 
 app.post("/signin.html", async (req, res) => {
     // user input
     let email = req.body.email;
     let password = req.body.password;
-    console.log(req.body);
 
     // check and get user data
     user = await db.getUser(email, password);
-    console.log(user);
-
 
     if (user) { // if correct
         req.session.userId = user.userid;
-        req.session.isAdmin = user.userType == "admin";
 
+        // !!!!!!!!!!!!!!!!
         pageData.userData = user;
         res.redirect("/");
     } else { // if not correct
@@ -235,7 +270,7 @@ app.get("/signout", (req, res) => {
 });
 
 app.get("/signup.html", (req, res) => {
-    res.render('signup.html', { ...pageData });
+    res.render('signup.html', { user: req.user });
 });
 
 
@@ -249,32 +284,32 @@ app.post("/signup.html", async (req, res) => {
 });
 
 
-app.get("/item.html", async(req, res) => {
+app.get("/item.html", async (req, res) => {
     // user only
     const reviews = await db.getAllReviews();
-    
-    res.render('/item.html' , {reviews: reviews});
-    
+
+    res.render('/item.html', { reviews: reviews });
+
 });
 
-app.post("/postingReview", async(req,res) =>{
+app.post("/postingReview", async (req, res) => {
     console.log("Entered the postingReview");
     var comment = req.body.comment;
     var rating = req.body.rating;
-    await db.postingReview(comment,rating);
+    await db.postingReview(comment, rating);
     res.get("/item.html");
 });
 
-app.post("/signup",  async(req,res) => {
+app.post("/signup", async (req, res) => {
     console.log("Entered the node js");
     var username = req.body.username;
     var email = req.body.email;
     var password = req.body.password;
-    await db.registeringUsers(username,email,password);
+    await db.registeringUsers(username, email, password);
     res.redirect("/signin.html");
 });
 
-app.post("/postingProduct", async(req,res) =>{
+app.post("/postingProduct", async (req, res) => {
     console.log("Entered the postingProduct");
 
     //General Information
@@ -313,8 +348,8 @@ app.post("/postingProduct", async(req,res) =>{
     var wirless_charing = req.body.wirless_charing
     var fingerprint = req.body.Fingerprint;
 
-    if(product_categorie === "Monitor"){
-        db.addMonitor(screen_size,horizontal,vertical,refresh_rate,response_time, panel, brightness);
+    if (product_categorie === "Monitor") {
+        db.addMonitor(screen_size, horizontal, vertical, refresh_rate, response_time, panel, brightness);
         db.addDevice(model, brand, image, product_categorie);
         res.render("/add-product.html");
     }
