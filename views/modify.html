@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block title %} This vs That | Modify Product {% endblock %}
+
+{% block pageStyle %}
+    <link rel="stylesheet" href="styles/modify.css">
+{% endblock %}
+
+{% block pageScripts %}
+    <script src="scripts/modify.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <main class="container">
+        <div class="main-body">
+            <div class="gutters-sm">
+
+                <div class="card mb-4">
+                    <h3 class="card-header">Category</h3>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <!-- <div class="form-group"> -->
+                                <label class="col-md-6 control-label" for="product_categorie">Product Category</label>
+                                <div class="col-md-6">
+                                    <select class = "form-select" id="product_category" name="product_categorie" class="form-control"
+                                        onchange="submitData();" >
+                                        <option value="" disabled selected>
+                                            Select your option
+                                        </option>
+                                        <option value="phone">Phone</option>
+                                        <option value="mouse">Mouse</option>
+                                        <option value="keyboard">Keyboard</option>
+                                        <option value="headset">Headphone</option>
+                                        <option value="monitor">Monitor</option>
+                                    </select>
+                                </div>
+                            <!-- </div> -->
+                        </div>
+
+
+                        <!-- Section for phones options -->
+                        
+                        <div id="phoneContainer">
+
+                            <div id="Brand">
+                                <div class="d-flex flex-column">
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label" for="product_categorie">Select
+                                            brand</label>
+                                        <div class="col-md-6">
+                                            <select id="product_categorie" name="brand" class="form-control"
+                                                onchange="updatePage();">
+                                                <option value="#">Select a brand</option>
+                                                <option value="Samsung">Samsung</option>
+                                                
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Apple -->
+                            <div id="deviceName">
+                                <div class="d-flex flex-column">
+                                    <div class="form-group">
+                                        <label class="col-md-6 control-label" for="product_categorie">Device name</label>
+                                        <div class="col-md-6">
+                                            <select id="product_categorie" name="selectedProduct" class="form-control"
+                                                onchange="updatePage(); selectedProduct()">
+                                                <option value="Phone">Iphone10</option>
+                                                <option value="Phone">Iphone11</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                          
+                        </div>
+
+                    </div>
+                </div>
+                <div id="common-information" class="device-information">
+                    <!-- product image -->
+                    <div class="card mb-4">
+                        <h3 class="card-header">Product Image</h3>
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img src="assets/iphone12.png" alt="product_img" id="product_img" class="rounded-2"
+                                    width="200">
+                                <div class="mt-3">
+                                    <input type="file" id="upload-btn" hidden onchange="loadFile(event)"/>
+                                    <label for="upload-btn" class="btn btn-primary">Upload Product Image</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            var loadFile = function (event) {
+                                var image = document.getElementById("product_img");
+                                image.src = URL.createObjectURL(event.target.files[0]);
+                            };
+                        </script>
+                    </div>
+                            
+           
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary text-center p-3">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+{% endblock %}

@@ -73,11 +73,18 @@ app.get("/item.html", (req, res) => {
 app.get("/modify-product.html", (req, res) => {
   res.render("modify-product.html");
 });
-// function modifiyList() {
-//     var s = document.getElementsByName('product_categorie')[0];
-//     var option = s.options[s.selectedIndex].text;
-//     console.log(option);
-// }
+app.get("/modify.html", (req, res) => {
+  console.log(res.body.value);
+  res.render("modify.html");
+});
+
+// app.post("/majed", async (req, res) => {
+//   //console.log(req.body.value);
+//   console.log("hello")
+//   console.log(req.body.value);
+//   await res.send("modify.html");
+// });
+
 
 app.get("/profile-edit.html", (req, res) => {
   res.render("profile-edit.html");
