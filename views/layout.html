@@ -60,12 +60,13 @@
                         <input type="text" class="form-control"  placeholder="Search" name="search"/>
                     </form>
 
-                    {% if signedIn %}
+                    {% if user %}
                     <div class="flex-shrink-0 dropdown m-5">
-                        <p>Temp: {{userData.username}}</p>
-                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle show"
+                        
+                        <a href="#" class="d-flex flex-row align-middle justify-content-center link-dark text-decoration-none dropdown-toggle show"
                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="true">
-                            <img src="assets/profile-pic.png" alt="profile" width="50" class="rounded-circle">
+                            <img src={{user.picture}} alt="profile" width="50" class="rounded-circle">
+                            <p class="my-auto ms-3">{{user.username}}</p>
                         </a>
                         <ul class="dropdown-menu text-small shadow show" aria-labelledby="dropdownUser2"
                             data-popper-placement="bottom-end"
