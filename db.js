@@ -64,62 +64,29 @@ async function updatePassword(id, oldPass, newPass) {
     return result;
 }
 
+async function getHistory(userID) {
+    const db = await open();
+
+    const result = db.all(`
+    SELECT *, strftime('%d/%m/%Y', date, "localtime") as dateFormatted, strftime('%H:%M', date, "localtime") as timeFormatted
+    FROM history, device
+    WHERE deviceid = id and userID = ${userID} 
+    order by date desc`);
+
+    await db.close();
+    return result;
+}
+
 async function updateHistory(userid, deviceid) {
     const db = await open();
 
     const result = await db.run(`
-    insert into history (userID, deviceID) values (${userid}, ${deviceid});`);
+    insert into history (userID, deviceID, date) values (${userid}, ${deviceid}, CURRENT_TIMESTAMP)`);
     await db.close();
 
     return result;
 }
 
-
-async function getJarirPrice(jarir_link) {
-    console.log(jarir_link);
-    var len = jarir_link.length;
-
-    if(len > 0){
-        jarir_link= jarir_link.slice(len-11, len-5);
-        console.log(jarir_link);
-        jarir_link = "https://www.jarir.com/api/catalogv1/product/store/sa-en/sku/" + jarir_link;
-        console.log(jarir_link);
-        var price;
-        try {
-            const response = await fetch(jarir_link);
-            const data = await response.json();
-            
-            price = data.hits.hits[0]._source.final_price;
-        } catch (error) {
-            console.error(error);
-        }
-        return price;
-    }
-    return "Not Avaliable"
-}
-
-async function getNoonPrice(noon_link) {
-    var len = noon_link.length
-
-    if(len > 0){
-        noon_link= noon_link.slice(29);
-        console.log(noon_link);
-        noon_link = "https://www.noon.com/_svc/catalog/api/v3/u/" + noon_link;
-        console.log(noon_link);
-        var price;
-        try {
-            const response = await fetch(noon_link);
-            const data = await response.json();
-            
-            price = data.product.variants[0].offers[0].sale_price;
-        } catch (error) {
-            console.error(error);
-        }
-        return price;
-    }
-    return "Not Avaliable"
-
-}
 
 async function getAllDevices(category, brands, sort) {
     filterCategory = "TRUE";
@@ -235,14 +202,7 @@ async function getAllReviews() {
     return result;
 }
 
-async function getHistory(userID){
-    const db = await open();
 
-    const result = db.all(`select * from history, device WHERE userID  = ${userID} AND id = deviceID`);
-
-    await db.close();
-    return result;
-}
 
 async function addDevice(model, brand, image, product_category) {
     const db = await open();
@@ -280,8 +240,6 @@ module.exports = {
     getUserById,
     updateHistory,
     getHistory,
-    getJarirPrice,
-    getNoonPrice,
 }
 
 

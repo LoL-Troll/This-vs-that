@@ -8,17 +8,24 @@
             <h1>This is the history of items you have viewed recently</h1>
         </div>
 
+        <div>
             <ul class="list-group">
                 {% for item in devicesHistory %}
-                <li class="list-group-item list-group-item-action">
-                    <a href="browse.html" class="d-flex flex-row justify-content-between" style="text-decoration: none;">
-                        <img  src = "{{item.picture}}" alt="Headphones" class="img-fluid" style="width: 15%;">
-                        <p style="width: 80%; margin-top: 4%; color: black; font-size: 3rem;">{{item.name}}</p>
+                <li class="my-auto list-group-item list-group-item-action ">
+                    <a href="item/{{item.id}}" class="my-auto d-flex flex-row justify-content-between" style="text-decoration: none;">
+                        <img  src = "{{item.picture}}" alt="Headphones" class="img-fluid" style="width: 10%;">
+                        <!-- style="width: 80%; padding: ; font-size: 2.5rem;" -->
+                        <h2 class="text-center my-auto">{{item.name}}</h2>
+                        <div class="text-center my-auto">
+                            <h4>Visited on:</h4>
+                            <p>{{item.dateFormatted}} - {{item.timeFormatted}}</p>
+                        </div>
                     </a>
                 </li>
-
                 {% endfor %}
             </ul>
         </div>
 
     </main>
+    
+{% endblock %}
