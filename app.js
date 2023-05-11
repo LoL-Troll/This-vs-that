@@ -87,6 +87,7 @@ app.get("/add-product.html", (req, res) => {
     // else 404
 });
 
+
 app.get("/browse.html", async (req, res) => {
     let sort = req.query.sort;
     let type = req.query.Type;
@@ -128,8 +129,13 @@ app.get("/browse.html", async (req, res) => {
     });
 });
 
-app.get("/compare.html", (req, res) => {
-    res.render('compare.html', { user: req.user });
+app.get("/compare", async (req, res) => {
+    let devices = [];
+
+    for (const key in req.query) {
+        devices.push((await db.getDeviceByID(req.query[key]))[0]);
+    }
+    res.render('compare.html', { user: req.user, devices: devices });
 });
 
 app.get("/contact.html", (req, res) => {
@@ -157,12 +163,16 @@ app.get("/item/:id", async (req, res) => {
     // load reviews
     const reviews = await db.getAllReviews();
 
+    //load prices
+    var jarPrice = await db.getJarirPrice(devices["jarir_link"]);
+    var noonPrice = await db.getNoonPrice(devices["noon_link"]);
+
     // save into history of user (if signed in)
     if (req.user) {
         await db.updateHistory(req.user.userid, id)
     }
 
-    res.render(`item.html`, { user: req.user, data: devices, reviews: reviews });
+    res.render(`item.html`, { user: req.user, data: devices, reviews: reviews, jarir_price: jarPrice, noon_price: noonPrice});
 });
 
 
@@ -370,8 +380,6 @@ app.post("/postingProduct", async (req, res) => {
     }
 
 });
-
-
 
 
 
