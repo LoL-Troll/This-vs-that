@@ -116,3 +116,7 @@ input:checked~.label-rate:hover~.label-rate,
   {
   color: #f9d90cd7;
 }
+
+.active {
+  color: #f9d90cd7;
+}
