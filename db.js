@@ -74,6 +74,7 @@ async function updateHistory(userid, deviceid) {
     return result;
 }
 
+
 async function getJarirPrice(jarir_link) {
     console.log(jarir_link);
     var len = jarir_link.length;
@@ -234,6 +235,15 @@ async function getAllReviews() {
     return result;
 }
 
+async function getHistory(userID){
+    const db = await open();
+
+    const result = db.all(`select * from history, device WHERE userID  = ${userID} AND id = deviceID`);
+
+    await db.close();
+    return result;
+}
+
 async function addDevice(model, brand, image, product_category) {
     const db = await open();
 
@@ -269,6 +279,7 @@ module.exports = {
     addMonitor,
     getUserById,
     updateHistory,
+    getHistory,
     getJarirPrice,
     getNoonPrice,
 }

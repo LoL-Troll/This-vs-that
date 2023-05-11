@@ -5,66 +5,20 @@
 {% block content %}
     <main class="container justify-content-center ">
         <div class="card-header justify-content-center text-center mb-5">
-            <h1>This is the history of products you have viewed recently</h1>
+            <h1>This is the history of items you have viewed recently</h1>
         </div>
 
-        <ul class="list-group">
+            <ul class="list-group">
+                {% for item in devicesHistory %}
+                <li class="list-group-item list-group-item-action">
+                    <a href="browse.html" class="d-flex flex-row justify-content-between" style="text-decoration: none;">
+                        <img  src = "{{item.picture}}" alt="Headphones" class="img-fluid" style="width: 15%;">
+                        <p style="width: 80%; margin-top: 4%; color: black; font-size: 3rem;">{{item.name}}</p>
+                    </a>
+                </li>
 
-            <li class="list-group-item list-group-item-action">
-                <a href="browse.html" class="d-flex flex-row justify-content-between" style="text-decoration: none;">
-                    <img src="assets/Headphone.png" alt="Headphones" class="img-fluid" style="width: 15%;">
-                    <p style="width: 80%; margin-top: 4%; color: black; font-size: 3rem;">HyperX cloud</p>
-                </a>
-            </li>
-
-            <li class="list-group-item list-group-item-action">
-                <a href="browse.html" class="d-flex flex-row justify-content-between" style="text-decoration: none;">
-                    <img src="assets/Headphone.png" alt="Headphones" class="img-fluid" style="width: 15%;">
-                    <p style="width: 80%; margin-top: 4%; color: black; font-size: 3rem;">HyperX cloud</p>
-                </a>
-            </li>
-
-            <li class="list-group-item list-group-item-action">
-                <a href="browse.html" class="d-flex flex-row justify-content-between" style="text-decoration: none;">
-                    <img src="assets/Headphone.png" alt="Headphones" class="img-fluid" style="width: 15%;">
-                    <p style="width: 80%; margin-top: 4%; color: black; font-size: 3rem;">HyperX cloud</p>
-                </a>
-            </li>
-            <li class="list-group-item list-group-item-action">
-                <a href="browse.html" class="d-flex flex-row justify-content-between" style="text-decoration: none;">
-                    <img src="assets/Headphone.png" alt="Headphones" class="img-fluid" style="width: 15%;">
-                    <p style="width: 80%; margin-top: 4%; color: black; font-size: 3rem;">HyperX cloud</p>
-                </a>
-            </li>
-
-            <li class="list-group-item list-group-item-action">
-                <a href="browse.html" class="d-flex flex-row justify-content-between" style="text-decoration: none;">
-                    <img src="assets/Headphone.png" alt="Headphones" class="img-fluid" style="width: 15%;">
-                    <p style="width: 80%; margin-top: 4%; color: black; font-size: 3rem;">HyperX cloud</p>
-                </a>
-            </li>
-
-            <li class="list-group-item list-group-item-action">
-                <a href="browse.html" class="d-flex flex-row justify-content-between" style="text-decoration: none;">
-                    <img src="assets/Headphone.png" alt="Headphones" class="img-fluid" style="width: 15%;">
-                    <p style="width: 80%; margin-top: 4%; color: black; font-size: 3rem;">HyperX cloud</p>
-                </a>
-            </li>
-
-            <li class="list-group-item list-group-item-action">
-                <a href="browse.html" class="d-flex flex-row justify-content-between" style="text-decoration: none;">
-                    <img src="assets/Headphone.png" alt="Headphones" class="img-fluid" style="width: 15%;">
-                    <p style="width: 80%; margin-top: 4%; color: black; font-size: 3rem;">HyperX cloud</p>
-                </a>
-            </li>
-            <li class="list-group-item list-group-item-action">
-                <a href="browse.html" class="d-flex flex-row justify-content-between" style="text-decoration: none;">
-                    <img src="assets/Headphone.png" alt="Headphones" class="img-fluid" style="width: 15%;">
-                    <p style="width: 80%; margin-top: 4%; color: black; font-size: 3rem;">HyperX cloud</p>
-                </a>
-            </li>
-
-        </ul>
+                {% endfor %}
+            </ul>
+        </div>
 
     </main>
-{% endblock %}
