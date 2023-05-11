@@ -40,7 +40,7 @@ app.use(async (req, res, next) => {
     if (req.session && req.session.userId) {
         console.log(req.session.userId);
         const user = await db.getUserById(req.session.userId);
-        
+
         // TODO cache
         console.log(user);
         req.user = user;
@@ -63,7 +63,12 @@ app.listen(port, (e) => {
 app.get("/", async (req, res) => {
     console.log(req.user);
 
-    res.render('index.html', { user: req.user });
+    // if user is signed in show history
+    if (req.user) {
+        res.render('index.html', { user: req.user /* TODO pass history of user */ });
+    } else {
+        res.render('index.html', { user: req.user });
+    }
 });
 
 
@@ -74,7 +79,7 @@ app.get("/about.html", (req, res) => {
 app.get("/add-product.html", (req, res) => {
     // admin only 
     // if session.isadmin
-    if (pageData.isAdmin) {
+    if (req.user.usertype === "admin") {
         res.render('add-product.html', { user: req.user });
     } else {
         res.redirect("/");
@@ -133,23 +138,48 @@ app.get("/contact.html", (req, res) => {
 
 app.get("/history.html", (req, res) => {
     // user only
-    if (pageData.signedIn) {
-
-        res.render('history.html', { user: req.user });
+    if (req.user) {
+        // TODO mohannad
+        res.render('history.html', { user: req.user  });
     } else {
         res.redirect("/");
     }
-
 });
 
-app.get("/item", async (req, res) => {
-    let devices = (await db.getDeviceByID(req.query.id))[0];
-    res.render(`item.html`, { data: devices });
+/////////////////////////////
+app.get("/item/:id", async (req, res) => {
+    let id = req.params.id;
+    console.log(id);
+
+    // load device info
+    let devices = (await db.getDeviceByID(id))[0];
+
+    // load reviews
+    const reviews = await db.getAllReviews();
+
+    // save into history of user (if signed in)
+    if (req.user) {
+        await db.updateHistory(req.user.userid, id)
+    }
+
+    res.render(`item.html`, { user: req.user, data: devices, reviews: reviews });
+});
+
+
+app.post("/postingReview", async (req, res) => {
+    console.log("Entered the posting Review");
+    let comment = req.body.comment;
+    let rating = req.body.rating;
+    let deviceid = req.body.deviceid;
+
+    console.log(req.body);
+    await db.postingReview(req.user.userid, deviceid, comment, rating);
+    res.redirect(`/item/${deviceid}`);
 });
 
 
 app.get("/modify-product.html", (req, res) => {
-    if (pageData.isAdmin) {
+    if (req.user.usertype === "admin") {
         res.render('modify-product.html', { user: req.user });
     } else {
         res.redirect("/");
@@ -157,7 +187,7 @@ app.get("/modify-product.html", (req, res) => {
 });
 
 app.get("/profile-edit.html", async (req, res) => {
-    if (pageData.signedIn) {
+    if (req.user) {
         res.render('profile-edit.html', { user: req.user });
     } else {
         res.redirect("/");
@@ -176,19 +206,18 @@ app.post("/profile-edit", async (req, res) => {
     let newName = req.body.name;
     let newUsername = req.body.username;
     // todo profile picture
-    pageData.userData.name = newName;
-    pageData.userData.username = newUsername;
+    req.user.name = newName;
+    req.user.username = newUsername;
+    req.user.picture = image_path;
 
 
-    console.log(newName, newUsername, pageData.userData.userid, pageData.userData);
-
-    await db.updateUser(pageData.userData.userid, pageData.userData, image_path);
+    await db.updateUser(req.user.userid, req.user);
 
     res.redirect("/profile.html");
 });
 
 app.get("/profile-password.html", (req, res) => {
-    if (pageData.signedIn) {
+    if (req.user) {
         res.render('profile-password.html', { user: req.user });
     } else {
         res.redirect("/");
@@ -216,7 +245,7 @@ app.post("/password-change", async (req, res) => {
 });
 
 app.get("/profile.html", (req, res) => {
-    if (pageData.signedIn) {
+    if (req.user) {
         res.render('profile.html', { user: req.user });
     } else {
         res.redirect("/");
@@ -224,7 +253,7 @@ app.get("/profile.html", (req, res) => {
 });
 
 app.get("/saved-comparison.html", (req, res) => {
-    if (pageData.signedIn) {
+    if (req.user) {
         res.render('saved-comparison.html', { user: req.user });
     } else {
         res.redirect("/");
@@ -284,27 +313,13 @@ app.post("/signup.html", async (req, res) => {
 });
 
 
-app.get("/item.html", async (req, res) => {
-    // user only
-    const reviews = await db.getAllReviews();
 
-    res.render('/item.html', { reviews: reviews });
-
-});
-
-app.post("/postingReview", async (req, res) => {
-    console.log("Entered the postingReview");
-    var comment = req.body.comment;
-    var rating = req.body.rating;
-    await db.postingReview(comment, rating);
-    res.get("/item.html");
-});
 
 app.post("/signup", async (req, res) => {
     console.log("Entered the node js");
-    var username = req.body.username;
-    var email = req.body.email;
-    var password = req.body.password;
+    let username = req.body.username;
+    let email = req.body.email;
+    let password = req.body.password;
     await db.registeringUsers(username, email, password);
     res.redirect("/signin.html");
 });
@@ -313,40 +328,40 @@ app.post("/postingProduct", async (req, res) => {
     console.log("Entered the postingProduct");
 
     //General Information
-    var product_categorie = req.body.product_categorie;
+    // let product_categorie = req.body.product_categorie;
 
-    var image = req.body.image;
-    var brand = req.body.brand;
-    var model = req.body.model;
-    var width = req.body.width;
-    var height = req.body.height;
-    var length = req.body.length;
-    var weight = req.body.weight;
+    // let image = req.body.image;
+    // let brand = req.body.brand;
+    // let model = req.body.model;
+    // let width = req.body.width;
+    // let height = req.body.height;
+    // let length = req.body.length;
+    // let weight = req.body.weight;
 
-    //Common betweeen Phone and Monitor
-    var horizontal = req.body.horizontal;
-    var vertical = req.body.vertical;
-    var screen_size = req.body.screen_size;
-    var refresh_rate = req.body.refresh_rate;
-    var pixel_density = req.body.pixel_density
-    var brightness = req.body.brightness;
+    // //Common betweeen Phone and Monitor
+    // let horizontal = req.body.horizontal;
+    // let vertical = req.body.vertical;
+    // let screen_size = req.body.screen_size;
+    // var refresh_rate = req.body.refresh_rate;
+    // let pixel_density = req.body.pixel_density
+    // let brightness = req.body.brightness;
 
-    //Monitor
-    var display_type = req.body.display_type;
-    var panel = req.body.panel;
-    var refresh_rate = req.body.refresh_rate;
-    var response_time = req.body.response_time;
+    // //Monitor
+    // let display_type = req.body.display_type;
+    // let panel = req.body.panel;
+    // var refresh_rate = req.body.refresh_rate;
+    // let response_time = req.body.response_time;
 
-    //Phone
-    var ram = req.body.ram;
-    var battery = req.body.battery;
-    var storage = req.body.internal_storage;
-    var mega_pixel = req.body.mega_pixel;
-    var sim = req.body.sim;
-    var charging = req.body.charging_speed;
-    var resistance = req.body.resistance;
-    var wirless_charing = req.body.wirless_charing
-    var fingerprint = req.body.Fingerprint;
+    // //Phone
+    // let ram = req.body.ram;
+    // let battery = req.body.battery;
+    // let storage = req.body.internal_storage;
+    // let mega_pixel = req.body.mega_pixel;
+    // let sim = req.body.sim;
+    // let charging = req.body.charging_speed;
+    // let resistance = req.body.resistance;
+    // let wirless_charing = req.body.wirless_charing
+    // let fingerprint = req.body.Fingerprint;
 
     if (product_categorie === "Monitor") {
         db.addMonitor(screen_size, horizontal, vertical, refresh_rate, response_time, panel, brightness);
