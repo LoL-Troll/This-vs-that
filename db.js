@@ -17,7 +17,8 @@ async function getAllDevices() {
 }
 
 async function getJarirPrice(jarir_link) {
-    var len = jarir_link.length
+    console.log(jarir_link);
+    var len = jarir_link.length;
 
     if(len > 0){
         jarir_link= jarir_link.slice(len-11, len-5);
@@ -36,7 +37,6 @@ async function getJarirPrice(jarir_link) {
         return price;
     }
     return "Not Avaliable"
-
 }
 
 async function getNoonPrice(noon_link) {
