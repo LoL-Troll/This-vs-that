@@ -35,7 +35,7 @@ async function getUser(email, password) {
     return result;
 }
 
-async function updateUser(id, user, image) {
+async function updateUser(id, user) {
     const db = await open();
 
     const result = await db.run(`
@@ -43,7 +43,7 @@ async function updateUser(id, user, image) {
     name = "${user.name}",   
     username = "${user.username}", 
     password = "${user.password}",
-    picture = "${image}"
+    picture = "${user.picture}"
     where userid = ${id};
     `);
     await db.close();
@@ -59,6 +59,16 @@ async function updatePassword(id, oldPass, newPass) {
     password = "${newPass}"   
     where userid = ${id} AND password = "${oldPass}";
     `);
+    await db.close();
+
+    return result;
+}
+
+async function updateHistory(userid, deviceid) {
+    const db = await open();
+
+    const result = await db.run(`
+    insert into history (userID, deviceID) values (${userid}, ${deviceid});`);
     await db.close();
 
     return result;
@@ -163,22 +173,22 @@ async function registeringUsers(name, username, email, password) {
 }
 
 
-async function postingReview(txtArea, rating){
-    console.log("Entered the DB")
+async function postingReview(userid, deviceid, comment, rating) {
+    console.log("Entered the DB");
     const db = await open();
-    db.run(`INSERT INTO review (userID, deviceID, comment, rating) VALUES ("${userID}","${deviceID}","${comment}", "${rating}")`)
+    await db.run(`INSERT INTO review (userID, deviceID, comment, rating) VALUES ("${userid}","${deviceid}","${comment}", "${rating}")`)
     await db.close();
 }
 
-async function getAllReviews(){
+async function getAllReviews() {
     const db = await open();
-    const result = db.all('select * from review');
+    const result = db.all('select * from review natural join user');
     await db.close();
 
     return result;
 }
 
-async function addDevice(model, brand, image, product_category){
+async function addDevice(model, brand, image, product_category) {
     const db = await open();
 
     db.run(`INSERT INTO device (name, manufacturer, model, picture, category) 
@@ -187,7 +197,7 @@ async function addDevice(model, brand, image, product_category){
     await db.close();
 }
 
-async function addMonitor(screen_size,horizontal,vertical,refresh_rate,response_time, panel, brightness){
+async function addMonitor(screen_size, horizontal, vertical, refresh_rate, response_time, panel, brightness) {
     const db = await open();
 
     db.run(`INSERT INTO monitor (size, resolution_x, resolution_x, refresh_rate, response_time, panel_type, brightness, aspect_ratio_x, aspect_ratio_y, wide_screen, curve_screen, speakers, color) 
@@ -211,7 +221,8 @@ module.exports = {
     getAllReviews,
     addDevice,
     addMonitor,
-    getUserById
+    getUserById,
+    updateHistory
 }
 
 
