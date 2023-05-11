@@ -65,7 +65,7 @@ app.get("/", async (req, res) => {
 
     // if user is signed in show history
     if (req.user) {
-        res.render('index.html', { user: req.user /* TODO pass history of user */ });
+        res.render('index.html', { user: req.user /*, TODO pass history of user */ });
     } else {
         res.render('index.html', { user: req.user });
     }
@@ -136,11 +136,11 @@ app.get("/contact.html", (req, res) => {
     res.render('contact.html', { user: req.user });
 });
 
-app.get("/history.html", (req, res) => {
+app.get("/history.html", async (req, res) => {
     // user only
     if (req.user) {
-        // TODO mohannad
-        res.render('history.html', { user: req.user  });
+        let devicesHistory = await db.getHistory(req.user.id);
+        res.render('history.html', { user: req.user, devicesHistory: devicesHistory });
     } else {
         res.redirect("/");
     }
@@ -179,11 +179,11 @@ app.post("/postingReview", async (req, res) => {
 
 
 app.get("/modify-product.html", (req, res) => {
-    if (req.user.usertype === "admin") {
-        res.render('modify-product.html', { user: req.user });
-    } else {
-        res.redirect("/");
-    }
+    // if (req.user.usertype === "admin") {
+    res.render('modify-product.html', { user: req.user });
+    // } else {
+    //     res.redirect("/");
+    // }
 });
 
 app.get("/profile-edit.html", async (req, res) => {

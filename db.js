@@ -188,6 +188,15 @@ async function getAllReviews() {
     return result;
 }
 
+async function getHistory(userID){
+    const db = await open();
+
+    const result = db.all(`select * from history, device WHERE userID  = ${userID} AND id = deviceID`);
+
+    await db.close();
+    return result;
+}
+
 async function addDevice(model, brand, image, product_category) {
     const db = await open();
 
@@ -222,7 +231,8 @@ module.exports = {
     addDevice,
     addMonitor,
     getUserById,
-    updateHistory
+    updateHistory,
+    getHistory,
 }
 
 
