@@ -1,9 +1,10 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
-const fileUpload = require('express-fileupload');
-const db = require("./db.js");
 const session = require('express-session');
+const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
+const db = require("./db.js");
+const dataParser = require("./dataParser.js");
 
 const app = express();
 const port = 8000;
@@ -38,13 +39,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(async (req, res, next) => {
     // if there is a cookie, and user is signed in
     if (req.session && req.session.userId) {
-        console.log(req.session.userId);
         const user = await db.getUserById(req.session.userId);
 
         // TODO cache
-        console.log(user);
         req.user = user;
-        console.log(req.user);
     }
     next();
 });
@@ -61,11 +59,11 @@ app.listen(port, (e) => {
 
 // Handlers 
 app.get("/", async (req, res) => {
-    console.log(req.user);
 
     // if user is signed in show history
     if (req.user) {
-        res.render('index.html', { user: req.user /* TODO pass history of user */ });
+        let devicesHistory = await db.getHistory(req.user.userid);
+        res.render('index.html', { user: req.user, devicesHistory: devicesHistory });
     } else {
         res.render('index.html', { user: req.user });
     }
@@ -144,8 +142,10 @@ app.get("/contact.html", (req, res) => {
 
 app.get("/history.html", async (req, res) => {
     // user only
+    
+    console.log("VVVVVVVVVVVVVVVV");
     if (req.user) {
-        let devicesHistory = await db.getHistory(req.user.id);
+        let devicesHistory = await db.getHistory(req.user.userid);
         res.render('history.html', { user: req.user, devicesHistory: devicesHistory });
 
     } else {
@@ -156,7 +156,6 @@ app.get("/history.html", async (req, res) => {
 /////////////////////////////
 app.get("/item/:id", async (req, res) => {
     let id = req.params.id;
-    console.log(id);
 
     // load device info
     let devices = (await db.getDeviceByID(id))[0];
@@ -165,8 +164,8 @@ app.get("/item/:id", async (req, res) => {
     const reviews = await db.getAllReviews();
 
     //load prices
-    var jarPrice = await db.getJarirPrice(devices["jarir_link"]);
-    var noonPrice = await db.getNoonPrice(devices["noon_link"]);
+    var jarPrice = await dataParser.getJarirPrice(devices["jarir_link"]);
+    var noonPrice = await dataParser.getNoonPrice(devices["noon_link"]);
 
     // save into history of user (if signed in)
     if (req.user) {
@@ -183,7 +182,6 @@ app.post("/postingReview", async (req, res) => {
     let rating = req.body.rating;
     let deviceid = req.body.deviceid;
 
-    console.log(req.body);
     await db.postingReview(req.user.userid, deviceid, comment, rating);
     res.redirect(`/item/${deviceid}`);
 });
@@ -212,7 +210,6 @@ app.post("/profile-edit", async (req, res) => {
     image_path = "./assets/profile_pics/" + req.session.userId + ".jpg"
     profile_img.mv(image_path);
 
-    console.log(profile_img);
 
     let newName = req.body.name;
     let newUsername = req.body.username;
@@ -272,7 +269,6 @@ app.get("/saved-comparison.html", (req, res) => {
 });
 
 app.post("/search", async (req, res) => {
-    console.log(req.body);
     res.redirect("browse.html?search=" + req.body.search);
 });
 
