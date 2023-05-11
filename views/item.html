@@ -22,7 +22,25 @@
                     <h2 class="card-title font-weight-bold text-center">{{data["name"]}}</h2>
                     <h3 class="card-title font-weight-bold text-center">{{data["manufacturer"]}}</h3>
                   </div>
-                  <div class="row">
+                  <div class="col">
+                    <div class="row">
+                      <!-- add the icon to the attributes -->
+                      <!-- <img src="assets/jarir.png" +{{picture}}+"" class="icons" alt="icon">  -->
+                      <div class="row">
+                        <a href={{data["jarir_link"]}}><img src="assets/jarir.png" alt="jarir" onclick=""></a>
+                        <h4>Jarir Current Price</h4>
+                        <p>{{jarir_price + " SAR"}}</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <!-- add the icon to the attributes -->
+                      <!-- <img src="assets/jarir.png" +{{picture}}+"" class="icons" alt="icon">  -->
+                      <div class="row">
+                        <a href={{data["noon_link"]}}><img src="assets/noon.png" alt="jarir"></a>
+                        <h4>Noon Current Price</h4>
+                        <p>{{noon_price + " SAR"}}</p>
+                      </div>
+                    </div>
                     <div class="collapse" id="collapseContent1">
                       <div class="container d-flex flex-column">
                         <!-- The attributes of the device -->
@@ -620,12 +638,14 @@
                       </div>
                     </div>
 
+                    <a class="btn text-white bg-primary link p-md-1 my-1 d-flex align-items-center justify-content-center"
+                      href="browse-select.html?id={{data["id"]}}">
+                      Compare Against Another Device
+                    </a>
+                    <a class="btn text-white bg-dark link p-md-1 my-1 d-flex align-items-center justify-content-center"
+                      data-bs-toggle="collapse" href="#collapseContent1" role="button" aria-expanded="false"
+                      aria-controls="collapseContent1">More</a>
                   </div>
-
-                  <a class="btn text-white bg-primary link p-md-1 my-1 d-flex align-items-center justify-content-center"
-                    href="compare.html">
-                    Compare Against Another Device
-                  </a>
                   <a class="btn text-white bg-dark link p-md-1 my-1 d-flex align-items-center justify-content-center"
                     data-bs-toggle="collapse" href="#collapseContent1" role="button" aria-expanded="false"
                     aria-controls="collapseContent1">More</a>
