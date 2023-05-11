@@ -24,6 +24,7 @@ const db = require("./db.js");
 
 app.get("/", async (req, res) => {
     res.render('index.html');
+    db.getJarirPrice("https://www.jarir.com/sa-en/sa-en/default-category/logitech-g635-7-1-lightsync-headsets-525743.html");
 });
 
 
@@ -94,7 +95,10 @@ app.get("/history.html", (req, res) => {
 
 app.get("/item", async (req, res) => {
     let devices = (await db.getDeviceByID(req.query.id))[0];
-    res.render(`item.html`, { data: devices });
+    var jarPrice = await db.getJarirPrice(devices["jarir_link"]);
+    var noonPrice = await db.getNoonPrice(devices["noon_link"]);
+
+    res.render(`item.html`, { data: devices, jarir_price: jarPrice, noon_price: noonPrice });
 });
 
 app.get('/browse-select.html', async (req, res) => {
