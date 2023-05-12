@@ -160,7 +160,8 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Resolution (horizontal x vertical)</h4>
-                            <p>{{(data["resolution_x"] + "x" + data["resolution_y"]) if data["resolution_x"] else "Not Available"}}</p>
+                            <p>{{(data["resolution_x"] + "x" + data["resolution_y"]) if data["resolution_x"] else "Not
+                              Available"}}</p>
                           </div>
                         </div>
 
@@ -295,7 +296,8 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Resolution (vxh)</h4>
-                            <p>{{(data["resolution_x"] + "x" + data["resolution_y"]) if data["resolution_x"] else "Not Available"}}</p>
+                            <p>{{(data["resolution_x"] + "x" + data["resolution_y"]) if data["resolution_x"] else "Not
+                              Available"}}</p>
                           </div>
                         </div>
 
@@ -304,7 +306,8 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Aspect Ratio</h4>
-                            <p>{{(data["aspect_ratio_x"] + "x" + data["aspect_ratio_y"]) if data["aspect_ratio_x"] else "Not Available"}}</p>
+                            <p>{{(data["aspect_ratio_x"] + "x" + data["aspect_ratio_y"]) if data["aspect_ratio_x"] else
+                              "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -583,7 +586,8 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Max Frequency Response (kHz)</h4>
-                            <p>{{data["max_frequency_response"] if data["max_frequency_response"] else "Not Available"}}</p>
+                            <p>{{data["max_frequency_response"] if data["max_frequency_response"] else "Not Available"}}
+                            </p>
                           </div>
                         </div>
 
@@ -628,7 +632,8 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Active Noise Cancellation</h4>
-                            <p>{{data["active_noise_cancelling"] if data["active_noise_cancelling"] else "Not Available"}}</p>
+                            <p>{{data["active_noise_cancelling"] if data["active_noise_cancelling"] else "Not
+                              Available"}}</p>
                           </div>
                         </div>
 
@@ -666,14 +671,16 @@
                       </div>
                     </div>
 
-                    <a class="btn text-white bg-primary link p-md-1 my-1 d-flex align-items-center justify-content-center"
-                      href="browse-select.html?id={{data[" id"]}}">
-                      Compare Against Another Device
+                    <a class="btn btn-primary text-white bg-primary py-3 link my-1 d-flex align-items-center justify-content-center"
+                      href="/browse-select.html?id={{data["id"]}}">
+                      <h4>
+                        Compare Against Another Device
+                      </h4>
                     </a>
                   </div>
-                  <a class="btn text-white bg-dark link p-md-1 my-1 d-flex align-items-center justify-content-center"
+                  <a class="btn btn-dark text-white bg-dark py-2 link my-1 d-flex align-items-center justify-content-center"
                     data-bs-toggle="collapse" href="#collapseContent1" role="button" aria-expanded="false"
-                    aria-controls="collapseContent1">More</a>
+                    aria-controls="collapseContent1">More Details</a>
                 </div>
               </div>
             </div>
