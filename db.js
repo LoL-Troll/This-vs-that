@@ -137,13 +137,19 @@ async function getDeviceBrands(category) {
 
     return result;
 }
+async function getDeviceByBrand(brand,category){
+    const db =await open();
+    const result  = await db.all(`SELECT name,id from device where manufacturer = "${brand}" and category = "${category}"`);
+    await db.close();
+    return result;
+}
 
 async function getDeviceByID(id) {
     const db = await open();
 
-    console.log(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
-    const result = await db.all(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
-    console.log(result);
+    // console.log(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
+    const result = await db.get(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
+    // console.log(result);
     await db.close();
 
     return result;
@@ -222,7 +228,8 @@ module.exports = {
     addDevice,
     addMonitor,
     getUserById,
-    updateHistory
+    updateHistory,
+    getDeviceByBrand,
 }
 
 

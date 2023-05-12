@@ -6,8 +6,9 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 
 const app = express();
-const port = 8000;
-
+const port = 8001;
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 app.use("/styles", express.static("styles"));
 app.use("/assets", express.static("assets"));
 app.use("/scripts", express.static("scripts"));
@@ -178,13 +179,7 @@ app.post("/postingReview", async (req, res) => {
 });
 
 
-app.get("/modify-product.html", (req, res) => {
-    if (req.user.usertype === "admin") {
-        res.render('modify-product.html', { user: req.user });
-    } else {
-        res.redirect("/");
-    }
-});
+
 
 app.get("/profile-edit.html", async (req, res) => {
     if (req.user) {
@@ -372,6 +367,48 @@ app.post("/postingProduct", async (req, res) => {
 });
 
 
+
+app.post('/brand',async (req,res)=> {
+    let brands = await db.getDeviceBrands(req.body.catagoery);
+    // console.log(brands);
+    res.json(brands);
+});
+
+app.post('/device',async (req,res)=> {
+
+    let devices = await db.getDeviceByBrand(req.body.name, req.body.catagoery);
+
+    res.json(devices);
+});
+
+app.post('/getDevice', async (req,res)=>{
+    let device = await db.getDeviceByID(req.id);
+    res.json(device);
+})
+app.post("/modify.html", async (req, res) => {
+    
+    // let device = await db.getDeviceByID(req.body.id);
+    // console.log(device);
+    console.log(req.body)
+    console.log(req.body.id)
+    res.redirect("/modify.html?id=" + req.body.id);
+
+    // res.redirect("modify.html");
+});
+app.get("/modify.html",async (req,res) =>{
+    if(!req.query.id){
+        res.render("modify.html");
+   }
+   else{
+    let device = await db.getDeviceByID(req.query.id);
+    res.render("modify.html",{device:device});
+   }
+   
+})
+app.get("/modify-product.html", async (req,res)=>{
+    res.render("modify-product.html");
+
+})
 
 
 
