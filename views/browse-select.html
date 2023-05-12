@@ -23,11 +23,11 @@
                     <h2>Filter</h2>
                     <button type="submit" class="btn btn-light apply-filter">Apply Filter</button>
                 </div>
-                                
+
                 <h4>Sort By</h4>
                 <select name="sort" id="sort" class="m-auto">
                     <option value="type" selected>Device Type</option>
-                    <option value="AZname" >A to Z (Name)</option>
+                    <option value="AZname">A to Z (Name)</option>
                     <option value="ZAname">Z to A (Name)</option>
                     <option value="AZmodel">A to Z (Model)</option>
                     <option value="ZAmodel">Z to A (Model)</option>
@@ -124,7 +124,8 @@
                         <label>Headset</label>
                     </div>
                     <div>
-                        <input type="checkbox" name="Type" id="monitor" value="'monitor'" onchange="showMonitorBrands()">
+                        <input type="checkbox" name="Type" id="monitor" value="'monitor'"
+                            onchange="showMonitorBrands()">
                         <label>Monitor</label>
                     </div>
                     <div>
@@ -215,21 +216,31 @@
         <section class="catagories container-fluid justify-content-center text-center px-auto mx-auto">
             <div class="row column-gap-5 row-gap-5 justify-content-center">
                 {% for item in items %}
-                <button id={{item.id}} isSelected="" class="myButton product-card col-lg col-auto" onclick="selectButton(this)">
+                <button id={{item.id}} isSelected="" class="myButton product-card col-lg col-auto"
+                    onclick="selectButton(this)">
                     <img src="{{item.picture}}" alt="{{item.category}}" class="card-img" />
                     <p class="card-title product-title mt-auto">{{item.name}}</p>
                 </button>
                 {%endfor%}
                 <br>
             </div>
-            
+
         </section>
     </div>
-    <div class="floating-btn" onclick="window.location.href=`${sendElements()}`">
-        <div style="color: gray;">Compare</div>
+
+    <div class="d-flex flex-row justify-content-between fixed-bottom p-4"
+        style="background-color: #e8e8e8;    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    ">
+        <h5 class="my-auto">Selected Devices:</h5>
+        <ul id="selected_devices_tags" class="text-start d-flex flex-wrap container my-auto">
+
+        </ul>
+        <button class="btn btn-primary" onclick="window.location.href=`${sendElements()}`">
+            Compare Selected Devices
+        </button>
     </div>
+
     <script defer>
-        var id = String({{id}});
+        var id = String({{ id }});
         var button = document.getElementById(id)
         selectButton(button);
     </script>

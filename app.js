@@ -116,6 +116,7 @@ app.get("/browse.html", async (req, res) => {
     let keyboardBrands = await db.getDeviceBrands("keyboard");
     let phoneBrands = await db.getDeviceBrands("phone");
     let monitorBrands = await db.getDeviceBrands("monitor");
+
     res.render('browse.html', {
         user: req.user,
         items: devices,
@@ -123,15 +124,58 @@ app.get("/browse.html", async (req, res) => {
         mouseBrands: mouseBrands,
         keyboardBrands: keyboardBrands,
         phoneBrands: phoneBrands,
-        monitorBrands: monitorBrands
+        monitorBrands: monitorBrands,
+        filters: req.query
     });
+});
+
+app.get('/browse-select.html', async (req, res) => {
+    let sort = req.query.sort;
+    let type = req.query.Type;
+    let id = req.query.id;
+
+
+    let mouse_brand = req.query.mouse_brand;
+    let keyboard_brand = req.query.keyboard_brand;
+    let monitor_brand = req.query.monitor_brand;
+    let headset_brand = req.query.headset_brand;
+    let phone_brand = req.query.phone_brand;
+
+
+
+    // Redirect instead of render?
+    let devices = await db.getAllDevices
+        (type, {
+            mouse_brand: mouse_brand,
+            keyboard_brand: keyboard_brand,
+            monitor_brand: monitor_brand,
+            headset_brand: headset_brand,
+            phone_brand: phone_brand
+        }, sort
+        );
+    let headsetBrands = await db.getDeviceBrands("headset");
+    let mouseBrands = await db.getDeviceBrands("mouse");
+    let keyboardBrands = await db.getDeviceBrands("keyboard");
+    let phoneBrands = await db.getDeviceBrands("phone");
+    let monitorBrands = await db.getDeviceBrands("monitor");
+    res.render('browse-select.html', {
+        items: devices,
+        headsetBrands: headsetBrands,
+        mouseBrands: mouseBrands,
+        keyboardBrands: keyboardBrands,
+        phoneBrands: phoneBrands,
+        monitorBrands: monitorBrands,
+        id: id
+    });
+
+
 });
 
 app.get("/compare", async (req, res) => {
     let devices = [];
 
-    for (const key in req.query) {
-        devices.push((await db.getDeviceByID(req.query[key]))[0]);
+    for (const id in req.query) {
+        devices.push((await db.getDeviceByID(req.query[id]))[0]);
     }
     res.render('compare.html', { user: req.user, devices: devices });
 });
@@ -142,7 +186,7 @@ app.get("/contact.html", (req, res) => {
 
 app.get("/history.html", async (req, res) => {
     // user only
-    
+
     console.log("VVVVVVVVVVVVVVVV");
     if (req.user) {
         let devicesHistory = await db.getHistory(req.user.userid);
@@ -164,15 +208,16 @@ app.get("/item/:id", async (req, res) => {
     const reviews = await db.getAllReviews();
 
     //load prices
-    var jarPrice = await dataParser.getJarirPrice(devices["jarir_link"]);
+    var jarirPrice = await dataParser.getJarirPrice(devices["jarir_link"]);
     var noonPrice = await dataParser.getNoonPrice(devices["noon_link"]);
+
 
     // save into history of user (if signed in)
     if (req.user) {
         await db.updateHistory(req.user.userid, id)
     }
 
-    res.render(`item.html`, { user: req.user, data: devices, reviews: reviews, jarir_price: jarPrice, noon_price: noonPrice});
+    res.render(`item.html`, { user: req.user, data: devices, reviews: reviews, jarir_price: jarirPrice, noon_price: noonPrice });
 });
 
 

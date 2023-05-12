@@ -7,6 +7,10 @@
     font-family: IBMPlex;
 }
 
+li {
+    list-style: none;
+}
+
 nav {
 
     font-size: calc(0.5rem + 1vw);
