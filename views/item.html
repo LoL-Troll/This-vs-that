@@ -7,6 +7,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
+{% block pageScripts %}
+    <script src="/scripts/item.js"></script>
+{% endblock %}
+
 "{% block content %}"
 
 <main class="p-5">
@@ -671,66 +675,66 @@
                     </div>
 
                     <a class="btn btn-primary text-white bg-primary py-3 link my-1 d-flex align-items-center justify-content-center"
-                      href="/browse-select.html?id={{data["id"]}}&Type='{{data["category"]}}'">
+                      href="/browse-select.html?id={{data[" id"]}}&Type='{{data["category"]}}'">
                       <h4>
                         Compare Against Another Device
                       </h4>
                     </a>
                   </div>
-                  <a class="btn btn-dark text-white bg-dark py-2 link my-1 d-flex align-items-center justify-content-center"
-                    data-bs-toggle="collapse" href="#collapseContent1" role="button" aria-expanded="false"
-                    aria-controls="collapseContent1">More Details</a>
+                  <a class=" btn btn-dark text-white bg-dark py-2 link my-1 d-flex align-items-center
+                      justify-content-center" data-bs-toggle="collapse" href="#collapseContent1" role="button"
+                      aria-expanded="false" aria-controls="collapseContent1">More Details</a>
+                  </div>
                 </div>
               </div>
-            </div>
 
 
 
-            <!-- Post Review -->
+              <!-- Post Review -->
 
-            {% if user %}
-            <div class="card-footer py-3 border-0 rounded ">
-              <div class="d-flex flex-start w-100">
-                <img class="rounded-circle shadow-1-strong me-3" src=".{{user.picture}}" alt="avatar" width="40"
-                  height="40" />
-                <div class="form-outline w-100">
+              {% if user %}
+              <div class="card-footer py-3 border-0 rounded ">
+                <div class="d-flex flex-start w-100">
+                  <img class="rounded-circle shadow-1-strong me-3" src=".{{user.picture}}" alt="avatar" width="40"
+                    height="40" />
+                  <div class="form-outline w-100">
 
-                  <form action="/postingReview" method="POST" id="reviewForm">
-                    <textarea name="comment" class="form-control" id="textAreaExample" rows="4"></textarea>
-                    <label class="form-label" for="textAreaExample">Review</label>
-                    <br>
-                    
-                    <!-- Stars Rating (source: https://codepen.io/anefzaoui/pen/NWPZzMa) -->
-                    <fieldset class="rate">
-                      <input type="radio" id="rating10" name="rating" value="5" />
-                      <label class="label-rate" for="rating10" title="5 stars"></label>
-                      <input type="radio" id="rating8" name="rating" value="4" />
-                      <label class="label-rate" for="rating8" title="4 stars"></label>
-                      <input type="radio" id="rating6" name="rating" value="3" />
-                      <label class="label-rate" for="rating6" title="3 stars"></label>
-                      <input type="radio" id="rating4" name="rating" value="2" />
-                      <label class="label-rate" for="rating4" title="2 stars"></label>
-                      <input type="radio" id="rating2" name="rating" value="1" />
-                      <label class="label-rate" for="rating2" title="1 star"></label>
-                    </fieldset>
+                    <form action="/postingReview" method="POST" id="reviewForm">
+                      <textarea name="comment" class="form-control" id="textAreaExample" rows="4"></textarea>
+                      <label class="form-label" for="textAreaExample">Review</label>
+                      <br>
 
-                    <input type="hidden" name="deviceid" value="{{data.id}}">
+                      <!-- Stars Rating (source: https://codepen.io/anefzaoui/pen/NWPZzMa) -->
+                      <fieldset class="rate">
+                        <input type="radio" id="rating10" name="rating" value="5" />
+                        <label class="label-rate" for="rating10" title="5 stars"></label>
+                        <input type="radio" id="rating8" name="rating" value="4" />
+                        <label class="label-rate" for="rating8" title="4 stars"></label>
+                        <input type="radio" id="rating6" name="rating" value="3" />
+                        <label class="label-rate" for="rating6" title="3 stars"></label>
+                        <input type="radio" id="rating4" name="rating" value="2" />
+                        <label class="label-rate" for="rating4" title="2 stars"></label>
+                        <input type="radio" id="rating2" name="rating" value="1" />
+                        <label class="label-rate" for="rating2" title="1 star"></label>
+                      </fieldset>
 
-                    <div class="float-end mt-2 pt-1">
-                      <button type="submit" class="btn btn-primary btn-sm">
-                        Post Review
-                      </button>
-                    </div>
-                  </form>
+                      <input type="hidden" name="deviceid" value="{{data.id}}">
+
+                      <div class="float-end mt-2 pt-1">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                          Post Review
+                        </button>
+                      </div>
+                    </form>
+                  </div>
                 </div>
               </div>
-            </div>
-            {% endif %}
+              {% endif %}
 
+            </div>
           </div>
         </div>
       </div>
-    </div>
   </section>
 
   <!-- source (modified): https://mdbootstrap.com/docs/standard/extended/comments/ -->
@@ -745,7 +749,7 @@
 
               <div id="comments" class="d-flex flex-column-reverse">
                 {% for review in reviews %}
-                <div class="row comment">
+                <div class="row comment" id="{{review.reviewID}}">
                   <div class="col">
                     <div class="d-flex flex-start mt-4">
                       <img class="rounded-circle shadow-1-strong me-3" src=".{{review.picture}}" alt="avatar" width="65"
@@ -771,8 +775,9 @@
                           </p>
                         </div>
                       </div>
-
-                      <button class="btn btn-danger my-3">Delete</button>
+                      {% if user.usertype == "admin" %}
+                      <button class="btn btn-danger my-3" onclick="deleteReview({{review.reviewID}})">Delete</button>
+                      {% endif %}
                     </div>
                   </div>
                 </div>

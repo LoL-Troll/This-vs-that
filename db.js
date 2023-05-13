@@ -223,7 +223,12 @@ async function getAllReviews(deviceID) {
     return result;
 }
 
-
+async function deleteReview(review_id) {
+    const db = await open();
+    const result = await db.run(`delete from review where reviewID = ${review_id}`)
+    await db.close();
+    return result;
+}
 
 async function addDevice(model, brand, image, product_category) {
     console.log(454);
@@ -263,7 +268,8 @@ module.exports = {
     getUserById,
     updateHistory,
     getHistory,
-    getDeviceByBrand
+    getDeviceByBrand,
+    deleteReview,
 }
 
 
