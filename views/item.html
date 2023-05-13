@@ -8,10 +8,10 @@
 {% endblock %}
 
 {% block pageScripts %}
-    <script src="/scripts/item.js"></script>
+<script src="/scripts/item.js"></script>
 {% endblock %}
 
-"{% block content %}"
+{% block content %}
 
 <main class="p-5">
   <section>
@@ -34,7 +34,7 @@
                       <div class="row">
                         <h4>Jarir Current Price</h4>
                         <p>
-                          {{(jarir_price + " SAR") if data["jarir_link"] else "Not Available"}}
+                          {{(jarir_price + " SAR") if jarir_price !== "Not Available" else "Not Available"}}
                           {% if (data["jarir_link"] and (jarir_price != "Not Available")) %}
                           <span>
                             <a href={{data["jarir_link"]}}>
@@ -54,7 +54,7 @@
                       <div class="row">
                         <h4>Noon Current Price</h4>
                         <p>
-                          {{(noon_price + " SAR") if data["noon_link"] else "Not Available"}}
+                          {{(noon_price + " SAR") if (noon_price !== "Not Available") else "Not Available"}}
                           {% if (data["noon_link"] and (noon_price != "Not Avaliable") ) %}
                           <span>
                             <a href={{data["noon_link"]}}>
@@ -668,9 +668,6 @@
                         </div>
 
                         {% endif %}
-
-
-
                       </div>
                     </div>
 
@@ -687,7 +684,6 @@
                   </div>
                 </div>
               </div>
-
 
 
               <!-- Post Review -->
@@ -736,6 +732,38 @@
         </div>
       </div>
   </section>
+
+  <div class="container my-5 py-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xl-8">
+        <div class="card">
+          <section class="mx-3">
+            <div class="d-flex justify-content-between mb-3">
+              <h2>Similar Devices from the Same Brand</h2>
+            </div>
+            <div class="container">
+              <div class="row px-auto">
+                {% for product in similar_devices %}
+                {% if loop.index0 < 5 %} <a href="/item/{{product.id}}" class="device-card-1 col text-center">
+                  <img src="{{product.picture}}" alt="Phones" class="img-fluid">
+                  <h6>{{product.name}}</h6>
+                  </a>
+                  {% endif %}
+                  {%endfor%}
+              </div>
+            </div>
+          </section>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
 
   <!-- source (modified): https://mdbootstrap.com/docs/standard/extended/comments/ -->
   <!-- Reviews -->
