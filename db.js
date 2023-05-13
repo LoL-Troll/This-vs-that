@@ -106,27 +106,27 @@ async function getAllDevices(category, brands, sort) {
     // if there are filters for mouses
     if (brands.mouse_brand != undefined) {
         // if there was no filters on brands, then create new filter, otherwise append another filter using or
-        filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (manufacturer in (${brands.mouse_brand})) `;
+        filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (category = "mouse" and manufacturer in (${brands.mouse_brand})) `;
     } ``
 
     // if there are filters for keyboard brands
     if (brands.keyboard_brand != undefined) {
-        filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (manufacturer in (${brands.keyboard_brand}))`;
+        filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (category = "keyboard" and manufacturer in (${brands.keyboard_brand}))`;
     }
 
     // if there are filters for monitor brands
     if (brands.monitor_brand != undefined) {
-        filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (manufacturer in (${brands.monitor_brand}))`;
+        filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (category = "monitor" and manufacturer in (${brands.monitor_brand}))`;
     }
 
     // if there are filters for headset brands
     if (brands.headset_brand != undefined) {
-        filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (manufacturer in (${brands.headset_brand}))`;
+        filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (category = "headset" and manufacturer in (${brands.headset_brand}))`;
     }
 
     // if there are filters for phone brands
     if (brands.phone_brand != undefined) {
-        filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (manufacturer in (${brands.phone_brand}))`;
+        filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (category = "phone" and manufacturer in (${brands.phone_brand}))`;
     }
 
     let sortBy = "";
@@ -142,7 +142,7 @@ async function getAllDevices(category, brands, sort) {
         sortBy = "order by category asc";
     }
 
-
+    console.log(`select * from device where ${filterCategory} and (${filterBrands}) ${sortBy}`);
     const db = await open();
     const result = await db.all(`select * from device where ${filterCategory} and (${filterBrands}) ${sortBy}`);
     await db.close();
