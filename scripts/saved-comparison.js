@@ -19,3 +19,16 @@ async function sendElements(id) {
     returnedString += "id" + selectedItems.length + "=" + selectedItems[selectedItems.length - 1]
     window.location.href = returnedString;
 }
+
+async function deleteComparisons(id){
+    const res = await fetch("/comparisonID", {
+        method: "DELETE",
+        body: JSON.stringify({ comparisonID: id}),
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+    
+    window.location.href = "/saved-comparison.html";
+}

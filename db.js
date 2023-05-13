@@ -307,6 +307,12 @@ async function addComparison(user,id1,id2,id3,id4){
     await db.close();
 }
 
+async function deleteComparison(comparisonID){
+    const db = await open();
+    
+    db.run(`DELETE FROM comparison WHERE comparisonID= ${comparisonID}`);
+    await db.close();
+}
 async function getComparisons(userID){
     const db = await open();
 
@@ -349,9 +355,8 @@ module.exports = {
     addHeadset,
     addComparison,
     getComparisons,
-    getComparisonsIDs
-
+    getComparisonsIDs,
+    deleteComparison
 }
-// showComparison
 
 

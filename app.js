@@ -402,6 +402,10 @@ app.post("/comparisonID", async (req,res)=>{
     console.log(ids[0]);
     res.json((ids[0]));
 });
+app.delete("/comparisonID", async (req,res)=>{
+    let ids = await db.deleteComparison(req.body.comparisonID);
+    res.status(200).send();
+});
 
 app.post("/search", async (req, res) => {
     res.redirect("browse.html?search=" + req.body.search);
@@ -687,3 +691,6 @@ app.post("/postingProduct", async(req,res) =>{
 
 });
 
+app.post("/save",async(req,res)=>{
+
+});

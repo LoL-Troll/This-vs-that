@@ -17,7 +17,6 @@
                     <h2>Saved Comparisons</h2>
                     <hr>
                     <ul class="list list-inline">
-                        <!-- comparison 1 -->
                         {%set number = -1%}
                         {%for comparison in comparisons%}
                         <li class="d-flex justify-content-between my-3">
@@ -25,7 +24,7 @@
                             {%set id = comparison[number]['comparisonID'] %}
                             <div class="d-flex flex-row">
                                 <button onclick="sendElements({{id}})" class="btn btn-primary mx-1">View</button>
-                                <button class="btn btn-danger mx-1">Delete</button>
+                                <button onclick = "deleteComparisons({{id}})" class="btn btn-danger mx-1">Delete</button>
                             </div>
                             
 
