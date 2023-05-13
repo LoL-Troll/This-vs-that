@@ -483,10 +483,13 @@ app.get("/profile-edit.html", async (req, res) => {
 
 
 app.post("/profile-edit", async (req, res) => {
-    const profile_img = req.files.image;
-    // req.session.userId + ".jpg"
-    image_path = "./assets/profile_pics/" + req.session.userId + ".jpg"
-    profile_img.mv(image_path);
+    if (req.files) {
+        const profile_img = req.files.image;
+        image_path = "./assets/profile_pics/" + req.session.userId + ".jpg"
+        profile_img.mv(image_path);
+
+        req.user.picture = image_path;
+    }
 
 
     let newName = req.body.name;
@@ -494,7 +497,6 @@ app.post("/profile-edit", async (req, res) => {
     // todo profile picture
     req.user.name = newName;
     req.user.username = newUsername;
-    req.user.picture = image_path;
 
 
     await db.updateUser(req.user.userid, req.user);
