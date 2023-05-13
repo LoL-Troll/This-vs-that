@@ -7,7 +7,7 @@ const db = require("./db.js");
 const dataParser = require("./dataParser.js");
 
 const app = express();
-const port = 8000;
+const port = 8001;
 
 app.use("/styles", express.static('styles'));
 app.use("/assets", express.static('assets'));
@@ -182,6 +182,12 @@ app.get("/compare", async (req, res) => {
     res.render('compare.html', { user: req.user, devices: devices });
 });
 
+app.post("/save", async (req,res)=>{
+    console.log(req.body);
+});
+
+
+
 app.get("/contact.html", (req, res) => {
     res.render('contact.html', { user: req.user });
 });
@@ -237,7 +243,7 @@ app.post("/postingReview", async (req, res) => {
 
 app.post('/brand', async (req, res) => {
     let brands = await db.getDeviceBrands(req.body.catagoery);
-    console.log(brands, req.body);
+    // console.log(brands, req.body);
     res.json(brands);
 });
 
@@ -249,18 +255,18 @@ app.post('/device', async (req, res) => {
 });
 
 app.get("/modify.html", async (req, res) => {
-    console.log("????????????????????????????????????????????????????????");
+    // console.log("????????????????????????????????????????????????????????");
     if (!req.query.id) {
-        console.log("NO ID");
+        // console.log("NO ID");
         res.render("modify.html");
     }
     else {
-        console.log("===========");
-        console.log(req.query.id);
-        console.log("===========");
+        // console.log("===========");
+        // console.log(req.query.id);
+        // console.log("===========");
         let device = (await db.getDeviceByID(req.query.id))[0];
 
-        console.log("EIJROIEUJIOPEWJFOEWFPIOWEFIH", device);
+        // console.log("EIJROIEUJIOPEWJFOEWFPIOWEFIH", device);
         res.render("modify.html", { device: device });
     }
 
@@ -347,7 +353,7 @@ app.get("/profile.html", (req, res) => {
 
 app.get("/saved-comparison.html", (req, res) => {
     if (req.user) {
-        res.render('saved-comparison.html', { user: req.user });
+        res.render('saved-comparsion.html', { user: req.user });
     } else {
         res.redirect("/");
     }
@@ -408,7 +414,7 @@ app.post("/signup.html", async (req, res) => {
 
 
 app.post("/signup", async (req, res) => {
-    console.log("Entered the node js");
+    // console.log("Entered the node js");
     let username = req.body.username;
     let email = req.body.email;
     let password = req.body.password;
@@ -416,56 +422,279 @@ app.post("/signup", async (req, res) => {
     res.redirect("/signin.html");
 });
 
-app.post("/postingProduct", async (req, res) => {
+// app.post("/postingProduct/:id", async (req, res) => {
+//     console.log("Entered the postingProduct");
+//     console.log(req.params.id);
+//     //General Information
+//     // let product_categorie = req.body.product_categorie;
+
+//     // let image = req.body.image;
+//     // let brand = req.body.brand;
+//     // let model = req.body.model;
+//     // let width = req.body.width;
+//     // let height = req.body.height;
+//     // let length = req.body.length;
+//     // let weight = req.body.weight;
+
+//     // //Common betweeen Phone and Monitor
+//     // let horizontal = req.body.horizontal;
+//     // let vertical = req.body.vertical;
+//     // let screen_size = req.body.screen_size;
+//     // var refresh_rate = req.body.refresh_rate;
+//     // let pixel_density = req.body.pixel_density
+//     // let brightness = req.body.brightness;
+
+//     // //Monitor
+//     // let display_type = req.body.display_type;
+//     // let panel = req.body.panel;
+//     // var refresh_rate = req.body.refresh_rate;
+//     // let response_time = req.body.response_time;
+
+//     // //Phone
+//     // let ram = req.body.ram;
+//     // let battery = req.body.battery;
+//     // let storage = req.body.internal_storage;
+//     // let mega_pixel = req.body.mega_pixel;
+//     // let sim = req.body.sim;
+//     // let charging = req.body.charging_speed;
+//     // let resistance = req.body.resistance;
+//     // let wirless_charing = req.body.wirless_charing
+//     // let fingerprint = req.body.Fingerprint;
+
+//     // if (product_categorie === "Monitor") {
+//     //     db.addMonitor(screen_size, horizontal, vertical, refresh_rate, response_time, panel, brightness);
+//     //     db.addDevice(model, brand, image, product_categorie);
+//     //     res.render("/add-product.html");
+//     // }
+
+// });
+
+app.delete('/delete', async (req,res) =>{
+    console.log("entered");
+    console.log(req.body.id);
+    let deleteDevice = db.deleteDevice(req.body.id);
+    // res.statusCode(200);   
+    res.status(200).send();
+})
+
+
+
+app.post("/modifyingPrdouct/:id/:category", async(req,res) =>{
     console.log("Entered the postingProduct");
 
     //General Information
-    // let product_categorie = req.body.product_categorie;
+   
 
-    // let image = req.body.image;
-    // let brand = req.body.brand;
-    // let model = req.body.model;
-    // let width = req.body.width;
-    // let height = req.body.height;
-    // let length = req.body.length;
-    // let weight = req.body.weight;
 
-    // //Common betweeen Phone and Monitor
-    // let horizontal = req.body.horizontal;
-    // let vertical = req.body.vertical;
-    // let screen_size = req.body.screen_size;
-    // var refresh_rate = req.body.refresh_rate;
-    // let pixel_density = req.body.pixel_density
-    // let brightness = req.body.brightness;
+    if(req.params.category === "monitor"){
+        var width = req.body.resolution_x;
+        var height = req.body.resolution_y;
+        var size = req.body.size;
+        var panel_type = req.body.panel_type;
+        var refresh_rate = req.body.refresh_rate;
+        var response_time = req.body.response_time;
+        var brightness = req.body.brightness;
+        var color = req.body.color;
+        var wide_screen = req.body.wide_screen;
+        var curve_screen = req.body.curve_screen;
+        var speakers = req.body.speakers;
+        db.addMonitor(width,height,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers);
+        db.addDevice(model, brand, image, product_categorie);
+        res.render("/add-product.html");
+    }
 
-    // //Monitor
-    // let display_type = req.body.display_type;
-    // let panel = req.body.panel;
-    // var refresh_rate = req.body.refresh_rate;
-    // let response_time = req.body.response_time;
+    else if(req.params.category  === "phone"){
+        var length = req.body.length;
+        var width = req.body.width;
+        var depth = req.body.depth;
+        var screen_size = req.body.screen_size;
+        var IP_rating = req.body.IP_rating;
+        var display_type = req.body.display_type;
+        var screen_to_body_ratio = req.body.screen_to_body_ratio;
+        var weight = req.body.weight;
+        var frequency = req.body.frequency;
+        var resolution_x = req.body.resolution_x;
+        var resolution_y = req.body.resolution_y;
+        var pixel_density = req.body.pixel_density;
+        var cpu = req.body.cpu;
+        var chipset = req.body.chipset;
+        var gpu = req.body.gpu;
+        var memory = req.body.memory;
+        var camera = req.body.camera;
+        var phone_video = req.body.phone_video;
+        var phone_selfie_camera = req.body.phone_selfie_camera;
+        var battery = req.body.battery;
+        var sensors = req.body.sensors;
+        var charging_speed = req.body.charging-speed;
+        var os = req.body.os;
+        var headphone_jack = req.body.headphone_jack;
+        var colors = req.body.colors;
 
-    // //Phone
-    // let ram = req.body.ram;
-    // let battery = req.body.battery;
-    // let storage = req.body.internal_storage;
-    // let mega_pixel = req.body.mega_pixel;
-    // let sim = req.body.sim;
-    // let charging = req.body.charging_speed;
-    // let resistance = req.body.resistance;
-    // let wirless_charing = req.body.wirless_charing
-    // let fingerprint = req.body.Fingerprint;
+        db.addMonitor(length,width,depth,screen_size,IP_rating, display_type, screen_to_body_ratio,weight,frequency,resolution_x,resolution_y,pixel_density,cpu,chipset,gpu,memory,camera,phone_video,phone_selfie_camera,battery,sensors,charging_speed,os,headphone_jack,colors);
+        db.addDevice(model, brand, image, product_categorie);
+        res.render("/add-product.html");
+    }
 
-    if (product_categorie === "Monitor") {
-        db.addMonitor(screen_size, horizontal, vertical, refresh_rate, response_time, panel, brightness);
+    else if(req.params.category === "mouse"){
+        var length = req.body.length;
+        var width = req.body.width;
+        var height = req.body.height;
+        var weight = req.body.weight;
+        var sensor_type = req.body.sensor_type;
+        var dpi = req.body.dpi;
+        var max_acceleration = req.body.max_acceleration;
+        var max_tracking_speed = req.body.max_tracking_speed;
+        var polling_rate = req.body.polling_rate;
+        var connectivity = req.body.connectivity;
+        var number_of_buttons = req.body.number_of_buttons;
+        var color = req.body.color;
+        var onboard_memory = req.body.onboard_memory;
+        var led_lighting = req.body.led_lighting;
+        var adjustable_weight = req.body.adjustable_weight;
+        db.addMouse(length,width,height,weight,sensor_type,dpi,max_acceleration,max_tracking_speed,polling_rate,connectivity,number_of_buttons,color,onboard_memory,led_lighting,adjustable_weight);
+        db.addDevice(model, brand, image, product_categorie);
+        res.render("/add-product.html");
+    }
+
+    else if(req.params.category === "keyboard"){
+        var style = req.body.style;
+        var switch_type = req.body.switch_type;
+        var backlit = req.body.backlit;
+        var tenkeyless = req.body.tenkeyless;
+        var connection_type = req.body.connection_type;
+        var color = req.body.color;
+        db.addMonitor(style,switch_type,backlit,tenkeyless,connection_type, color);
+        db.addDevice(model, brand, image, product_categorie);
+        res.render("/add-product.html");
+    }
+
+    else{
+        var type = req.body.type;
+        var max_frequency_response = req.body.max_frequency_response;
+        var michrophone = req.body.michrophone;
+        var wireless = req.body.wireless;
+        var encloser_type = req.body.encloser_type;
+        var color = req.body.color;
+        var active_noise_cancelling = req.body.active_noise_cancelling;
+        var channels = req.body.channels;
+        var sensitivity = req.body.sensitivity;
+        var impedance = req.body.impedance;
+        db.addHeadset(type,max_frequency_response,michrophone, wireless ,encloser_type,color, active_noise_cancelling, channels, sensitivity, impedance);
         db.addDevice(model, brand, image, product_categorie);
         res.render("/add-product.html");
     }
 
 });
+app.post("/postingProduct", async(req,res) =>{
+    console.log("Entered the postingProduct");
+
+    //General Information
+    var product_category = req.body.product_category;
+
+    var image = req.body.image;
+    var brand = req.body.brand;
+    var model = req.body.model;
 
 
+    if(product_categorie === "monitor"){
+        var width = req.body.resolution_x;
+        var height = req.body.resolution_y;
+        var size = req.body.size;
+        var panel_type = req.body.panel_type;
+        var refresh_rate = req.body.refresh_rate;
+        var response_time = req.body.response_time;
+        var brightness = req.body.brightness;
+        var color = req.body.color;
+        var wide_screen = req.body.wide_screen;
+        var curve_screen = req.body.curve_screen;
+        var speakers = req.body.speakers;
+        db.addDevice(model, brand, image, product_categorie);
+        let id = db.getDeviceID(brand,model);
+        db.addMonitor(width,height,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers);
+        
+        res.render("/add-product.html");
+    }
 
+    else if(product_category === "phone"){
+        var length = req.body.length;
+        var width = req.body.width;
+        var depth = req.body.depth;
+        var screen_size = req.body.screen_size;
+        var IP_rating = req.body.IP_rating;
+        var display_type = req.body.display_type;
+        var screen_to_body_ratio = req.body.screen_to_body_ratio;
+        var weight = req.body.weight;
+        var frequency = req.body.frequency;
+        var resolution_x = req.body.resolution_x;
+        var resolution_y = req.body.resolution_y;
+        var pixel_density = req.body.pixel_density;
+        var cpu = req.body.cpu;
+        var chipset = req.body.chipset;
+        var gpu = req.body.gpu;
+        var memory = req.body.memory;
+        var camera = req.body.camera;
+        var phone_video = req.body.phone_video;
+        var phone_selfie_camera = req.body.phone_selfie_camera;
+        var battery = req.body.battery;
+        var sensors = req.body.sensors;
+        var charging_speed = req.body.charging-speed;
+        var os = req.body.os;
+        var headphone_jack = req.body.headphone_jack;
+        var colors = req.body.colors;
 
+        db.addMonitor(length,width,depth,screen_size,IP_rating, display_type, screen_to_body_ratio,weight,frequency,resolution_x,resolution_y,pixel_density,cpu,chipset,gpu,memory,camera,phone_video,phone_selfie_camera,battery,sensors,charging_speed,os,headphone_jack,colors);
+        db.addDevice(model, brand, image, product_categorie);
+        res.render("/add-product.html");
+    }
 
+    else if(product_category === "mouse"){
+        var length = req.body.length;
+        var width = req.body.width;
+        var height = req.body.height;
+        var weight = req.body.weight;
+        var sensor_type = req.body.sensor_type;
+        var dpi = req.body.dpi;
+        var max_acceleration = req.body.max_acceleration;
+        var max_tracking_speed = req.body.max_tracking_speed;
+        var polling_rate = req.body.polling_rate;
+        var connectivity = req.body.connectivity;
+        var number_of_buttons = req.body.number_of_buttons;
+        var color = req.body.color;
+        var onboard_memory = req.body.onboard_memory;
+        var led_lighting = req.body.led_lighting;
+        var adjustable_weight = req.body.adjustable_weight;
+        db.addMouse(length,width,height,weight,sensor_type,dpi,max_acceleration,max_tracking_speed,polling_rate,connectivity,number_of_buttons,color,onboard_memory,led_lighting,adjustable_weight);
+        db.addDevice(model, brand, image, product_categorie);
+        res.render("/add-product.html");
+    }
 
+    else if(product_category === "keyboard"){
+        var style = req.body.style;
+        var switch_type = req.body.switch_type;
+        var backlit = req.body.backlit;
+        var tenkeyless = req.body.tenkeyless;
+        var connection_type = req.body.connection_type;
+        var color = req.body.color;
+        db.addMonitor(style,switch_type,backlit,tenkeyless,connection_type, color);
+        db.addDevice(model, brand, image, product_categorie);
+        res.render("/add-product.html");
+    }
+
+    else{
+        var type = req.body.type;
+        var max_frequency_response = req.body.max_frequency_response;
+        var michrophone = req.body.michrophone;
+        var wireless = req.body.wireless;
+        var encloser_type = req.body.encloser_type;
+        var color = req.body.color;
+        var active_noise_cancelling = req.body.active_noise_cancelling;
+        var channels = req.body.channels;
+        var sensitivity = req.body.sensitivity;
+        var impedance = req.body.impedance;
+        db.addHeadset(type,max_frequency_response,michrophone, wireless ,encloser_type,color, active_noise_cancelling, channels, sensitivity, impedance);
+        db.addDevice(model, brand, image, product_categorie);
+        res.render("/add-product.html");
+    }
+
+});
 

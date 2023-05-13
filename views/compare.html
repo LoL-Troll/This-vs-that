@@ -12,11 +12,14 @@
 
 {% block content %}
 <div class="container">
+  <form action="save" method="post">
+  <div class="column">
   <div class="row">
 
       <!-- Device card -->
       {% for data in devices %}
-      <div class="col" id="device-{{data["id"]}}">
+     
+      <div class="col" id="device-{{data["id"]}}"  name = "{{data["id"]}}">
         <section class="mx-auto my-5" style="max-width: 23rem">
 
             <div class="card">
@@ -622,7 +625,13 @@
             </div>
         </section>
      </div>
+
      {% endfor %}
   </div>
+  <div class="text-center">
+    <button type="submit"  class="btn btn-primary text-center p-3">Save Comparison</button>
+</div>
+</div>
+</form>
 </div>
 {% endblock %}

@@ -9,7 +9,7 @@ async function open() {
 }
 
 async function getAllDevices() {
-    console.log(1);
+    // console.log(1);
     const db = await open();
     const result = await db.all('select * from device');
     await db.close();
@@ -18,10 +18,10 @@ async function getAllDevices() {
 }
 
 async function getUserById(id) {
-    console.log(2);
+    // console.log(2);
     const db = await open();
     // sqlite is case sensitive (a != A), use COLLATE NOCASE to make it insensitive
-    console.log(`select * from user where userId = ${id}`)
+    // console.log(`select * from user where userId = ${id}`)
     const result = await db.get(`select * from user where userId = ${id}`);
     await db.close();
 
@@ -29,7 +29,7 @@ async function getUserById(id) {
 }
 
 async function getUser(email, password) {
-    console.log(3);
+    // console.log(3);
     const db = await open();
     // sqlite is case sensitive (a != A), use COLLATE NOCASE to make it insensitive
     const result = await db.get(`select * from user where email = "${email}" COLLATE NOCASE and password = "${password}"`);
@@ -68,7 +68,7 @@ async function updatePassword(id, oldPass, newPass) {
 }
 
 async function getHistory(userID) {
-    console.log(6);
+    // console.log(6);
     const db = await open();
 
     const result = db.all(`
@@ -82,7 +82,7 @@ async function getHistory(userID) {
 }
 
 async function updateHistory(userid, deviceid) {
-    console.log(71);
+    // console.log(71);
     const db = await open();
 
     const result = await db.run(`
@@ -94,7 +94,7 @@ async function updateHistory(userid, deviceid) {
 
 
 async function getAllDevices(category, brands, sort) {
-    console.log(123);
+    // console.log(123);
     filterCategory = "TRUE";
     filterBrands = "TRUE";
 
@@ -165,22 +165,20 @@ async function getDeviceByBrand(brand,category){
 }
 
 async function getDeviceByID(id) {
-    console.log(42213)
+    // console.log(42213)
     const db = await open();
 
-    console.log(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
+    // console.log(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
     const result = await db.all(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
     await db.close();
 
-    console.log("OOOOOOOOOOOOOOOOOOOOOO");
-    console.log(result);
-    console.log("OOOOOOOOOOOOOOOOOOOOOO");
+   
 
     return result;
 }
 
 async function getDeviceType(id) {
-    console.log(345235);
+    // console.log(345235);
     const db = await open();
     const result = await db.all(`SELECT category FROM device WHERE id = ${id}`);
     await db.close();
@@ -189,7 +187,7 @@ async function getDeviceType(id) {
 }
 
 async function searchDevices(value) {
-    console.log(423974);
+    // console.log(423974);
     const db = await open();
     const result = await db.all(`SELECT * FROM device WHERE name LIKE '%${value}%' 
     OR manufacturer LIKE '%${value}%' OR model LIKE '%${value}%'`);
@@ -199,7 +197,7 @@ async function searchDevices(value) {
 }
 
 async function registeringUsers(name, username, email, password) {
-    console.log(3432)
+    // console.log(3432)
     const db = await open();
     await db.run(`INSERT INTO user (name, username, email, password, usertype) VALUES ("${name}","${username}","${email}","${password}", "user")`);
     await db.close();
@@ -207,15 +205,15 @@ async function registeringUsers(name, username, email, password) {
 
 
 async function postingReview(userid, deviceid, comment, rating) {
-    console.log(3483298)
-    console.log("Entered the DB");
+    // console.log(3483298)
+    // console.log("Entered the DB");
     const db = await open();
     await db.run(`INSERT INTO review (userID, deviceID, comment, rating) VALUES ("${userid}","${deviceid}","${comment}", "${rating}")`)
     await db.close();
 }
 
 async function getAllReviews(deviceID) {
-    console.log(3424);
+    // console.log(3424);
     const db = await open();
     const result = db.all(`select * from review natural join user where deviceID = ${deviceID}`);
     await db.close();
@@ -226,7 +224,7 @@ async function getAllReviews(deviceID) {
 
 
 async function addDevice(model, brand, image, product_category) {
-    console.log(454);
+    // console.log(454);
     const db = await open();
 
     db.run(`INSERT INTO device (name, manufacturer, model, picture, category) 
@@ -235,13 +233,68 @@ async function addDevice(model, brand, image, product_category) {
     await db.close();
 }
 
+async function getDeviceID(brand,model){
+    const db = await open();
+    deviceID = db.get(`select id from device where brand = "${brand}" and model = "${model}"`);
+    await db.close();
+    return deviceID;
+}
 async function addMonitor(screen_size, horizontal, vertical, refresh_rate, response_time, panel, brightness) {
-    console.log(3472348327);
+    // console.log(3472348327);
     const db = await open();
 
     db.run(`INSERT INTO monitor (size, resolution_x, resolution_x, refresh_rate, response_time, panel_type, brightness, aspect_ratio_x, aspect_ratio_y, wide_screen, curve_screen, speakers, color) 
     VALUES ("${screen_size}","${horizontal}","${vertical}", "${refresh_rate}","${response_time}","${panel}","${brightness}"
     "1","1","yes","yes","yes","black")`);
+
+    await db.close();
+}
+async function deleteDevice(id){
+    const db = await open();
+    db.run(`DELETE FROM device where id = ${id} `);
+    await db.close();
+}
+
+async function addPhone(phone_video,IP_rating,resolution_h,resolution_h,length,width,depth,screen_size,display_type,screen_to_body_ratio,weight,frequency,ppi,cpu,chipset,gpu,ram,battery,camera,phone_selfie_camera,sensors,charging_speed,water_resistant,os,headphone_jack,colors,id){
+    const db = await open();
+    const result = await db.run(
+    `INSERT INTO phone (phone_video,IP_rating,resolution_h,resolution_h,length,width,depth,screen_size,display_type,screen_to_body_ratio,weight,frequency,ppi,cpu,chipset,gpu,ram,battery,camera,phone_selfie_camera,sensors,charging_speed,water_resistant,os,headphone_jack,colors,id) VALUES ("${phone_video}","${IP_rating}",${resolution_h},${resolution_v},${length},${width},${depth},${screen_size},"${display_type}",${screen_to_body_ratio},${weight},${frequency},${ppi},"${cpu}","${chipset}","${gpu}","${ram}",${battery},${camera},${phone_selfie_camera},"${sensors}",${charging_speed},"${water_resistant}","${os}","${headphone_jack}",${colors},${id})`
+    );
+    await db.close();
+}
+
+async function addKeyboard(style,switch_type,backlit,tenkeyless,connection_type,color,id){
+    const db = await open();
+    const result = await db.run(`INSERT INTO keyboard (style,switch_type,backlit,tenkeyless,connection_type,color,id) VALUES ("${style}","${switch_type}","${backlit}","${tenkeyless}","${connection_type}","${color},${id})`);
+    await db.close();
+}
+async function addMouse(length,width,height,weight,sensor_type,dpi,max_acceleration,max_tracking_speed,polling_rate,connectivity,number_of_buttons,color,onboard_memory,led_lighting,adjustable_weight){
+    const db = await open();
+
+    db.run(`INSERT INTO mouse (length,width,height,weight,sensor_type,dpi,max_acceleration,max_tracking_speed,polling_rate,connectivity,
+        number_of_buttons,color,onboard_memory,led_lighting,adjustable_weight) 
+    VALUES ("${length}","${width}","${height}", "${weight}","${sensor_type}","${dpi}","${max_acceleration}","${max_tracking_speed}","${polling_rate}","${connectivity}",
+    "${number_of_buttons}","${color}","${onboard_memory}","${led_lighting}","${adjustable_weight}")`);
+
+    await db.close();
+}
+
+async function addMonitor(width,height,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers){
+    const db = await open();
+
+    db.run(`INSERT INTO monitor (width,height,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers) 
+    VALUES ("${width}","${height}","${size}", "${panel_type}","${refresh_rate}","${response_time}","${brightness}","${color}","${wide_screen}","${curve_screen}",
+    "${speakers}")`);
+
+    await db.close();
+}
+
+async function addHeadset(type,max_frequency_response,michrophone, wireless ,encloser_type,color, active_noise_cancelling, channels, sensitivity, impedance){
+    const db = await open();
+
+    db.run(`INSERT INTO headset (type,max_frequency_response,michrophone, wireless ,encloser_type,color, active_noise_cancelling, channels, sensitivity, impedance) 
+    VALUES ("${type}","${max_frequency_response}","${michrophone}", "${wireless}","${encloser_type}","${color}","${active_noise_cancelling}","${channels}","${sensitivity}",
+    "${impedance}")`);
 
     await db.close();
 }
@@ -263,7 +316,15 @@ module.exports = {
     getUserById,
     updateHistory,
     getHistory,
-    getDeviceByBrand
+    getDeviceByBrand,
+    deleteDevice,
+    addPhone,
+    addKeyboard,
+    getDeviceID,
+    addMouse,
+    addMonitor,
+    addHeadset
+
 }
 
 

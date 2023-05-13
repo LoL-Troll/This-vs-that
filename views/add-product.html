@@ -1,129 +1,823 @@
-{% extends "layout.html" %}
-
-{% block title %} This vs That | Add Product {% endblock %}
-
-{% block pageStyle %}
-    <link rel="stylesheet" href="/styles/index.css">
-{% endblock %}
-
-{% block pageScripts %}
-    <script src="scripts/add-product.js"></script>
-{% endblock %}
-
 {% block content %}
-    <main class="container">
-        <div class="main-body">
-            <div class="gutters-sm">
-                
-                <form action = "/postingProduct" method = "POST" class="device-information">
 
-                    <div class="card mb-4">
-                        <h3 class="card-header">Category</h3>
-                        <div class="card-body">
+<main class="container">
+    <div class="main-body">
+        <div class="gutters-sm">
+
+            <form action="/postingProduct" method=  "POST">
+            <div class="card mb-4">
+                <h3 class="card-header">Category</h3>
+                <div class="card-body">
+                    <div class="d-flex flex-column">
+                        <label class="col-md-6 control-label" for="product_categorie">Product Category</label>
+                        <div class="col-md-6">
+                            <select class="form-select" id="product_category" name="product_category"
+                                class="form-control" onchange="submitCat();">
+                                <option value="" disabled selected>
+                                    Select your option
+                                </option>
+                                <option value="phone">Phone</option>
+                                <option value="mouse">Mouse</option>
+                                <option value="keyboard">Keyboard</option>
+                                <option value="headset">Headphone</option>
+                                <option value="monitor">Monitor</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+
+                    <div id="phoneContainer">
+
+                        <div id="Brand" style="display: none;">
                             <div class="d-flex flex-column">
                                 <div class="form-group">
-                                    <label class="col-md-6 control-label" for="product_categorie">Product Category</label>
+                                    <label class="col-md-6 control-label" for="product_categorie">Select
+                                        brand</label>
                                     <div class="col-md-6">
-                                        <select id="product_categorie" name="product_categorie" class="form-control"
-                                            onchange="updatePage()">
-                                            <option value="mouse">Mouse</option>
-                                            <option value="keyboard">Keyboard</option>
-                                            <option value="headphone">Headphone</option>
-                                            <option value="monitor">Monitor</option>
-                                            <option value="phone">Phone</option>
+                                        <select id="product_brand" name="brand" class="form-control"
+                                            onchange="submitBrand();">
+                                            <option value="#">Select a brand</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
+                        <div id="deviceName" style="display: none;">
+                            <div class="d-flex flex-column">
+                                <div class="form-group">
+                                    <label class="col-md-6 control-label" for="product_name">Device name</label>
+                                    <div class="col-md-6">
+                                        <select id="product_name" name="selectedProduct" class="form-control"
+                                            onchange="QueryPage();">
+
+                                            <option value="#">Select a device</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
 
-                    <!-- general data -->
-                    <div id="common-information">
-                        <!-- product image -->
-                        <div class="card mb-4">
-                            <h3 class="card-header">Product Image</h3>
-                            <div class="card-body">
-                                <div class="d-flex flex-column align-items-center text-center">
-                                    <img src="assets/placeholder.jpg" alt="product_img" id="product_img" class="rounded-2"
-                                        width="200">
-                                    <div class="mt-3">
-                                        <input type="file" id="upload-btn" hidden name = "image"onchange="loadFile(event)"/>
-                                        <label for="upload-btn" class="btn btn-primary">Upload Product Image</label>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <script>
-                                var loadFile = function (event) {
-                                    var image = document.getElementById("product_img");
-                                    image.src = URL.createObjectURL(event.target.files[0]);
-                                };
-                            </script>
-                        </div>
+                </div>
+            </div>
 
-                        <!-- model info -->
-                        <div class="card mb-4 model-information">
-                            <h3 class="card-header">Model Information</h3>
-                            <div class="card-body">
-                                <div class="d-flex flex-column">
-                                    <!-- Brand -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="brand">Brand</label>
-                                        <div class="col-md-6">
-                                            <input name="brand" placeholder="Example: BenQ, Samsung"
-                                                class="form-control input-md" required="" type="text">
-                                        </div>
-                                    </div>
 
-                                    <!-- Model -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="Model">Model Name</label>
-                                        <div class="col-md-6">
-                                            <input name="Model" placeholder="Example: Odyssey G9"
-                                                class="form-control input-md" required="" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- general info -->
-                        <div class="card mb-4 general-information">
-                            <h3 class="card-header">General Information</h3>
-                            <div class="card-body">
-                                <div class="d-flex flex-column">
-                                    <!-- Dimensions -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="dim">Dimensions (cm)</label>
-
-                                        <div class="col-md-6 d-flex">
-                                            <input name="width" placeholder="Width (cm)" class="form-control input-md m-1"
-                                                required="" type="text">
-                                            <input name="length" placeholder="Length (cm)" class="form-control input-md m-1"
-                                                required="" type="text">
-                                            <input name="height" placeholder="Height (cm)" class="form-control input-md m-1"
-                                                required="" type="text">
-                                        </div>
-                                    </div>
-
-                                    <!-- Weight -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="weight">Weight (kg)</label>
-                                        <div class="col-md-6">
-                                            <input name="weight" placeholder="Weight (kg)" class="form-control input-md"
-                                                required="" type="text">
-                                        </div>
-                                    </div>
-
-                                </div>
+            {% if device %}
+            <div id="common-information" class="device-information">
+                <!-- product image -->
+                <div class="card mb-4">
+                    <h3 class="card-header">Product Image</h3>
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="" alt="product_img" id="product_img" class="rounded-2"
+                                width="200">
+                            <div class="mt-3">
+                                <input type="file" id="upload-btn" hidden onchange="loadFile(event)" />
+                                <label for="upload-btn" class="btn btn-primary">Upload Product Image</label>
                             </div>
                         </div>
                     </div>
-                </form>
-                    <!-- Monitor Specs -->
-                    <form action = "/postingProduct" method = "POST" class="device-information"> 
-                        <div id="display-information" class="card mb-4">
+
+                    <script>
+                        var loadFile = function (event) {
+                            var image = document.getElementById("product_img");
+                            image.src = URL.createObjectURL(event.target.files[0]);
+                        };
+                    </script>
+                </div>
+
+                {% if device.category == "phone" %}
+                <div id="phone-information" class="card mb-4 device-information">
+                    <h3 class="card-header">Phone Information</h3>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="resolution">Resolution (px)</label>
+                                <!-- Resolution -->
+                                <div class="col-md-6 d-flex">
+                                    <input name="horizontal" placeholder="Horizontal (px)"
+                                        class="form-control input-md m-1" required="" type="text" value="">
+
+                                    <input name="vertical" placeholder="Vertical (px)" class="form-control input-md m-1"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="resolution">Dimensions</label>
+                                <!-- Resolution -->
+                                <div class="col-md-6 d-flex">
+                                    <input name="length" placeholder="length"
+                                        class="form-control input-md m-1" required="" type="text" value="">
+
+                                    <input name="width" placeholder="width" class="form-control input-md m-1"
+                                        required="" type="text" value="">
+
+                                    <input name="depth" placeholder="depth" class="form-control input-md m-1"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- Screen Size -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="screen_size">Screen Size (inch)</label>
+                                <div class="col-md-6">
+                                    <input name="screen_size" placeholder="Example: 6.1" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- Screen Size -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="display_type">Display type</label>
+                                <div class="col-md-6">
+                                    <input name="display_type" placeholder="Example: LCD" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- Screen to body ration -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="screen_to_body_ratio">Screen / Body ration</label>
+                                <div class="col-md-6">
+                                    <input name="screen_to_body_ratio" placeholder="Example: 32" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+
+                            <!-- Weight -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="weight">Weight (gram)</label>
+                                <div class="col-md-6">
+                                    <input name="weight" placeholder="Example: 32" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- Refresh Rate -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="refresh-rate">Refresh Rate (Hz)</label>
+                                <div class="col-md-6">
+                                    <input name="refresh-rate" placeholder="Example: 1" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- Pixel Density -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="ppi">Pixel Density (ppi)</label>
+                                <div class="col-md-6">
+                                    <input name="ppi" placeholder="Example: 137" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- CPU -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="cpu">CPU</label>
+                                <div class="col-md-6">
+                                    <input name="cpu" placeholder="Example : Hexa-core 2.39 GHz (2x Monsoon + 4x Mistral)" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- Chipset -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="Chipset">Chipset</label>
+                                <div class="col-md-6">
+                                    <input name="chipset" placeholder="Example: Apple A11 Bionic (10 nm)" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- GPU -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="gpu">GPU</label>
+                                <div class="col-md-6">
+                                    <input name="gpu" placeholder="Example: Apple GPU (three-core graphics)" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            
+                            <!-- Internal storage / RAM -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="ram">Internal storage, RAM (GB)</label>
+                                <div class="col-md-6">
+                                    <input name="ram" placeholder="Example: 2" class="form-control input-md" required=""
+                                        type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- Battery Capacity -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="battery-capacity">Battery Capacity
+                                    (mAh)</label>
+                                <div class="col-md-6">
+                                    <input name="battery-capacity" placeholder="Example: 3500"
+                                        class="form-control input-md" required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            
+                            
+                            <!-- Mega Pixels -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="mega_pixels">Camera Mega Pixels (MP)</label>
+                                <div class="col-md-6">
+                                    <input name="mega_pixels" placeholder="Example: 48" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- Front Mega Pixels -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="front_mega_pixels">Front Camera Mega Pixels (MP)</label>
+                                <div class="col-md-6">
+                                    <input name="front_mega_pixels" placeholder="Example: 32" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- sensors -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="sensors">Sensors</label>
+                                <div class="col-md-6">
+                                    <input name="sensors" placeholder="Example: Face ID, barometer" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+                            
+
+                            <!-- Charging Speed -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="charging-speed">Charging Speed (W)</label>
+                                <div class="col-md-6">
+                                    <input name="charging-speed" placeholder="Example: 65" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- Water and Dust Resistant -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="water_resistant">Water and Dust
+                                    Resistant</label>
+                                <div class="col-md-6">
+                                    <input name="water_resistant" placeholder="Example: IP64" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- operating -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="os">Operating system</label>
+                                <div class="col-md-6">
+                                    <input name="os" placeholder="Example: iOS 11.1.1, up to iOS 16.4.1 " class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- headphone jack -->
+                            {% if device.headphone_jack == "Yes"%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="headphone_jack">Headphone jack</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="headphone_jack" value="true" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="headphone_jack" value="false">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="headphone_jack">Headphone jack</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="headphone_jack" value="true">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input  type="radio" name="headphone_jack" value="false"  checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                            <!-- Water and Dust Resistant -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="water-resistant">Water and Dust
+                                    Resistant</label>
+                                <div class="col-md-6">
+                                    <input name="brightness" placeholder="Example: IP64" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- colors -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="colors">Colors</label>
+                                <div class="col-md-6">
+                                    <input name="colors" placeholder="Example: Space Gray, Silver" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                {% elif device.category == "headset" %}
+                <div id="headset-information" class="card mb-4 device-information">
+                    <h3 class="card-header">Headphone Information</h3>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+
+                            <!-- type -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="type">Type</label>
+                                <div class="col-md-6">
+                                    <input name="type" placeholder="Example: 32" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- Max frequency response -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="max_frequency_response">Max frequency response</label>
+                                <div class="col-md-6">
+                                    <input name="max_frequency_response" placeholder="Example: 20" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+                            <!-- microphone -->
+                            {% if device.michrophone == "Yes"%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="michrophone">Microphone</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="michrophone" value="true" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="michrophone" value="false">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="michrophone">Microphone</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="michrophone" value="true" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="michrophone" value="false">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                            <!-- wirless -->
+                            {% if device.wireless == "Yes"%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="wireless">Wireless</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="wireless" value="true" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="wireless" value="false">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="wireless">Wireless</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="wireless" value="true">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input  type="radio" name="wireless" value="false"  checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+
+                            <!-- encloser type -->
+                            {% if device.encloser_type == "Close"%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="encloser_type">Encloser type</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="encloser_type" value="true" checked>
+                                        <label>Close</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="encloser_type" value="false">
+                                        <label>Open</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="encloser_type">Encloser type</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="encloser_type" value="true">
+                                        <label>Close</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input  type="radio" name="encloser_type" value="false"  checked>
+                                        <label>Open</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                            <!-- color -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="color">Color</label>
+                                <div class="col-md-6">
+                                    <input name="color" placeholder="Example: White" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+                            <!-- active noise cancellation -->
+                            {% if device.active_noise_cancelling == "Yes"%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="active_noise_cancelling">Active noise cancellation</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="active_noise_cancelling" value="true" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="active_noise_cancelling" value="false">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="active_noise_cancelling">Active noise cancellation</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="active_noise_cancelling" value="true">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input  type="radio" name="active_noise_cancelling" value="false"  checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                            <!-- channels -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="screen-size">Channels</label>
+                                <div class="col-md-6">
+                                    <input name="channels" placeholder="Example: 71" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- sensivity -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="sensitivity">sensivity</label>
+                                <div class="col-md-6">
+                                    <input name="sensitivity" placeholder="Example: 93" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- impedance -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="impedance">Impedance</label>
+                                <div class="col-md-6">
+                                    <input name="impedance" placeholder="Example: 39" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+                {% elif device.category == "mouse" %}
+                <div id="display-information" class="card mb-4">
+                    <h3 class="card-header">Display Information</h3>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <!-- length -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="resolution">Dimensions</label>
+
+                                <div class="col-md-6 d-flex">
+                                    <input name="length" placeholder="Length"
+                                        class="form-control input-md m-1" required="" type="text" value = "">
+
+                                    <input name="width" placeholder="Width" class="form-control input-md m-1"
+                                        required="" type="text" value = "">
+                                </div>
+                            </div>
+
+                            <!-- height -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="height">Height</label>
+                                <div class="col-md-6">
+                                    <input name="height" placeholder="Example: 32cm" class="form-control input-md"
+                                        required="" type="text" value = "">
+                                </div>
+                            </div>
+
+
+                            <!-- weight -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="weight">Weight</label>
+                                <div class="col-md-6">
+                                    <input name="weight" placeholder="Example: 50g" class="form-control input-md"
+                                        required="" type="text" value = "">
+                                </div>
+                            </div>
+
+                            <!-- sensor_type -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="sensor_type">Sensor type</label>
+                                <div class="col-md-6">
+                                    <input name="sensor_type" placeholder="Example: 1 Hz" class="form-control input-md"
+                                        required="" type="text" value = "">
+                                </div>
+                            </div>
+
+                            <!-- dpi -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="dpi">DPI</label>
+                                <div class="col-md-6">
+                                    <input name="dpi" placeholder="Example: 200-700" class="form-control input-md"
+                                        required="" type="text" value = "">
+                                </div>
+                            </div>
+
+
+                            <!-- max_acceleration -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="max_acceleration">Max acceleration</label>
+                                <div class="col-md-6">
+                                    <input name="max_acceleration" placeholder="Example: 50"
+                                        class="form-control input-md" required="" type="text" value = "">
+                                </div>
+                            </div>
+
+                            <!-- max_tracking_speed -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="max_tracking_speed">Max tracking speed</label>
+                                <div class="col-md-6">
+                                    <input name="max_tracking_speed" placeholder="Example: 400"
+                                        class="form-control input-md" required="" type="text" value = "">
+                                </div>
+                            </div>
+
+                            <!-- polling_rate -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="polling_rate">Polling rate</label>
+                                <div class="col-md-6">
+                                    <input name="polling_rate" placeholder="Example: 1000"
+                                        class="form-control input-md" required="" type="text" value = "">
+                                </div>
+                            </div>
+
+                            <!-- connectivity -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="connectivity">Connectivity</label>
+                                <div class="col-md-6">
+                                    <input name="connectivity" placeholder="Example: wired/wirless"
+                                        class="form-control input-md" required="" type="text" value = "">
+                                </div>
+                            </div>
+
+                            <!-- number_of_buttons -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="number_of_buttons">Number of buttons</label>
+                                <div class="col-md-6">
+                                    <input name="number_of_buttons" placeholder="Example: 4"
+                                        class="form-control input-md" required="" type="text" value = "">
+                                </div>
+                            </div>
+
+                            <!-- color -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="color">Color</label>
+                                <div class="col-md-6">
+                                    <input name="color" placeholder="Example: black"
+                                        class="form-control input-md" required="" type="text" value = "">
+                                </div>
+                            </div>
+
+                            <!-- onboard_memory -->
+                            {%if device.onboard_memory == "Yes" %}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="onboard_memory">Onboard memory</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="onboard_memory" value="true" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="onboard_memory" value="false">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="onboard_memory">Onboard memory</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="onboard_memory" value="true">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="onboard_memory" value="false" checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+
+                            <!-- led_lighting -->
+                            {%if device.led_lighting == "Yes" %}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="led_lighting">Led lighting</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="led_lighting" value="true" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="led_lighting" value="false">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="led_lighting">Led lighting</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="led_lighting" value="true">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="led_lighting" value="false" checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+
+                            <!-- adjustable_weight -->
+                            {%if device.adjustable_weight == "Yes" %}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="adjustable_weight">Adjustable weight</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="adjustable_weight" value="true" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="adjustable_weight" value="false">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="adjustable_weight">Adjustable weight</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="adjustable_weight" value="true">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="adjustable_weight" value="false" checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+
+
+                        </div>
+                    </div>
+                </div>
+                {% elif device.category == "keyboard" %}
+                <div id="Mouse-information" class="card mb-4 device-information">
+                    <h3 class="card-header">Mouse Information</h3>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+
+                            
+
+                            <!-- style -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="style">Style</label>
+                                <div class="col-md-6">
+                                    <input name="style" placeholder="Example: Gaming" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- switch type -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="switch_type">Switch type</label>
+                                <div class="col-md-6">
+                                    <input name="switch_type" placeholder="Example: Cherry MX Blue" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- backlit -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="backlit">Backlit</label>
+                                <div class="col-md-6">
+                                    <input name="backlit" placeholder="Example: RGB" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+                            <!-- {# tenkeyless #} -->
+                            {% if device.tenkeyless == "Yes"%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="tenkeyless">Tenkeyless</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="tenkeyless" value="true" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="tenkeyless" value="false">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="tenkeyless">Tenkeyless</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="tenkeyless" value="true">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input  type="radio" name="tenkeyless" value="false"  checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+
+                            <!-- Connection type -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="connection_type">Connection type</label>
+                                <div class="col-md-6">
+                                    <input name="connection_type" placeholder="Example: Wired" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                            <!-- color -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="color">Color</label>
+                                <div class="col-md-6">
+                                    <input name="color" placeholder="Example: Black" class="form-control input-md"
+                                        required="" type="text" value="">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                {% elif device.category == "monitor" %}
+                <div id="display-information" class="card mb-4">
                             <h3 class="card-header">Display Information</h3>
                             <div class="card-body">
                                 <div class="d-flex flex-column">
@@ -132,261 +826,186 @@
                                         <label class="col-md-6 control-label" for="resolution">Resolution (px)</label>
 
                                         <div class="col-md-6 d-flex">
-                                            <input name="horizontal" placeholder="Horizontal (px)"
-                                                class="form-control input-md m-1" required="" type="text">
+                                            <input name="resolution_x" placeholder="Horizontal (px)"
+                                                class="form-control input-md m-1" required="" type="text" value = "">
 
-                                            <input name="vertical" placeholder="Vertical (px)" class="form-control input-md m-1"
-                                                required="" type="text">
+                                            <input name="vertiresolution_y" placeholder="Vertical (px)" class="form-control input-md m-1"
+                                                required="" type="text" value = "">
                                         </div>
                                     </div>
 
                                     <!-- Screen Size -->
                                     <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="screen-size">Screen Size (inch)</label>
+                                        <label class="col-md-6 control-label" for="size">Screen Size (inch)</label>
                                         <div class="col-md-6">
-                                            <input name="screen_size" placeholder="Example: 32" class="form-control input-md"
-                                                required="" type="text">
+                                            <input name="size" placeholder="Example: 32" class="form-control input-md"
+                                                required="" type="text" value = "">
                                         </div>
                                     </div>
 
-                                    <!-- Display Type -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="display">Display Type</label>
-                                        <div class="col-md-6">
-                                            <input name="display_type" placeholder="Example: LCD, OLED, LED"
-                                                class="form-control input-md" required="" type="text">
-                                        </div>
-                                    </div>
 
                                     <!-- Panel Type -->
                                     <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="panel">Panel Type</label>
+                                        <label class="col-md-6 control-label" for="panel_type">Panel Type</label>
                                         <div class="col-md-6">
-                                            <input name="panel" placeholder="Example: IPS, VA" class="form-control input-md"
-                                                required="" type="text">
+                                            <input name="panel_type" placeholder="Example: IPS, VA" class="form-control input-md"
+                                                required="" type="text" value = "">
                                         </div>
                                     </div>
 
                                     <!-- Refresh Rate -->
                                     <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="refresh-rate">Refresh Rate (Hz)</label>
+                                        <label class="col-md-6 control-label" for="refresh_rate">Refresh Rate (Hz)</label>
                                         <div class="col-md-6">
                                             <input name="refresh_rate" placeholder="Example: 1 Hz" class="form-control input-md"
-                                                required="" type="text">
+                                                required="" type="text" value = "">
                                         </div>
                                     </div>
 
                                     <!-- Respose Time -->
                                     <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="respose-time">Respose Time (ms)</label>
+                                        <label class="col-md-6 control-label" for="response_time">Respose Time (ms)</label>
                                         <div class="col-md-6">
-                                            <input name="respose_time" placeholder="Example: 4 ms" class="form-control input-md"
-                                                required="" type="text">
+                                            <input name="response_time" placeholder="Example: 4 ms" class="form-control input-md"
+                                                required="" type="text" value = "">
                                         </div>
                                     </div>
 
-                                    <!-- Pixel Density -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="respose-time">Pixel Density (ppi)</label>
-                                        <div class="col-md-6">
-                                            <input name="pixel_density" placeholder="Example: 137 ppi"
-                                                class="form-control input-md" required="" type="text">
-                                        </div>
-                                    </div>
 
                                     <!-- Brightness -->
                                     <div class="form-group mb-3">
                                         <label class="col-md-6 control-label" for="brightness">Brightness (nits)</label>
                                         <div class="col-md-6">
                                             <input name="brightness" placeholder="Example: 300 nits"
-                                                class="form-control input-md" required="" type="text">
+                                                class="form-control input-md" required="" type="text" value = "">
                                         </div>
                                     </div>
 
-                                    <!-- Touch -->
+                                    <!-- Color -->
                                     <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="touch-support">Touch Support:</label>
+                                        <label class="col-md-6 control-label" for="color">Color</label>
+                                        <div class="col-md-6">
+                                            <input name="color" placeholder="Example: black"
+                                                class="form-control input-md" required="" type="text" value = "">
+                                        </div>
+                                    </div>
+
+                                    <!-- wide_screen -->
+                                    {%if device.wide_screen == "Yes" %}
+                                    <div class="form-group mb-3">
+                                        <label class="col-md-6 control-label" for="wide_screen">Touch Support:</label>
                                         <div class="col-md-6">
                                             <div class="mx-2">
-                                                <input type="radio" name="touch_support" value="true">
+                                                <input type="radio" name="wide_screen" value="true" checked>
                                                 <label>Yes</label>
                                             </div>
                                             <div class="mx-2">
-                                                <input type="radio" name="touch_support" value="false">
+                                                <input type="radio" name="wide_screen" value="false">
                                                 <label>No</label>
                                             </div>
                                         </div>
                                     </div>
+                                    {%else%}
+                                    <div class="form-group mb-3">
+                                        <label class="col-md-6 control-label" for="wide_screen">Touch Support:</label>
+                                        <div class="col-md-6">
+                                            <div class="mx-2">
+                                                <input type="radio" name="wide_screen" value="true">
+                                                <label>Yes</label>
+                                            </div>
+                                            <div class="mx-2">
+                                                <input type="radio" name="wide_screen" value="false" checked>
+                                                <label>No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {%endif%}
+
+                                    <!-- wide_screen -->
+                                    {%if device.curve_screen == "Yes" %}
+                                    <div class="form-group mb-3">
+                                        <label class="col-md-6 control-label" for="curve_screen">Touch Support:</label>
+                                        <div class="col-md-6">
+                                            <div class="mx-2">
+                                                <input type="radio" name="curve_screen" value="true" checked>
+                                                <label>Yes</label>
+                                            </div>
+                                            <div class="mx-2">
+                                                <input type="radio" name="curve_screen" value="false">
+                                                <label>No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {%else%}
+                                    <div class="form-group mb-3">
+                                        <label class="col-md-6 control-label" for="curve_screen">Touch Support:</label>
+                                        <div class="col-md-6">
+                                            <div class="mx-2">
+                                                <input type="radio" name="curve_screen" value="true">
+                                                <label>Yes</label>
+                                            </div>
+                                            <div class="mx-2">
+                                                <input type="radio" name="curve_screen" value="false" checked>
+                                                <label>No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {%endif%}
+
+                                    <!-- speakers -->
+                                    {%if device.speakers == "Yes" %}
+                                    <div class="form-group mb-3">
+                                        <label class="col-md-6 control-label" for="speakers">Touch Support:</label>
+                                        <div class="col-md-6">
+                                            <div class="mx-2">
+                                                <input type="radio" name="speakers" value="true" checked>
+                                                <label>Yes</label>
+                                            </div>
+                                            <div class="mx-2">
+                                                <input type="radio" name="speakers" value="false">
+                                                <label>No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {%else%}
+                                    <div class="form-group mb-3">
+                                        <label class="col-md-6 control-label" for="speakers">Touch Support:</label>
+                                        <div class="col-md-6">
+                                            <div class="mx-2">
+                                                <input type="radio" name="speakers" value="true">
+                                                <label>Yes</label>
+                                            </div>
+                                            <div class="mx-2">
+                                                <input type="radio" name="speakers" value="false" checked>
+                                                <label>No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {%endif%}
+
+
                                 </div>
                             </div>
                         </div>
+                {% endif %}
 
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary text-center p-3">Submit</button>
-                        </div>
-                    </from>
 
-                    <!-- Phone Specs -->
-                    <form action = "/postingProduct" method = "POST" class = "device-information"> 
 
-                    <div id="phone-information" class="card mb-4">
-                        <h3 class="card-header">Mobile Information</h3>
-                        <div class="card-body">
-                            <div class="d-flex flex-column">
-                                <!-- Resolution -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="resolution">Resolution (px)</label>
-
-                                    <div class="col-md-6 d-flex">
-                                        <input name="horizontal" placeholder="Horizontal (px)"
-                                            class="form-control input-md m-1" required="" type="text">
-
-                                        <input name="vertical" placeholder="Vertical (px)" class="form-control input-md m-1"
-                                            required="" type="text">
-                                    </div>
-                                </div>
-
-                                <!-- Screen Size -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="screen-size">Screen Size (inch)</label>
-                                    <div class="col-md-6">
-                                        <input name="screen_size" placeholder="Example: 32" class="form-control input-md"
-                                            required="" type="text">
-                                    </div>
-                                </div>
-
-                                <!-- Refresh Rate -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="refresh-rate">Refresh Rate (Hz)</label>
-                                    <div class="col-md-6">
-                                        <input name="refresh_rate" placeholder="Example: 1" class="form-control input-md"
-                                            required="" type="text">
-                                    </div>
-                                </div>
-
-                                <!-- Pixel Density -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="respose-time">Pixel Density (ppi)</label>
-                                    <div class="col-md-6">
-                                        <input name="pixel_density" placeholder="Example: 137" class="form-control input-md"
-                                            required="" type="text">
-                                    </div>
-                                </div>
-
-                                <!-- RAM -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="ram">RAM (GB)</label>
-                                    <div class="col-md-6">
-                                        <input name="ram" placeholder="Example: 2" class="form-control input-md" required=""
-                                            type="text">
-                                    </div>
-                                </div>
-
-                                <!-- Battery Capacity -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="battery-capacity">Battery Capacity
-                                        (mAh)</label>
-                                    <div class="col-md-6">
-                                        <input name="battery_capacity" placeholder="Example: 3500"
-                                            class="form-control input-md" required="" type="text">
-                                    </div>
-                                </div>
-
-                                <!-- Internal Storage -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="internal-storage">Internal Storage
-                                        (GB)</label>
-                                    <div class="col-md-6">
-                                        <input name="internal_storage" placeholder="Example: 256"
-                                            class="form-control input-md" required="" type="text">
-                                    </div>
-                                </div>
-
-                                <!-- Mega Pixels -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="mega-pixels">Mega Pixels (MP)</label>
-                                    <div class="col-md-6">
-                                        <input name="mega_pixels" placeholder="Example: 48" class="form-control input-md"
-                                            required="" type="text">
-                                    </div>
-                                </div>
-
-                                <!-- SIM -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="sim">Number of SIMs</label>
-                                    <div class="col-md-6">
-                                        <input name="sim" placeholder="Example: 1 SIM" class="form-control input-md"
-                                            required="" type="text">
-                                    </div>
-                                </div>
-
-                                <!-- Charging Speed -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="charging-speed">Charging Speed (W)</label>
-                                    <div class="col-md-6">
-                                        <input name="charging_speed" placeholder="Example: 65" class="form-control input-md"
-                                            required="" type="text">
-                                    </div>
-                                </div>
-
-                                <!-- Brightness -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="brightness">Brightness (nits)</label>
-                                    <div class="col-md-6">
-                                        <input name="brightness" placeholder="Example: 300" class="form-control input-md"
-                                            required="" type="text">
-                                    </div>
-                                </div>
-
-                                <!-- Water and Dust Resistant -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="water-resistant">Water and Dust
-                                        Resistant</label>
-                                    <div class="col-md-6">
-                                        <input name="resistance" placeholder="Example: IP64" class="form-control input-md"
-                                            required="" type="text">
-                                    </div>
-                                </div>
-
-                                <!-- Wireless Charging -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="wireless-charging">Wireless Charging</label>
-                                    <div class="col-md-6">
-                                        <div class="mx-2">
-                                            <input type="radio" name="wireless_charging" value="true">
-                                            <label>Yes</label>
-                                        </div>
-                                        <div class="mx-2">
-                                            <input type="radio" name="wireless_charging" value="false">
-                                            <label>No</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Fingerprint Reader -->
-                                <div class="form-group mb-3">
-                                    <label class="col-md-6 control-label" for="Fingerprint">Fingerprint Reader</label>
-                                    <div class="col-md-6">
-                                        <div class="mx-2">
-                                            <input type="radio" name="Fingerprint" value="true">
-                                            <label>Yes</label>
-                                        </div>
-                                        <div class="mx-2">
-                                            <input type="radio" name="Fingerprint" value="false">
-                                            <label>No</label>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-primary text-center p-3">Submit</button>
-                        </div>
-
-                    </form>
             </div>
+
+
+            <div class="d-flex flex-row align-items-center text-center">
+            <div class="text-center">
+                <button type="submit"  class="btn btn-primary text-center p-3">Submit</button>
+            </div>
+            
         </div>
-    </main>
+        </form>
+            {% endif %}
+
+        </div>
+
+
+    </div>
+</main>
 {% endblock %}

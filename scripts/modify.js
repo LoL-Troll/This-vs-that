@@ -85,3 +85,15 @@ async function QueryPage() {
     //     // window.location = res.;
     // }
 };
+
+async function deleteDevice(id){
+    const res = await fetch("/delete", {
+        method: "DELETE",
+        body: JSON.stringify({ id:id }),
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+    window.location = `/modify.html`;
+}
