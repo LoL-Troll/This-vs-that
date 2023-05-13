@@ -1,17 +1,19 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
-const fileUpload = require('express-fileupload');
-const db = require("./db.js");
 const session = require('express-session');
+const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
+const db = require("./db.js");
+const dataParser = require("./dataParser.js");
 
 const app = express();
-const port = 8001;
+const port = 8000;
+
+app.use("/styles", express.static('styles'));
+app.use("/assets", express.static('assets'));
+app.use("/scripts", express.static('scripts'));
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-app.use("/styles", express.static("styles"));
-app.use("/assets", express.static("assets"));
-app.use("/scripts", express.static("scripts"));
+app.use(express.urlencoded({ extended: true }));
 
 
 const pageData = { signedIn: false, isAdmin: undefined, userData: undefined };
@@ -39,13 +41,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(async (req, res, next) => {
     // if there is a cookie, and user is signed in
     if (req.session && req.session.userId) {
-        console.log(req.session.userId);
         const user = await db.getUserById(req.session.userId);
 
         // TODO cache
-        console.log(user);
         req.user = user;
-        console.log(req.user);
     }
     next();
 });
@@ -62,11 +61,11 @@ app.listen(port, (e) => {
 
 // Handlers 
 app.get("/", async (req, res) => {
-    console.log(req.user);
 
     // if user is signed in show history
     if (req.user) {
-        res.render('index.html', { user: req.user /* TODO pass history of user */ });
+        let devicesHistory = await db.getHistory(req.user.userid);
+        res.render('index.html', { user: req.user, devicesHistory: devicesHistory });
     } else {
         res.render('index.html', { user: req.user });
     }
@@ -87,6 +86,7 @@ app.get("/add-product.html", (req, res) => {
     }
     // else 404
 });
+
 
 app.get("/browse.html", async (req, res) => {
     let sort = req.query.sort;
@@ -118,6 +118,7 @@ app.get("/browse.html", async (req, res) => {
     let keyboardBrands = await db.getDeviceBrands("keyboard");
     let phoneBrands = await db.getDeviceBrands("phone");
     let monitorBrands = await db.getDeviceBrands("monitor");
+
     res.render('browse.html', {
         user: req.user,
         items: devices,
@@ -125,23 +126,74 @@ app.get("/browse.html", async (req, res) => {
         mouseBrands: mouseBrands,
         keyboardBrands: keyboardBrands,
         phoneBrands: phoneBrands,
-        monitorBrands: monitorBrands
+        monitorBrands: monitorBrands,
+        filters: req.query
     });
 });
 
-app.get("/compare.html", (req, res) => {
-    res.render('compare.html', { user: req.user });
+app.get('/browse-select.html', async (req, res) => {
+    let sort = req.query.sort;
+    let type = req.query.Type;
+    let id = req.query.id;
+
+
+    let mouse_brand = req.query.mouse_brand;
+    let keyboard_brand = req.query.keyboard_brand;
+    let monitor_brand = req.query.monitor_brand;
+    let headset_brand = req.query.headset_brand;
+    let phone_brand = req.query.phone_brand;
+
+
+
+    // Redirect instead of render?
+    let devices = await db.getAllDevices
+        (type, {
+            mouse_brand: mouse_brand,
+            keyboard_brand: keyboard_brand,
+            monitor_brand: monitor_brand,
+            headset_brand: headset_brand,
+            phone_brand: phone_brand
+        }, sort
+        );
+    let headsetBrands = await db.getDeviceBrands("headset");
+    let mouseBrands = await db.getDeviceBrands("mouse");
+    let keyboardBrands = await db.getDeviceBrands("keyboard");
+    let phoneBrands = await db.getDeviceBrands("phone");
+    let monitorBrands = await db.getDeviceBrands("monitor");
+    res.render('browse-select.html', {
+        items: devices,
+        headsetBrands: headsetBrands,
+        mouseBrands: mouseBrands,
+        keyboardBrands: keyboardBrands,
+        phoneBrands: phoneBrands,
+        monitorBrands: monitorBrands,
+        id: id
+    });
+
+
+});
+
+app.get("/compare", async (req, res) => {
+    let devices = [];
+
+    for (const id in req.query) {
+        devices.push((await db.getDeviceByID(req.query[id]))[0]);
+    }
+    res.render('compare.html', { user: req.user, devices: devices });
 });
 
 app.get("/contact.html", (req, res) => {
     res.render('contact.html', { user: req.user });
 });
 
-app.get("/history.html", (req, res) => {
+app.get("/history.html", async (req, res) => {
     // user only
+
+    console.log("VVVVVVVVVVVVVVVV");
     if (req.user) {
-        // TODO mohannad
-        res.render('history.html', { user: req.user  });
+        let devicesHistory = await db.getHistory(req.user.userid);
+        res.render('history.html', { user: req.user, devicesHistory: devicesHistory });
+
     } else {
         res.redirect("/");
     }
@@ -150,20 +202,25 @@ app.get("/history.html", (req, res) => {
 /////////////////////////////
 app.get("/item/:id", async (req, res) => {
     let id = req.params.id;
-    console.log(id);
 
     // load device info
     let devices = (await db.getDeviceByID(id))[0];
 
     // load reviews
-    const reviews = await db.getAllReviews();
+    const reviews = await db.getAllReviews(id);
+
+    //load prices
+    var jarirPrice = await dataParser.getJarirPrice(devices["jarir_link"]);
+    var noonPrice = await dataParser.getNoonPrice(devices["noon_link"]);
+
+    console.log(noonPrice);
 
     // save into history of user (if signed in)
     if (req.user) {
-        await db.updateHistory(req.user.userid, id)
+        await db.updateHistory(req.user.userid, id);
     }
 
-    res.render(`item.html`, { user: req.user, data: devices, reviews: reviews });
+    res.render(`item.html`, { user: req.user, data: devices, reviews: reviews, jarir_price: jarirPrice, noon_price: noonPrice });
 });
 
 
@@ -173,13 +230,55 @@ app.post("/postingReview", async (req, res) => {
     let rating = req.body.rating;
     let deviceid = req.body.deviceid;
 
-    console.log(req.body);
     await db.postingReview(req.user.userid, deviceid, comment, rating);
     res.redirect(`/item/${deviceid}`);
 });
 
 
+app.post('/brand', async (req, res) => {
+    let brands = await db.getDeviceBrands(req.body.catagoery);
+    console.log(brands, req.body);
+    res.json(brands);
+});
 
+app.post('/device', async (req, res) => {
+
+    let devices = await db.getDeviceByBrand(req.body.name, req.body.catagoery);
+
+    res.json(devices);
+});
+
+app.get("/modify.html", async (req, res) => {
+    console.log("????????????????????????????????????????????????????????");
+    if (!req.query.id) {
+        console.log("NO ID");
+        res.render("modify.html");
+    }
+    else {
+        console.log("===========");
+        console.log(req.query.id);
+        console.log("===========");
+        let device = (await db.getDeviceByID(req.query.id))[0];
+
+        console.log("EIJROIEUJIOPEWJFOEWFPIOWEFIH", device);
+        res.render("modify.html", { device: device });
+    }
+
+});
+
+app.post('/getDevice', async (req, res) => {
+    let device = await db.getDeviceByID(req.id);
+    res.json(device);
+})
+
+
+app.get("/modify-product.html", (req, res) => {
+    // if (req.user.usertype === "admin") {
+    res.render('modify-product.html', { user: req.user });
+    // } else {
+    //     res.redirect("/");
+    // }
+});
 
 app.get("/profile-edit.html", async (req, res) => {
     if (req.user) {
@@ -196,7 +295,6 @@ app.post("/profile-edit", async (req, res) => {
     image_path = "./assets/profile_pics/" + req.session.userId + ".jpg"
     profile_img.mv(image_path);
 
-    console.log(profile_img);
 
     let newName = req.body.name;
     let newUsername = req.body.username;
@@ -256,7 +354,6 @@ app.get("/saved-comparison.html", (req, res) => {
 });
 
 app.post("/search", async (req, res) => {
-    console.log(req.body);
     res.redirect("browse.html?search=" + req.body.search);
 });
 
@@ -365,50 +462,6 @@ app.post("/postingProduct", async (req, res) => {
     }
 
 });
-
-
-
-app.post('/brand',async (req,res)=> {
-    let brands = await db.getDeviceBrands(req.body.catagoery);
-    // console.log(brands);
-    res.json(brands);
-});
-
-app.post('/device',async (req,res)=> {
-
-    let devices = await db.getDeviceByBrand(req.body.name, req.body.catagoery);
-
-    res.json(devices);
-});
-
-app.post('/getDevice', async (req,res)=>{
-    let device = await db.getDeviceByID(req.id);
-    res.json(device);
-})
-app.post("/modify.html", async (req, res) => {
-    
-    // let device = await db.getDeviceByID(req.body.id);
-    // console.log(device);
-    console.log(req.body)
-    console.log(req.body.id)
-    res.redirect("/modify.html?id=" + req.body.id);
-
-    // res.redirect("modify.html");
-});
-app.get("/modify.html",async (req,res) =>{
-    if(!req.query.id){
-        res.render("modify.html");
-   }
-   else{
-    let device = await db.getDeviceByID(req.query.id);
-    res.render("modify.html",{device:device});
-   }
-   
-})
-app.get("/modify-product.html", async (req,res)=>{
-    res.render("modify-product.html");
-
-})
 
 
 

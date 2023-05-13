@@ -18,22 +18,68 @@
             <div class="card-body">
               <div class="d-flex flex-start align-items-center">
                 <div class="col">
-                  <div class="row"><img src={{data["picture"]}} class="card-img-top" alt="..." />
+                  <div class="row"><img src={{data["picture"]}} class="card-img-top mx-auto mb-2" alt="..."
+                      style="width: 20rem;" />
                     <h2 class="card-title font-weight-bold text-center">{{data["name"]}}</h2>
-                    <h3 class="card-title font-weight-bold text-center">{{data["manufacturer"]}}</h3>
+                    <h4 class="card-title font-weight-bold text-center">{{data["manufacturer"]}}</h4>
                   </div>
-                  <div class="row">
+                  <div class="col">
+                    <!-- prices -->
+                    <div class="row">
+                      <!-- add the icon to the attributes -->
+                      <div class="row">
+                        <h4>Jarir Current Price</h4>
+                        <p>
+                          {{(jarir_price + " SAR") if data["jarir_link"] else "Not Available"}}
+                          {% if (data["jarir_link"] and (jarir_price != "Not Available")) %}
+                          <span>
+                            <a href={{data["jarir_link"]}}>
+                              <button class="btn btn-light border-light-subtle ms-3">
+                                <img src="/assets/jarir.png" alt="jarir" class="pe-2" style="width: 2rem;">
+                                <span>View at website</span>
+                              </button>
+                            </a>
+                          </span>
+                          {% endif %}
+                        </p>
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <!-- add the icon to the attributes -->
+                      <div class="row">
+                        <h4>Noon Current Price</h4>
+                        <p>
+                          {{(noon_price + " SAR") if data["noon_link"] else "Not Available"}}
+                          {% if (data["noon_link"] and (noon_price != "Not Avaliable") ) %}
+                          <span>
+                            <a href={{data["noon_link"]}}>
+                              <button class="btn btn-light border-light-subtle ms-3">
+                                <img src="/assets/noon.png" alt="noon" class="pe-2" style="width: 2rem;">
+                                <span>View at website</span>
+                              </button>
+                            </a>
+                          </span>
+                          {% endif %}
+                        </p>
+                      </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- specs -->
                     <div class="collapse" id="collapseContent1">
                       <div class="container d-flex flex-column">
-                        <!-- The attributes of the device -->
+                        <h2 class="text-center">Device Specifications:</h2>
 
+                        <!-- The attributes of the device -->
                         {% if (data["category"] == "phone")%}
                         <div class="row">
                           <!-- add the icon to the attributes -->
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Length (mm)</h4>
-                            <p>{{data["length"]}}</p>
+                            <p>{{data["length"] if data["length"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -42,7 +88,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Width (mm)</h4>
-                            <p>{{data["width"]}}</p>
+                            <p>{{data["width"] if data["width"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -51,7 +97,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Depth (mm)</h4>
-                            <p>{{data["depth"]}}</p>
+                            <p>{{data["depth"] if data["depth"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -59,8 +105,8 @@
                           <!-- add the icon to the attributes -->
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
-                            <h4>Weight (kg)</h4>
-                            <p>{{data["weight"]}}</p>
+                            <h4>Weight (g)</h4>
+                            <p>{{data["weight"] if data["weight"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -69,7 +115,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>IP Rating</h4>
-                            <p>{{data["IP_rating"]}}</p>
+                            <p>{{data["IP_rating"] if data["IP_rating"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -78,7 +124,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Screen Size (inch)</h4>
-                            <p>{{data["screen_size"]}}</p>
+                            <p>{{data["screen_size"] if data["screen_size"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -87,7 +133,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Screen to Body Ratio</h4>
-                            <p>{{data["screen_to_body_ratio"]}}</p>
+                            <p>{{data["screen_to_body_ratio"] if data["screen_to_body_ratio"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -96,7 +142,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Display Type</h4>
-                            <p>{{data["display_type"]}}</p>
+                            <p>{{data["display_type"] if data["display_type"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -105,7 +151,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Frequency (Hz)</h4>
-                            <p>{{data["frequency"]}}</p>
+                            <p>{{data["frequency"] if data["frequency"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -113,8 +159,9 @@
                           <!-- add the icon to the attributes -->
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
-                            <h4>Resolution (vxh)</h4>
-                            <p>{{data["resolution_v"] + " x " + data["resolution_h"]}}</p>
+                            <h4>Resolution (horizontal x vertical)</h4>
+                            <p>{{(data["resolution_x"] + "x" + data["resolution_y"]) if data["resolution_x"] else "Not
+                              Available"}}</p>
                           </div>
                         </div>
 
@@ -123,7 +170,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Pixel Density (ppi)</h4>
-                            <p>{{data["pixel_density"]}}</p>
+                            <p>{{data["pixel_density"] if data["pixel_density"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -132,7 +179,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>CPU</h4>
-                            <p>{{data["cpu"]}}</p>
+                            <p>{{data["cpu"] if data["cpu"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -141,7 +188,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Chipset</h4>
-                            <p>{{data["chipset"]}}</p>
+                            <p>{{data["chipset"] if data["chipset"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -150,7 +197,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>GPU</h4>
-                            <p>{{data["gpu"]}}</p>
+                            <p>{{data["gpu"] if data["gpu"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -159,7 +206,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Memory (GB)</h4>
-                            <p>{{data["memory"]}}</p>
+                            <p>{{data["memory"] if data["memory"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -168,7 +215,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Camera (MP)</h4>
-                            <p>{{data["camera"]}}</p>
+                            <p>{{data["camera"] if data["camera"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -177,7 +224,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Selfie Camera (MP)</h4>
-                            <p>{{data["phone_selfie_camera"]}}</p>
+                            <p>{{data["phone_selfie_camera"] if data["phone_selfie_camera"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -186,7 +233,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Battery (mAh)</h4>
-                            <p>{{data["battery"]}}</p>
+                            <p>{{data["battery"] if data["battery"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -195,7 +242,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Charging Speed (W)</h4>
-                            <p>{{data["charging_speed"]}}</p>
+                            <p>{{data["charging_speed"] if data["charging_speed"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -204,7 +251,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>OS</h4>
-                            <p>{{data["os"]}}</p>
+                            <p>{{data["os"] if data["os"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -213,7 +260,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Headphone Jack</h4>
-                            <p>{{data["headphone_jack"]}}</p>
+                            <p>{{data["headphone_jack"] if data["headphone_jack"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -222,7 +269,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Sensors</h4>
-                            <p>{{data["sensors"]}}</p>
+                            <p>{{data["sensors"] if data["sensors"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -231,7 +278,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Colors</h4>
-                            <p>{{data["colors"]}}</p>
+                            <p>{{data["colors"] if data["colors"] else "Not Available"}}</p>
                           </div>
                         </div>
                         {% elif (data["category"] == "monitor") %}
@@ -240,7 +287,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Screen Size (inch)</h4>
-                            <p>{{data["size"]}}</p>
+                            <p>{{data["size"] if data["size"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -249,7 +296,8 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Resolution (vxh)</h4>
-                            <p>{{data["resolution_x"] + " x " + data["resolution_y"]}}</p>
+                            <p>{{(data["resolution_x"] + "x" + data["resolution_y"]) if data["resolution_x"] else "Not
+                              Available"}}</p>
                           </div>
                         </div>
 
@@ -258,7 +306,8 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Aspect Ratio</h4>
-                            <p>{{data["aspect_ratio_x"] + ":" + data["aspect_ratio_y"]}}</p>
+                            <p>{{(data["aspect_ratio_x"] + "x" + data["aspect_ratio_y"]) if data["aspect_ratio_x"] else
+                              "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -267,7 +316,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Refresh Rate (Hz)</h4>
-                            <p>{{data["refresh_rate"]}}</p>
+                            <p>{{data["refresh_rate"] if data["refresh_rate"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -276,7 +325,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Response Time (ms)</h4>
-                            <p>{{data["response_time"]}}</p>
+                            <p>{{data["response_time"] if data["response_time"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -285,7 +334,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Panel Type</h4>
-                            <p>{{data["panel_type"]}}</p>
+                            <p>{{data["panel_type"] if data["panel_type"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -294,7 +343,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Peak Brightness (nits)</h4>
-                            <p>{{data["brightness"]}}</p>
+                            <p>{{data["brightness"] if data["brightness"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -303,7 +352,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Curve Screen</h4>
-                            <p>{{data["curve_screen"]}}</p>
+                            <p>{{data["curve_screen"] if data["curve_screen"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -312,7 +361,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Speakers</h4>
-                            <p>{{data["speakers"]}}</p>
+                            <p>{{data["speakers"] if data["speakers"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -321,7 +370,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Colors</h4>
-                            <p>{{data["color"]}}</p>
+                            <p>{{data["color"] if data["color"] else "Not Available"}}</p>
                           </div>
                         </div>
                         {% elif (data["category"] == "mouse") %}
@@ -330,7 +379,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Length (mm)</h4>
-                            <p>{{data["length"]}}</p>
+                            <p>{{data["length"] if data["length"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -339,7 +388,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Width (mm)</h4>
-                            <p>{{data["width"]}}</p>
+                            <p>{{data["width"] if data["width"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -348,7 +397,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Depth (mm)</h4>
-                            <p>{{data["depth"]}}</p>
+                            <p>{{data["depth"] if data["depth"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -356,8 +405,8 @@
                           <!-- add the icon to the attributes -->
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
-                            <h4>Weight (kg)</h4>
-                            <p>{{data["weight"]}}</p>
+                            <h4>Weight (g)</h4>
+                            <p>{{data["weight"] if data["weight"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -366,7 +415,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Sensor Type</h4>
-                            <p>{{data["sensor_type"]}}</p>
+                            <p>{{data["sensor_type"] if data["sensor_type"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -375,7 +424,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>DPI</h4>
-                            <p>{{data["dpi"]}}</p>
+                            <p>{{data["dpi"] if data["dpi"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -384,7 +433,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Max Acceleration (G)</h4>
-                            <p>{{data["max_acceleration"]}}</p>
+                            <p>{{data["max_acceleration"] if data["max_acceleration"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -393,7 +442,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Max Tracking Speed (IPS)</h4>
-                            <p>{{data["max_tracking_speed"]}}</p>
+                            <p>{{data["max_tracking_speed"] if data["max_tracking_speed"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -402,7 +451,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Polling Rate (Hz)</h4>
-                            <p>{{data["polling_rate"]}}</p>
+                            <p>{{data["polling_rate"] if data["polling_rate"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -411,7 +460,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Onboard Memory</h4>
-                            <p>{{data["onboard_memory"]}}</p>
+                            <p>{{data["onboard_memory"] if data["onboard_memory"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -420,7 +469,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Connectivity</h4>
-                            <p>{{data["connectivity"]}}</p>
+                            <p>{{data["connectivity"] if data["connectivity"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -429,7 +478,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Num of Buttons</h4>
-                            <p>{{data["number_of_buttons"]}}</p>
+                            <p>{{data["number_of_buttons"] if data["number_of_buttons"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -438,7 +487,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Chipset</h4>
-                            <p>{{data["chipset"]}}</p>
+                            <p>{{data["chipset"] if data["chipset"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -447,7 +496,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Colors</h4>
-                            <p>{{data["color"]}}</p>
+                            <p>{{data["color"] if data["color"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -456,16 +505,15 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>LED Lighting</h4>
-                            <p>{{data["led_lighting"]}}</p>
+                            <p>{{data["led_lighting"] if data["led_lighting"] else "Not Available"}}</p>
                           </div>
                         </div>
-
                         <div class="row">
                           <!-- add the icon to the attributes -->
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Adjustable Weights</h4>
-                            <p>{{data["adjustable_weight"]}}</p>
+                            <p>{{data["adjustable_weight"] if data["adjustable_weight"] else "Not Available"}}</p>
                           </div>
                         </div>
                         {% elif (data["category"] == "keyboard") %}
@@ -474,7 +522,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Style</h4>
-                            <p>{{data["style"]}}</p>
+                            <p>{{data["style"] if data["style"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -483,7 +531,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Switch Type</h4>
-                            <p>{{data["switch_type"]}}</p>
+                            <p>{{data["switch_type"] if data["switch_type"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -492,7 +540,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Backlit</h4>
-                            <p>{{data["backlit"]}}</p>
+                            <p>{{data["backlit"] if data["backlit"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -501,7 +549,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Tenkeyless</h4>
-                            <p>{{data["tenkeyless"]}}</p>
+                            <p>{{data["tenkeyless"] if data["tenkeyless"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -510,7 +558,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Connection Type</h4>
-                            <p>{{data["connection_type"]}}</p>
+                            <p>{{data["connection_type"] if data["connection_type"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -519,7 +567,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Colors</h4>
-                            <p>{{data["color"]}}</p>
+                            <p>{{data["color"] if data["color"] else "Not Available"}}</p>
                           </div>
                         </div>
                         {% elif (data["category"] == "headset") %}
@@ -528,7 +576,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Type</h4>
-                            <p>{{data["type"]}}</p>
+                            <p>{{data["type"] if data["type"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -537,7 +585,8 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Max Frequency Response (kHz)</h4>
-                            <p>{{data["max_frequency_response"]}}</p>
+                            <p>{{data["max_frequency_response"] if data["max_frequency_response"] else "Not Available"}}
+                            </p>
                           </div>
                         </div>
 
@@ -546,7 +595,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Microphone</h4>
-                            <p>{{data["microphone"]}}</p>
+                            <p>{{data["microphone"] if data["microphone"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -555,7 +604,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Wireless</h4>
-                            <p>{{data["wireless"]}}</p>
+                            <p>{{data["wireless"] if data["wireless"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -564,7 +613,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Enclose Type</h4>
-                            <p>{{data["encloser_type"]}}</p>
+                            <p>{{data["encloser_type"] if data["encloser_type"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -573,7 +622,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Colors</h4>
-                            <p>{{data["color"]}}</p>
+                            <p>{{data["color"] if data["color"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -582,7 +631,8 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Active Noise Cancellation</h4>
-                            <p>{{data["active_noise_cancelling"]}}</p>
+                            <p>{{data["active_noise_cancelling"] if data["active_noise_cancelling"] else "Not
+                              Available"}}</p>
                           </div>
                         </div>
 
@@ -591,7 +641,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Channels</h4>
-                            <p>{{data["channels"]}}</p>
+                            <p>{{data["channels"] if data["channels"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -600,7 +650,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Sensitivity</h4>
-                            <p>{{data["sensitivity"]}}</p>
+                            <p>{{data["sensitivity"] if data["sensitivity"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -609,7 +659,7 @@
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
                             <h4>Impedance</h4>
-                            <p>{{data["impedance"]}}</p>
+                            <p>{{data["impedance"] if data["impedance"] else "Not Available"}}</p>
                           </div>
                         </div>
 
@@ -620,15 +670,16 @@
                       </div>
                     </div>
 
+                    <a class="btn btn-primary text-white bg-primary py-3 link my-1 d-flex align-items-center justify-content-center"
+                      href="/browse-select.html?id={{data["id"]}}&Type='{{data["category"]}}'">
+                      <h4>
+                        Compare Against Another Device
+                      </h4>
+                    </a>
                   </div>
-
-                  <a class="btn text-white bg-primary link p-md-1 my-1 d-flex align-items-center justify-content-center"
-                    href="compare.html">
-                    Compare Against Another Device
-                  </a>
-                  <a class="btn text-white bg-dark link p-md-1 my-1 d-flex align-items-center justify-content-center"
+                  <a class="btn btn-dark text-white bg-dark py-2 link my-1 d-flex align-items-center justify-content-center"
                     data-bs-toggle="collapse" href="#collapseContent1" role="button" aria-expanded="false"
-                    aria-controls="collapseContent1">More</a>
+                    aria-controls="collapseContent1">More Details</a>
                 </div>
               </div>
             </div>
@@ -648,7 +699,7 @@
                     <textarea name="comment" class="form-control" id="textAreaExample" rows="4"></textarea>
                     <label class="form-label" for="textAreaExample">Review</label>
                     <br>
-
+                    
                     <!-- Stars Rating (source: https://codepen.io/anefzaoui/pen/NWPZzMa) -->
                     <fieldset class="rate">
                       <input type="radio" id="rating10" name="rating" value="5" />
@@ -720,6 +771,8 @@
                           </p>
                         </div>
                       </div>
+
+                      <button class="btn btn-danger my-3">Delete</button>
                     </div>
                   </div>
                 </div>

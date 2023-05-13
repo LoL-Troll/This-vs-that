@@ -43,7 +43,7 @@
 
     </section>
 
-    {% if signedIn %}
+    {% if user %}
     <hr>
 
     <section class="mx-3">
@@ -56,38 +56,14 @@
 
         <div class="container">
             <div class="row px-auto">
-                <a href="item.html" class="device-card-1 col text-center">
-                    <img src="assets/iphone.png" alt="Phones" class="img-fluid">
-                    <h6>Phones</h6>
-                </a>
-                <a href="item.html" class="device-card-1 col text-center">
-                    <img src="assets/iphone.png" alt="Phones" class="img-fluid">
-                    <h6>Phones</h6>
-                </a>
-                <a href="item.html" class="device-card-1 col text-center">
-                    <img src="assets/iphone.png" alt="Phones" class="img-fluid">
-                    <h6>Phones</h6>
-                </a>
-                <a href="item.html" class="device-card-1 col text-center">
-                    <img src="assets/iphone.png" alt="Phones" class="img-fluid">
-                    <h6>Phones</h6>
-                </a>
-                <a href="item.html" class="device-card-1 col text-center">
-                    <img src="assets/iphone.png" alt="Phones" class="img-fluid">
-                    <h6>Phones</h6>
-                </a>
-                <a href="item.html" class="device-card-1 col text-center">
-                    <img src="assets/iphone.png" alt="Phones" class="img-fluid">
-                    <h6>Phones</h6>
-                </a>
-                <a href="item.html" class="device-card-1 col text-center">
-                    <img src="assets/iphone.png" alt="Phones" class="img-fluid">
-                    <h6>Phones</h6>
-                </a>
-                <a href="item.html" class="device-card-1 col text-center">
-                    <img src="assets/iphone.png" alt="Phones" class="img-fluid">
-                    <h6>Phones</h6>
-                </a>
+                {% for product in devicesHistory %}
+                    {% if loop.index0 < 8 %} 
+                    <a href="item/{{product.id}}" class="device-card-1 col text-center">
+                    <img src="{{product.picture}}" alt="Phones" class="img-fluid">
+                    <h6>{{product.name}}</h6>
+                    </a>
+                    {% endif %}
+                {%endfor%}
             </div>
         </div>
     </section>
