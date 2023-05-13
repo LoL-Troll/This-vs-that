@@ -347,7 +347,7 @@ app.get("/profile.html", (req, res) => {
 
 app.get("/saved-comparison.html", (req, res) => {
     if (req.user) {
-        res.render('saved-comparison.html', { user: req.user });
+        res.render('saved-comparsion.html', { user: req.user });
     } else {
         res.redirect("/");
     }
