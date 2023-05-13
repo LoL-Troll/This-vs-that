@@ -356,8 +356,8 @@ app.get("/item/:id", async (req, res) => {
     let device = (await db.getDeviceByID(id))[0];
 
     // image path managing
-    if (devices.picture.startsWith(".")) {
-        devices.picture = "." + devices.picture;
+    if (device.picture.startsWith(".")) {
+        device.picture = "." + devices.picture;
     }
 
     // load reviews.
