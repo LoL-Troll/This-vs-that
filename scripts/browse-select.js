@@ -64,10 +64,17 @@ function removeElementFromArray(arr, val) {
 }
 
 function sendElements() {
-    let returnedString = "compare?"
-    for (let index = 1; index < selectedItems.length; index++) {
-        returnedString += "id" + index + "=" + selectedItems[index - 1] + "&"
-    }
-    returnedString += "id" + selectedItems.length + "=" + selectedItems[selectedItems.length - 1]
+    if(selectedItems.length >= 1){
+        let returnedString = "compare?"
+        for (let index = 1; index < selectedItems.length; index++) {
+            returnedString += "id" + index + "=" + selectedItems[index - 1] + "&"
+        }
+        returnedString += "id" + selectedItems.length + "=" + selectedItems[selectedItems.length - 1]
     return returnedString;
+    }
+    else{
+        alert("You need to select at least one product")
+        return "browse-select.html";
+    }
+    
 }
