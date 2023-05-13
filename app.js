@@ -179,12 +179,25 @@ app.get("/compare", async (req, res) => {
     for (const id in req.query) {
         devices.push((await db.getDeviceByID(req.query[id]))[0]);
     }
+    // console.log(devices)
     res.render('compare.html', { user: req.user, devices: devices });
 });
 
-app.post("/save", async (req,res)=>{
-    console.log(req.user);
-    console.log(req.body.id);
+app.post("/compare", async (req,res)=>{
+    if(req.user) {
+    for(i=0;i<4;i++){
+        if(!req.body.id[i]){
+            req.body.id[i]= null;
+        }
+        
+    }
+    
+    let compare =  await db.addComparison(req.user.userid,req.body.id[0],req.body.id[1],req.body.id[2],req.body.id[3]);
+    res.redirect("/saved-comparison.html");
+    }
+    else{
+        res.redirect("/signin.html");
+    }
 });
 
 
@@ -196,7 +209,7 @@ app.get("/contact.html", (req, res) => {
 app.get("/history.html", async (req, res) => {
     // user only
 
-    console.log("VVVVVVVVVVVVVVVV");
+    // console.log("VVVVVVVVVVVVVVVV");
     if (req.user) {
         let devicesHistory = await db.getHistory(req.user.userid);
         res.render('history.html', { user: req.user, devicesHistory: devicesHistory });
@@ -220,7 +233,7 @@ app.get("/item/:id", async (req, res) => {
     var jarirPrice = await dataParser.getJarirPrice(devices["jarir_link"]);
     var noonPrice = await dataParser.getNoonPrice(devices["noon_link"]);
 
-    console.log(noonPrice);
+    // console.log(noonPrice);
 
     // save into history of user (if signed in)
     if (req.user) {
@@ -232,7 +245,7 @@ app.get("/item/:id", async (req, res) => {
 
 
 app.post("/postingReview", async (req, res) => {
-    console.log("Entered the posting Review");
+    // console.log("Entered the posting Review");
     let comment = req.body.comment;
     let rating = req.body.rating;
     let deviceid = req.body.deviceid;
@@ -352,12 +365,42 @@ app.get("/profile.html", (req, res) => {
     }
 });
 
-app.get("/saved-comparison.html", (req, res) => {
+app.get("/saved-comparison.html", async (req, res) => {
     if (req.user) {
-        res.render('saved-comparsion.html', { user: req.user });
+        
+        let temp = [];
+        let comparisons = [];
+        let comparisonsIDs = await db.getComparisons(req.user.userid);
+        let prev = comparisonsIDs[0]["comparisonID"];   
+        temp.push(comparisonsIDs[0]);
+        for (i=1;i<comparisonsIDs.length;i++) {
+            if(comparisonsIDs[i]["comparisonID"] === prev ){
+                temp.push(comparisonsIDs[i]);
+            }
+            else{
+                comparisons.push(temp);
+
+                temp = [];
+                temp.push(comparisonsIDs[i]);
+                prev = comparisonsIDs[i]["comparisonID"];
+                
+            }
+            
+        }
+        comparisons.push(temp);      
+        res.render('saved-comparsion.html', { user: req.user, comparisons:comparisons });
     } else {
         res.redirect("/");
     }
+});
+
+app.post("/comparisonID", async (req,res)=>{
+    let ids = await db.getComparisonsIDs(req.body.comparisonID);
+    
+    
+
+    console.log(ids[0]);
+    res.json((ids[0]));
 });
 
 app.post("/search", async (req, res) => {
@@ -415,7 +458,6 @@ app.post("/signup.html", async (req, res) => {
 
 
 app.post("/signup", async (req, res) => {
-    // console.log("Entered the node js");
     let username = req.body.username;
     let email = req.body.email;
     let password = req.body.password;
@@ -423,70 +465,16 @@ app.post("/signup", async (req, res) => {
     res.redirect("/signin.html");
 });
 
-// app.post("/postingProduct/:id", async (req, res) => {
-//     console.log("Entered the postingProduct");
-//     console.log(req.params.id);
-//     //General Information
-//     // let product_categorie = req.body.product_categorie;
-
-//     // let image = req.body.image;
-//     // let brand = req.body.brand;
-//     // let model = req.body.model;
-//     // let width = req.body.width;
-//     // let height = req.body.height;
-//     // let length = req.body.length;
-//     // let weight = req.body.weight;
-
-//     // //Common betweeen Phone and Monitor
-//     // let horizontal = req.body.horizontal;
-//     // let vertical = req.body.vertical;
-//     // let screen_size = req.body.screen_size;
-//     // var refresh_rate = req.body.refresh_rate;
-//     // let pixel_density = req.body.pixel_density
-//     // let brightness = req.body.brightness;
-
-//     // //Monitor
-//     // let display_type = req.body.display_type;
-//     // let panel = req.body.panel;
-//     // var refresh_rate = req.body.refresh_rate;
-//     // let response_time = req.body.response_time;
-
-//     // //Phone
-//     // let ram = req.body.ram;
-//     // let battery = req.body.battery;
-//     // let storage = req.body.internal_storage;
-//     // let mega_pixel = req.body.mega_pixel;
-//     // let sim = req.body.sim;
-//     // let charging = req.body.charging_speed;
-//     // let resistance = req.body.resistance;
-//     // let wirless_charing = req.body.wirless_charing
-//     // let fingerprint = req.body.Fingerprint;
-
-//     // if (product_categorie === "Monitor") {
-//     //     db.addMonitor(screen_size, horizontal, vertical, refresh_rate, response_time, panel, brightness);
-//     //     db.addDevice(model, brand, image, product_categorie);
-//     //     res.render("/add-product.html");
-//     // }
-
-// });
 
 app.delete('/delete', async (req,res) =>{
-    console.log("entered");
-    console.log(req.body.id);
-    let deleteDevice = db.deleteDevice(req.body.id);
-    // res.statusCode(200);   
+
+    let deleteDevice = db.deleteDevice(req.body.id); 
     res.status(200).send();
 })
 
 
 
 app.post("/modifyingPrdouct/:id/:category", async(req,res) =>{
-    console.log("Entered the postingProduct");
-
-    //General Information
-   
-
-
     if(req.params.category === "monitor"){
         var width = req.body.resolution_x;
         var height = req.body.resolution_y;
@@ -587,7 +575,7 @@ app.post("/modifyingPrdouct/:id/:category", async(req,res) =>{
 
 });
 app.post("/postingProduct", async(req,res) =>{
-    console.log("Entered the postingProduct");
+    // console.log("Entered the postingProduct");
 
     //General Information
     var product_category = req.body.product_category;

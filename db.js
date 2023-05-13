@@ -265,7 +265,7 @@ async function addPhone(phone_video,IP_rating,resolution_h,resolution_h,length,w
 
 async function addKeyboard(style,switch_type,backlit,tenkeyless,connection_type,color,id){
     const db = await open();
-    const result = await db.run(`INSERT INTO keyboard (style,switch_type,backlit,tenkeyless,connection_type,color,id) VALUES ("${style}","${switch_type}","${backlit}","${tenkeyless}","${connection_type}","${color},${id})`);
+    const result = await db.run(`INSERT INTO keyboard (style,switch_type,backlit,tenkeyless,connection_type,color) VALUES ("${style}","${switch_type}","${backlit}","${tenkeyless}","${connection_type}","${color},${id})`);
     await db.close();
 }
 async function addMouse(length,width,height,weight,sensor_type,dpi,max_acceleration,max_tracking_speed,polling_rate,connectivity,number_of_buttons,color,onboard_memory,led_lighting,adjustable_weight){
@@ -299,6 +299,29 @@ async function addHeadset(type,max_frequency_response,michrophone, wireless ,enc
     await db.close();
 }
 
+
+async function addComparison(user,id1,id2,id3,id4){
+    const db = await open();
+    
+    db.run(`INSERT INTO comparison (userID,device1ID,device2ID,device3ID,device4ID) VALUES ("${user}",${id1},${id2},${id3},${id4})`);
+    await db.close();
+}
+
+async function getComparisons(userID){
+    const db = await open();
+
+    let comparisonIDs = db.all(`SELECT comparisonid,name,picture,id FROM comparison JOIN device ON device1id = device.id or  device2id = device.id or  device3id = device.id OR  device4id = device.id WHERE userid = ${userID};`);
+    await db.close();
+    return comparisonIDs
+}
+
+async function getComparisonsIDs(comparisonID){
+    const db = await open();
+    let comparisonsIDs = db.all(`select device1ID,device2ID,device3ID,device4ID from comparison where comparisonID = ${comparisonID}`);
+    await db.close();
+    return comparisonsIDs;
+}
+
 module.exports = {
     getAllDevices,
     registeringUsers,
@@ -323,9 +346,12 @@ module.exports = {
     getDeviceID,
     addMouse,
     addMonitor,
-    addHeadset
+    addHeadset,
+    addComparison,
+    getComparisons,
+    getComparisonsIDs
 
 }
-
+// showComparison
 
 
