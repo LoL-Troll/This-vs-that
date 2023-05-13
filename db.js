@@ -157,9 +157,9 @@ async function getDeviceBrands(category) {
 
     return result;
 }
-async function getDeviceByBrand(brand,category){
-    const db =await open();
-    const result  = await db.all(`SELECT name,id from device where manufacturer = "${brand}" and category = "${category}"`);
+async function getDeviceByBrand(brand, category) {
+    const db = await open();
+    const result = await db.all(`SELECT name,id from device where manufacturer = "${brand}" and category = "${category}"`);
     await db.close();
     return result;
 }
@@ -230,24 +230,77 @@ async function deleteReview(review_id) {
     return result;
 }
 
-async function addDevice(model, brand, image, product_category) {
-    console.log(454);
+
+async function addDevice(name, model, brand, image, product_category, jarir_link, noon_link) {
     const db = await open();
 
-    db.run(`INSERT INTO device (name, manufacturer, model, picture, category) 
-    VALUES ("x","${brand}","${model}", "${product_category}")`);
+    await db.run(`INSERT INTO device (name, manufacturer, model, picture, category, jarir_link, noon_link) 
+    VALUES ("${name}","${brand}","${model}", "${image}" ,"${product_category}", "${jarir_link}", "${noon_link}")`);
 
     await db.close();
 }
 
-async function addMonitor(screen_size, horizontal, vertical, refresh_rate, response_time, panel, brightness) {
-    console.log(3472348327);
+async function getDeviceID(model, brand) {
     const db = await open();
 
-    db.run(`INSERT INTO monitor (size, resolution_x, resolution_x, refresh_rate, response_time, panel_type, brightness, aspect_ratio_x, aspect_ratio_y, wide_screen, curve_screen, speakers, color) 
-    VALUES ("${screen_size}","${horizontal}","${vertical}", "${refresh_rate}","${response_time}","${panel}","${brightness}"
-    "1","1","yes","yes","yes","black")`);
+    console.log(model, brand, "________");
+    const result = await db.get(`select id from device where manufacturer = "${brand}" and model = "${model}"`);
+    console.log(`select id from device where manufacturer = "${brand}" and model = "${model}"`, result);
 
+    await db.close();
+    return result.id;
+}
+
+async function addMouse(length, width, height, weight, sensor_type, dpi, max_acceleration, max_tracking_speed, polling_rate, connectivity, number_of_buttons, color, onboard_memory, led_lighting, adjustable_weight, id) {
+    const db = await open();
+
+    await db.run(`INSERT INTO mouse (id,length,width,height,weight,sensor_type,dpi,max_acceleration,max_tracking_speed,polling_rate,connectivity,
+        number_of_buttons,color,onboard_memory,led_lighting,adjustable_weight) 
+    VALUES ("${id}","${length}","${width}","${height}", "${weight}","${sensor_type}","${dpi}","${max_acceleration}","${max_tracking_speed}","${polling_rate}","${connectivity}",
+    "${number_of_buttons}","${color}","${onboard_memory}","${led_lighting}","${adjustable_weight}")`);
+
+    await db.close();
+}
+
+async function addMonitor(width,height,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers,aspect_ratio_y,aspect_ratio_x,id){
+    const db = await open();
+
+    console.log(`INSERT INTO monitor (id,resolution_x,resolution_y,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers,aspect_ratio_y,aspect_ratio_x) 
+    VALUES ("${id}","${width}","${height}","${size}", "${panel_type}","${refresh_rate}","${response_time}","${brightness}","${color}","${wide_screen}","${curve_screen}",
+    "${speakers}", "${aspect_ratio_y}", "${aspect_ratio_x}")`);
+
+    await db.run(`INSERT INTO monitor (id,resolution_x,resolution_y,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers,aspect_ratio_y,aspect_ratio_x) 
+    VALUES ("${id}","${width}","${height}","${size}", "${panel_type}","${refresh_rate}","${response_time}","${brightness}","${color}","${wide_screen}","${curve_screen}",
+    "${speakers}", "${aspect_ratio_y}", "${aspect_ratio_x}")`);
+
+    await db.close();
+}
+
+async function addHeadset(type, max_frequency_response, microphone, wireless, encloser_type, color, active_noise_cancelling, channels, sensitivity, impedance, id) {
+    const db = await open();
+
+    await db.run(`INSERT INTO headset (id,type,max_frequency_response,microphone, wireless ,encloser_type,color, active_noise_cancelling, channels, sensitivity, impedance) 
+    VALUES (${id},"${type}","${max_frequency_response}","${microphone}", "${wireless}","${encloser_type}","${color}","${active_noise_cancelling}","${channels}","${sensitivity}",
+    "${impedance}")`);
+
+    await db.close();
+}
+
+async function addPhone(phone_video, IP_rating, resolution_h, resolution_v, length, width, depth, screen_size, display_type, screen_to_body_ratio, weight, frequency, ppi, cpu, chipset, gpu, ram, battery, camera, phone_selfie_camera, sensors, charging_speed, os, headphone_jack, colors, id) {
+    const db = await open();
+    await db.run(
+        `INSERT INTO phone (phone_video,IP_rating,resolution_h,resolution_v,length,width,depth,screen_size,display_type,screen_to_body_ratio,weight,frequency,pixel_density,cpu,chipset,gpu,memory,battery,camera,phone_selfie_camera,sensors,charging_speed,os,headphone_jack,colors,id) 
+        VALUES ("${phone_video}","${IP_rating}","${resolution_h}","${resolution_v}","${length}","${width}","${depth}","${screen_size}","${display_type}",
+        "${screen_to_body_ratio}","${weight}","${frequency}","${ppi}","${cpu}","${chipset}","${gpu}","${ram}","${battery}","${camera}",
+        "${phone_selfie_camera}","${sensors}","${charging_speed}","${os}","${headphone_jack}","${colors}","${id}")`
+    );
+    await db.close();
+}
+
+async function addKeyboard(style, switch_type, backlit, tenkeyless, connection_type, color, id) {
+    const db = await open();
+    await db.run(`INSERT INTO keyboard (style,switch_type,backlit,tenkeyless,connection_type,color,id) 
+    VALUES ("${style}","${switch_type}","${backlit}","${tenkeyless}","${connection_type}","${color}",${id})`);
     await db.close();
 }
 
@@ -263,13 +316,18 @@ module.exports = {
     updatePassword,
     postingReview,
     getAllReviews,
-    addDevice,
-    addMonitor,
     getUserById,
     updateHistory,
     getHistory,
     getDeviceByBrand,
     deleteReview,
+    addDevice,
+    getDeviceID,
+    addMonitor,
+    addMouse,
+    addHeadset,
+    addPhone,
+    addKeyboard
 }
 
 
