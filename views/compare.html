@@ -12,7 +12,7 @@
 
 {% block content %}
 <div class="container">
-  <form action="save" method="post">
+  <form action="/save" method="post">
   <div class="column">
   <div class="row">
 
@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <img src={{data["picture"]}} class="card-img-top" alt="..."/>
                     <h2 class="card-title font-weight-bold text-center">{{data["name"]}}</h2>
-
+                    <input type="hidden" name = "id" value="{{data["id"]}}">
                 </div>
                 <div class="collapse" id="collapseContent{{data["id"]}}">
                     <div class="container">

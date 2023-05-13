@@ -183,7 +183,8 @@ app.get("/compare", async (req, res) => {
 });
 
 app.post("/save", async (req,res)=>{
-    console.log(req.body);
+    console.log(user: req.user);
+    console.log(req.body.id);
 });
 
 
