@@ -151,11 +151,16 @@ async function getAllDevices(category, brands, sort) {
 }
 
 async function getDeviceBrands(category) {
-    console.log(32451);
     const db = await open();
     const result = await db.all(`select distinct manufacturer from device where category = "${category}"`);
     await db.close();
 
+    return result;
+}
+async function getDeviceByBrand(brand,category){
+    const db =await open();
+    const result  = await db.all(`SELECT name,id from device where manufacturer = "${brand}" and category = "${category}"`);
+    await db.close();
     return result;
 }
 
@@ -165,8 +170,11 @@ async function getDeviceByID(id) {
 
     console.log(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
     const result = await db.all(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
-    console.log(result);
     await db.close();
+
+    console.log("OOOOOOOOOOOOOOOOOOOOOO");
+    console.log(result);
+    console.log("OOOOOOOOOOOOOOOOOOOOOO");
 
     return result;
 }
@@ -206,10 +214,10 @@ async function postingReview(userid, deviceid, comment, rating) {
     await db.close();
 }
 
-async function getAllReviews() {
+async function getAllReviews(deviceID) {
     console.log(3424);
     const db = await open();
-    const result = db.all('select * from review natural join user');
+    const result = db.all(`select * from review natural join user where deviceID = ${deviceID}`);
     await db.close();
 
     return result;
@@ -255,6 +263,7 @@ module.exports = {
     getUserById,
     updateHistory,
     getHistory,
+    getDeviceByBrand
 }
 
 

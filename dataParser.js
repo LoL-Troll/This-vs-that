@@ -23,21 +23,31 @@ async function getJarirPrice(jarir_link) {
 
 async function getNoonPrice(noon_link) {
     if (noon_link) {
-        var len = noon_link.length
+        var len = noon_link.length;
         noon_link = noon_link.slice(29);
         console.log(noon_link);
-        noon_link = "https://www.noon.com/_svc/catalog/api/v3/u/" + noon_link;
+        noon_link = "https://www.noon.com/_svc/catalog/api/v3/u" + noon_link;
         console.log(noon_link);
-        var price;
+        let price;
+
         try {
-            const response = await fetch(noon_link);
+            const response = await fetch(noon_link, {
+                "headers": { "x-locale": "en-sa" },
+                "method": "GET"
+            });
+
             const data = await response.json();
 
-            price = data.product.variants[0].offers[0].sale_price;
+            price = await data.product.variants[0].offers[0].sale_price;
+
+            if (!price) {
+                price = await data.product.variants[0].offers[0].price;
+            }
+
         } catch (error) {
             console.error(error);
         }
-        return price;
+        return price ? price : "Not Avaliable";
     }
     return "Not Avaliable";
 
@@ -45,5 +55,5 @@ async function getNoonPrice(noon_link) {
 
 module.exports = {
     getJarirPrice,
-    getNoonPrice,
+    getNoonPrice
 }

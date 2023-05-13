@@ -31,7 +31,7 @@
                         <h4>Jarir Current Price</h4>
                         <p>
                           {{(jarir_price + " SAR") if data["jarir_link"] else "Not Available"}}
-                          {% if data["jarir_link"] %}
+                          {% if (data["jarir_link"] and (jarir_price != "Not Available")) %}
                           <span>
                             <a href={{data["jarir_link"]}}>
                               <button class="btn btn-light border-light-subtle ms-3">
@@ -51,7 +51,7 @@
                         <h4>Noon Current Price</h4>
                         <p>
                           {{(noon_price + " SAR") if data["noon_link"] else "Not Available"}}
-                          {% if data["noon_link"] %}
+                          {% if (data["noon_link"] and (noon_price != "Not Avaliable") ) %}
                           <span>
                             <a href={{data["noon_link"]}}>
                               <button class="btn btn-light border-light-subtle ms-3">
@@ -105,7 +105,7 @@
                           <!-- add the icon to the attributes -->
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
-                            <h4>Weight (kg)</h4>
+                            <h4>Weight (g)</h4>
                             <p>{{data["weight"] if data["weight"] else "Not Available"}}</p>
                           </div>
                         </div>
@@ -405,7 +405,7 @@
                           <!-- add the icon to the attributes -->
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
                           <div class="col">
-                            <h4>Weight (kg)</h4>
+                            <h4>Weight (g)</h4>
                             <p>{{data["weight"] if data["weight"] else "Not Available"}}</p>
                           </div>
                         </div>
@@ -508,7 +508,6 @@
                             <p>{{data["led_lighting"] if data["led_lighting"] else "Not Available"}}</p>
                           </div>
                         </div>
-
                         <div class="row">
                           <!-- add the icon to the attributes -->
                           {# <img src="assets/" +{{picture}}+"" class="icons" alt="icon"> #}
@@ -672,7 +671,7 @@
                     </div>
 
                     <a class="btn btn-primary text-white bg-primary py-3 link my-1 d-flex align-items-center justify-content-center"
-                      href="/browse-select.html?id={{data["id"]}}">
+                      href="/browse-select.html?id={{data["id"]}}&Type='{{data["category"]}}'">
                       <h4>
                         Compare Against Another Device
                       </h4>
@@ -700,7 +699,7 @@
                     <textarea name="comment" class="form-control" id="textAreaExample" rows="4"></textarea>
                     <label class="form-label" for="textAreaExample">Review</label>
                     <br>
-
+                    
                     <!-- Stars Rating (source: https://codepen.io/anefzaoui/pen/NWPZzMa) -->
                     <fieldset class="rate">
                       <input type="radio" id="rating10" name="rating" value="5" />
@@ -772,6 +771,8 @@
                           </p>
                         </div>
                       </div>
+
+                      <button class="btn btn-danger my-3">Delete</button>
                     </div>
                   </div>
                 </div>

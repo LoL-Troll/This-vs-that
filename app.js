@@ -12,6 +12,8 @@ const port = 8000;
 app.use("/styles", express.static('styles'));
 app.use("/assets", express.static('assets'));
 app.use("/scripts", express.static('scripts'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 
 const pageData = { signedIn: false, isAdmin: undefined, userData: undefined };
@@ -205,16 +207,17 @@ app.get("/item/:id", async (req, res) => {
     let devices = (await db.getDeviceByID(id))[0];
 
     // load reviews
-    const reviews = await db.getAllReviews();
+    const reviews = await db.getAllReviews(id);
 
     //load prices
     var jarirPrice = await dataParser.getJarirPrice(devices["jarir_link"]);
     var noonPrice = await dataParser.getNoonPrice(devices["noon_link"]);
 
+    console.log(noonPrice);
 
     // save into history of user (if signed in)
     if (req.user) {
-        await db.updateHistory(req.user.userid, id)
+        await db.updateHistory(req.user.userid, id);
     }
 
     res.render(`item.html`, { user: req.user, data: devices, reviews: reviews, jarir_price: jarirPrice, noon_price: noonPrice });
@@ -230,6 +233,43 @@ app.post("/postingReview", async (req, res) => {
     await db.postingReview(req.user.userid, deviceid, comment, rating);
     res.redirect(`/item/${deviceid}`);
 });
+
+
+app.post('/brand', async (req, res) => {
+    let brands = await db.getDeviceBrands(req.body.catagoery);
+    console.log(brands, req.body);
+    res.json(brands);
+});
+
+app.post('/device', async (req, res) => {
+
+    let devices = await db.getDeviceByBrand(req.body.name, req.body.catagoery);
+
+    res.json(devices);
+});
+
+app.get("/modify.html", async (req, res) => {
+    console.log("????????????????????????????????????????????????????????");
+    if (!req.query.id) {
+        console.log("NO ID");
+        res.render("modify.html");
+    }
+    else {
+        console.log("===========");
+        console.log(req.query.id);
+        console.log("===========");
+        let device = (await db.getDeviceByID(req.query.id))[0];
+
+        console.log("EIJROIEUJIOPEWJFOEWFPIOWEFIH", device);
+        res.render("modify.html", { device: device });
+    }
+
+});
+
+app.post('/getDevice', async (req, res) => {
+    let device = await db.getDeviceByID(req.id);
+    res.json(device);
+})
 
 
 app.get("/modify-product.html", (req, res) => {
