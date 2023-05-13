@@ -11,7 +11,7 @@
 <script src="/scripts/item.js"></script>
 {% endblock %}
 
-"{% block content %}"
+{% block content %}
 
 <main class="p-5">
   <section>
@@ -672,7 +672,7 @@
                     </div>
 
                     <a class="btn btn-primary text-white bg-primary py-3 link my-1 d-flex align-items-center justify-content-center"
-                      href="/browse-select.html?id={{data[" id"]}}&Type='{{data["category"]}}'">
+                      href="/browse-select.html?id={{data["id"]}}&Type='{{data["category"]}}'">
                       <h4>
                         Compare Against Another Device
                       </h4>
