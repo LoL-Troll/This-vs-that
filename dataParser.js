@@ -18,7 +18,7 @@ async function getJarirPrice(jarir_link) {
         }
         return price;
     }
-    return "Not Avaliable";
+    return "Not Available";
 }
 
 async function getNoonPrice(noon_link) {
@@ -47,9 +47,9 @@ async function getNoonPrice(noon_link) {
         } catch (error) {
             console.error(error);
         }
-        return price ? price : "Not Avaliable";
+        return price ? price : "Not Available";
     }
-    return "Not Avaliable";
+    return "Not Available";
 
 }
 
