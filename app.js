@@ -71,6 +71,14 @@ app.get("/", async (req, res) => {
     }
 });
 
+app.delete('/item/:id', async (req, res) => {
+    console.log("HELLO")
+    const review_id = req.params.id;
+    const review_data = await db.deleteReview(review_id);
+
+    res.send(review_data)
+});
+
 
 app.get("/about.html", (req, res) => {
     res.render('about.html', { user: req.user });
