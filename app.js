@@ -360,7 +360,7 @@ app.get("/item/:id", async (req, res) => {
         devices.picture = "." + devices.picture;
     }
 
-    // load reviews
+    // load reviews.
     const reviews = await db.getAllReviews(id);
 
     //load prices
