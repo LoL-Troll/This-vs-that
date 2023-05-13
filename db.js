@@ -122,6 +122,7 @@ async function getAllDevices(category, brands, sort) {
     // if there are filters for headset brands
     if (brands.headset_brand != undefined) {
         filterBrands = (filterBrands === "TRUE" ? `` : (filterBrands + ` or `)) + ` (manufacturer in (${brands.headset_brand}))`;
+        console.log("HRHRHRHRHRHRHRHRHRH" +filterBrands);
     }
 
     // if there are filters for phone brands

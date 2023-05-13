@@ -212,23 +212,62 @@ app.get("/item/:id", async (req, res) => {
     let id = req.params.id;
 
     // load device info
-    let devices = (await db.getDeviceByID(id))[0];
+    let device = (await db.getDeviceByID(id))[0];
 
     // load reviews
     const reviews = await db.getAllReviews(id);
 
     //load prices
-    var jarirPrice = await dataParser.getJarirPrice(devices["jarir_link"]);
-    var noonPrice = await dataParser.getNoonPrice(devices["noon_link"]);
+    var jarirPrice = await dataParser.getJarirPrice(device["jarir_link"]);
+    var noonPrice = await dataParser.getNoonPrice(device["noon_link"]);
 
-    console.log(noonPrice);
+    var mouse_brand;
+    var headset_brand;
+    var keyboard_brand;
+    var monitor_brand;
+    var phone_brand;
+    switch(device['category']){
+        case "headset":
+            headset_brand = `'${device['manufacturer']}'`;
+            break;
+
+        case "keyboard":
+            keyboard_brand = `'${device['manufacturer']}'`;
+            break;
+
+        case "mouse":
+            mouse_brand = `'${device['manufacturer']}'`;
+            break;
+
+        case "monitor":
+            monitor_brand = `'${device['manufacturer']}'`;
+            break;
+
+        case "phone":
+            phone_brand = `'${device['manufacturer']}'`;
+            break;
+    }
+
+    var type = `'${device['category']}'`
+
+    let sort = "AZname"
+
+    let similar_devices = await db.getAllDevices
+        (type, {
+            mouse_brand: mouse_brand,
+            keyboard_brand: keyboard_brand,
+            monitor_brand: monitor_brand,
+            headset_brand: headset_brand,
+            phone_brand: phone_brand
+        }, sort
+        );
 
     // save into history of user (if signed in)
     if (req.user) {
         await db.updateHistory(req.user.userid, id);
     }
 
-    res.render(`item.html`, { user: req.user, data: devices, reviews: reviews, jarir_price: jarirPrice, noon_price: noonPrice });
+    res.render(`item.html`, { user: req.user, data: device, reviews: reviews, jarir_price: jarirPrice, noon_price: noonPrice, similar_devices: similar_devices });
 });
 
 
