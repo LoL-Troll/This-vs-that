@@ -22,7 +22,7 @@
             <div class="card-body">
               <div class="d-flex flex-start align-items-center">
                 <div class="col">
-                  <div class="row"><img src={{data["picture"]}} class="card-img-top mx-auto mb-2" alt="..."
+                  <div class="row"><img src="{{data["picture"]}}" class="card-img-top mx-auto mb-2" alt="..."
                       style="width: 20rem;" />
                     <h2 class="card-title font-weight-bold text-center">{{data["name"]}}</h2>
                     <h4 class="card-title font-weight-bold text-center">{{data["manufacturer"]}}</h4>
@@ -772,8 +772,10 @@
                           </p>
                         </div>
                       </div>
-                      {% if user.usertype == "admin" %}
-                      <button class="btn btn-danger my-3" onclick="deleteReview({{review.reviewID}})">Delete</button>
+                      {% if user %}
+                        {% if user.usertype == "admin" %}
+                          <button class="btn btn-danger my-3" onclick="deleteReview({{review.reviewID}})">Delete</button>
+                        {% endif %}
                       {% endif %}
                     </div>
                   </div>

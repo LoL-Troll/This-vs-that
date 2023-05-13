@@ -69,19 +69,4 @@ async function showDevices(devices, text) {
 async function QueryPage() {
     let id = document.getElementById("product_name").value;
     window.location = `/modify.html?id=${id}`;
-
-    
-    // const res = await fetch("/modify.html", {
-    //     method: "POST",
-    //     body: JSON.stringify({ id: document.getElementById("product_name").value }),
-    //     headers: {
-    //         Accept: "application/json",
-    //         "Content-Type": "application/json",
-    //     },
-    // });
-
-    // if (res.ok) {
-    //     console.log(res);
-    //     // window.location = res.;
-    // }
 };
