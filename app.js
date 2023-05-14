@@ -461,7 +461,7 @@ app.get("/modify.html", async (req, res) => {
         else {
             let device = (await db.getDeviceByID(req.query.id))[0];
 
-            res.render("modify.html", { device: device });
+            res.render("modify.html", { device: device , user: req.user});
         }
     } else {
         res.redirect("/");
