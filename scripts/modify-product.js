@@ -29,7 +29,6 @@ function updatePage() {
 
 function selectedBrand() {
     const s = document.getElementsByName('brand');
-    console.log(s);
 
     for (let i = 0; i < s.length; i++) {
         const s = document.getElementsByName('brand')[i];
@@ -65,7 +64,6 @@ function selectedBrand() {
 
 function selectedProduct() {
     const s = document.getElementsByName('selectedProduct');
-    console.log(s);
 
     for (let i = 0; i < s.length; i++) {
         const s = document.getElementsByName('selectedProduct')[i];
@@ -73,14 +71,12 @@ function selectedProduct() {
 
         if (option === "Iphone10") {
             {
-                console.log("iphone10")
                 document.getElementsByClassName('ApplePhoneIphone10')[0].style.display = 'block';
                 document.getElementsByClassName('ApplePhoneIphone11')[0].style.display = 'none';
             }
         }
         else if (option === "Iphone11") {
             {
-                console.log("iphone11")
                 document.getElementsByClassName('ApplePhoneIphone11')[0].style.display = 'block';
                 document.getElementsByClassName('ApplePhoneIphone10')[0].style.display = 'none';
             }
