@@ -304,6 +304,71 @@ async function addKeyboard(style, switch_type, backlit, tenkeyless, connection_t
     await db.close();
 }
 
+async function updateDevice(id,name, model, brand, image, product_category, jarir_link, noon_link){
+    const db = await open();
+
+    await db.run(`UPDATE device set name = "${name}",  manufacturer = "${brand}" , model = "${model}", picture = "${image}", category = "${product_category}", jarir_link = "${jarir_link}", noon_link = "${noon_link}" WHERE id = "${id}"`);
+
+    await db.close();
+}
+
+
+async function updateMouse(length, width, height, weight, sensor_type, dpi, max_acceleration, max_tracking_speed, polling_rate, connectivity, number_of_buttons, color, onboard_memory, led_lighting, adjustable_weight, id) {
+    const db = await open();
+
+    await db.run(`UPDATE mouse SET length = "${length}",width = "${width}" ,height = "${height}",weight = "${weight}" ,sensor_type = "${sensor_type}"
+    ,dpi = "${dpi}" ,max_acceleration = "${max_acceleration}" ,max_tracking_speed = "${max_tracking_speed}",polling_rate = "${polling_rate}",
+    connectivity = "${connectivity}",number_of_buttons = "${number_of_buttons}",color = "${color}",onboard_memory = "${onboard_memory}",led_lighting = "${led_lighting}", adjustable_weight = "${adjustable_weight}"
+    WHERE id = "${id}"`);
+
+    await db.close();
+}
+
+
+async function updateMonitor(width,height,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers,aspect_ratio_y,aspect_ratio_x,id){
+    const db = await open();
+
+    await db.run(`UPDATE monitor SET resolution_x = "${width}",resolution_y = "${height}",size = "${size}",panel_type = "${panel_type}"
+    ,refresh_rate = "${refresh_rate}",response_time = "${response_time}",brightness = "${brightness}",color = "${color}",wide_screen = "${wide_screen}"
+    ,curve_screen = "${curve_screen}",speakers = "${speakers}",aspect_ratio_y = "${aspect_ratio_y}",aspect_ratio_x = "${aspect_ratio_x}" WHERE id = "${id}"`);
+
+    await db.close();
+}
+
+
+async function updateHeadset(type, max_frequency_response, microphone, wireless, encloser_type, color, active_noise_cancelling, channels, sensitivity, impedance, id) {
+    const db = await open();
+
+    await db.run(`UPDATE headset SET type = "${type}" ,max_frequency_response = "${max_frequency_response}" ,microphone = "${microphone}",
+    wireless = "${wireless}" ,encloser_type = "${encloser_type}",color = "${color}", active_noise_cancelling = "${active_noise_cancelling}", channels = "${channels}"
+    ,sensitivity = "${sensitivity}", impedance = "${impedance}" WHERE id = "${id}"`);
+
+    await db.close();
+}
+
+async function updatePhone(phone_video, IP_rating, resolution_h, resolution_v, length, width, depth, screen_size, display_type, screen_to_body_ratio, weight, frequency, ppi, cpu, chipset, gpu, ram, battery, camera, phone_selfie_camera, sensors, charging_speed, os, headphone_jack, colors, id) {
+    const db = await open();
+    await db.run(
+        `UPDATE phone SET phone_video = "${phone_video}",IP_rating = "${IP_rating}",resolution_h = "${resolution_h}",resolution_v = "${resolution_v}"
+        ,length = "${length}",width = "${width}",depth = "${depth}",screen_size = "${screen_size}",display_type = "${display_type}" 
+        ,screen_to_body_ratio = "${screen_to_body_ratio}",weight = "${weight}",frequency = "${frequency}",pixel_density = "${ppi}"
+        ,cpu = "${cpu}",chipset = "${chipset}" ,gpu = "${gpu}" ,memory = "${ram}",battery = "${battery}" ,camera = "${camera}"
+        ,phone_selfie_camera = "${phone_selfie_camera}",sensors = "${sensors}",charging_speed = "${charging_speed}",os = "${os}"
+        ,headphone_jack = "${headphone_jack}",colors = "${colors}" WHERE id = "${id}"`);
+
+
+        console.log("entered phone")
+    await db.close();
+}
+
+async function updateKeyboard(style, switch_type, backlit, tenkeyless, connection_type, color, id) {
+    const db = await open();
+    await db.run(`UPDATE keyboard SET style = "${style}",switch_type = "${switch_type}",backlit = "${backlit}",tenkeyless = "${tenkeyless}"
+    ,connection_type = "${connection_type}",color = "${color}" WHERE id= "${id}"`);
+    await db.close();
+}
+
+
 module.exports = {
     getAllDevices,
     registeringUsers,
@@ -327,7 +392,13 @@ module.exports = {
     addMouse,
     addHeadset,
     addPhone,
-    addKeyboard
+    addKeyboard,
+    updateDevice,
+    updateMouse,
+    updateHeadset,
+    updateMonitor,
+    updatePhone,
+    updateKeyboard
 }
 
 
