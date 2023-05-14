@@ -87,7 +87,6 @@ app.get("/about.html", (req, res) => {
 app.get("/add-product.html", (req, res) => {
     // admin only 
     // if session.isadmin
-    console.log(req.query.category, req.query);
     if (req.user && req.user.usertype === "admin") {
         res.render('add-product.html', { user: req.user, category: req.query.category });
     } else {
@@ -97,7 +96,6 @@ app.get("/add-product.html", (req, res) => {
 });
 
 app.post("/postingProduct", async (req, res) => {
-    console.log("Entered the postingProduct");
 
     //General Information
     var category = req.body.category.toLowerCase();
@@ -118,11 +116,6 @@ app.post("/postingProduct", async (req, res) => {
     } else {
         image = "./assets/placeholder.jpg"
     }
-
-
-
-
-    console.log(req.body);
 
     if (category === "monitor") {
         var width = req.body.resolution_x;
@@ -211,7 +204,6 @@ app.post("/postingProduct", async (req, res) => {
 
         await db.addDevice(name, model, brand, image, category, jarir_link, noon_link);
         var id = await db.getDeviceID(model, brand);
-        console.log(id);
         await db.addKeyboard(style, switch_type, backlit, tenkeyless, connection_type, color, id);
         res.redirect("/add-product.html");
     }
@@ -338,7 +330,6 @@ app.get("/contact.html", (req, res) => {
 app.get("/history.html", async (req, res) => {
     // user only
 
-    console.log("VVVVVVVVVVVVVVVV");
     if (req.user) {
         let devicesHistory = await db.getHistory(req.user.userid);
         res.render('history.html', { user: req.user, devicesHistory: devicesHistory });
@@ -418,7 +409,6 @@ app.get("/item/:id", async (req, res) => {
 
 
 app.post("/postingReview", async (req, res) => {
-    console.log("Entered the posting Review");
     let comment = req.body.comment;
     let rating = req.body.rating;
     let deviceid = req.body.deviceid;
@@ -430,7 +420,6 @@ app.post("/postingReview", async (req, res) => {
 
 app.post('/brand', async (req, res) => {
     let brands = await db.getDeviceBrands(req.body.catagoery);
-    console.log(brands, req.body);
     res.json(brands);
 });
 
@@ -442,6 +431,7 @@ app.post('/device', async (req, res) => {
 });
 
 app.get("/modify.html", async (req, res) => {
+<<<<<<< Updated upstream
     if (req.user && req.user.usertype === "admin") {
         if (!req.query.id) {
             res.render("modify.html");
@@ -453,6 +443,15 @@ app.get("/modify.html", async (req, res) => {
         }
     } else {
         res.redirect("/");
+=======
+    if (!req.query.id) {
+        res.render("modify.html");
+    }
+    else {
+        let device = (await db.getDeviceByID(req.query.id))[0];
+
+        res.render("modify.html", { device: device });
+>>>>>>> Stashed changes
     }
 
 
@@ -596,7 +595,6 @@ app.post("/signup.html", async (req, res) => {
 
 
 app.post("/signup", async (req, res) => {
-    console.log("Entered the node js");
     let username = req.body.username;
     let email = req.body.email;
     let password = req.body.password;
@@ -604,12 +602,16 @@ app.post("/signup", async (req, res) => {
     res.redirect("/signin.html");
 });
 
+<<<<<<< Updated upstream
 
 app.post("/modifyingPrdouct/:id", async (req, res) => {
 
 
     var category = req.body.category.toLowerCase();
 
+=======
+app.post("/postingProduct", async (req, res) => {
+>>>>>>> Stashed changes
 
     //General Information
     var id = req.params.id;

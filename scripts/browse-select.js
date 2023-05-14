@@ -4,7 +4,6 @@ selectedItems = []
 function selectButton(button) {
     let data = button.getAttribute("id");
     let deviceName = button.querySelector(".card-title").innerText;
-    console.log(deviceName);
 
     let isSelected = button.getAttribute("isSelected");
     if (selectedItems.length <= 3 || (isSelected)) {
@@ -36,9 +35,6 @@ function addItem(item, deviceName) {
     li_device_name.setAttribute("class", `bg-light border-light-subtle px-3 py-2 m-2 rounded-5`)
 
     document.getElementById("selected_devices_tags").appendChild(li_device_name);
-    console.log(deviceName, "added");
-
-    console.log("These are the selected items id" + selectedItems);
 }
 
 function removeItem(item) {
@@ -48,10 +44,6 @@ function removeItem(item) {
     let ul_devices_names = document.getElementById("selected_devices_tags");
     let li_device_name = document.getElementById(`li_${item}`);
     let removed = ul_devices_names.removeChild(li_device_name);
-
-
-    console.log(removed, "removed")
-    console.log("These are the selected items id" + selectedItems)
 }
 
 function removeElementFromArray(arr, val) {
@@ -59,7 +51,6 @@ function removeElementFromArray(arr, val) {
     if (index !== -1) {
         arr.splice(index, 1);
     }
-    console.log(arr);
     return arr;
 }
 

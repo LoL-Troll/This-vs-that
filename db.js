@@ -9,7 +9,6 @@ async function open() {
 }
 
 async function getAllDevices() {
-    console.log(1);
     const db = await open();
     const result = await db.all('select * from device');
     await db.close();
@@ -18,10 +17,8 @@ async function getAllDevices() {
 }
 
 async function getUserById(id) {
-    console.log(2);
     const db = await open();
     // sqlite is case sensitive (a != A), use COLLATE NOCASE to make it insensitive
-    console.log(`select * from user where userId = ${id}`)
     const result = await db.get(`select * from user where userId = ${id}`);
     await db.close();
 
@@ -29,7 +26,6 @@ async function getUserById(id) {
 }
 
 async function getUser(email, password) {
-    console.log(3);
     const db = await open();
     // sqlite is case sensitive (a != A), use COLLATE NOCASE to make it insensitive
     const result = await db.get(`select * from user where email = "${email}" COLLATE NOCASE and password = "${password}"`);
@@ -68,7 +64,6 @@ async function updatePassword(id, oldPass, newPass) {
 }
 
 async function getHistory(userID) {
-    console.log(6);
     const db = await open();
 
     const result = db.all(`
@@ -82,7 +77,6 @@ async function getHistory(userID) {
 }
 
 async function updateHistory(userid, deviceid) {
-    console.log(71);
     const db = await open();
 
     const result = await db.run(`
@@ -94,7 +88,6 @@ async function updateHistory(userid, deviceid) {
 
 
 async function getAllDevices(category, brands, sort) {
-    console.log(123);
     filterCategory = "TRUE";
     filterBrands = "TRUE";
 
@@ -142,7 +135,6 @@ async function getAllDevices(category, brands, sort) {
         sortBy = "order by category asc";
     }
 
-    console.log(`select * from device where ${filterCategory} and (${filterBrands}) ${sortBy}`);
     const db = await open();
     const result = await db.all(`select * from device where ${filterCategory} and (${filterBrands}) ${sortBy}`);
     await db.close();
@@ -165,22 +157,16 @@ async function getDeviceByBrand(brand, category) {
 }
 
 async function getDeviceByID(id) {
-    console.log(42213)
     const db = await open();
 
-    console.log(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
     const result = await db.all(`SELECT * FROM device NATURAL JOIN ${(await getDeviceType(id))[0]["category"]} WHERE id = ${id}`);
     await db.close();
 
-    console.log("OOOOOOOOOOOOOOOOOOOOOO");
-    console.log(result);
-    console.log("OOOOOOOOOOOOOOOOOOOOOO");
 
     return result;
 }
 
 async function getDeviceType(id) {
-    console.log(345235);
     const db = await open();
     const result = await db.all(`SELECT category FROM device WHERE id = ${id}`);
     await db.close();
@@ -189,7 +175,6 @@ async function getDeviceType(id) {
 }
 
 async function searchDevices(value) {
-    console.log(423974);
     const db = await open();
     const result = await db.all(`SELECT * FROM device WHERE name LIKE '%${value}%' 
     OR manufacturer LIKE '%${value}%' OR model LIKE '%${value}%'`);
@@ -199,7 +184,6 @@ async function searchDevices(value) {
 }
 
 async function registeringUsers(name, username, email, password) {
-    console.log(3432)
     const db = await open();
     await db.run(`INSERT INTO user (name, username, email, password, usertype) VALUES ("${name}","${username}","${email}","${password}", "user")`);
     await db.close();
@@ -207,15 +191,12 @@ async function registeringUsers(name, username, email, password) {
 
 
 async function postingReview(userid, deviceid, comment, rating) {
-    console.log(3483298)
-    console.log("Entered the DB");
     const db = await open();
     await db.run(`INSERT INTO review (userID, deviceID, comment, rating) VALUES ("${userid}","${deviceid}","${comment}", "${rating}")`)
     await db.close();
 }
 
 async function getAllReviews(deviceID) {
-    console.log(3424);
     const db = await open();
     const result = db.all(`select * from review natural join user where deviceID = ${deviceID}`);
     await db.close();
@@ -243,9 +224,7 @@ async function addDevice(name, model, brand, image, product_category, jarir_link
 async function getDeviceID(model, brand) {
     const db = await open();
 
-    console.log(model, brand, "________");
     const result = await db.get(`select id from device where manufacturer = "${brand}" and model = "${model}"`);
-    console.log(`select id from device where manufacturer = "${brand}" and model = "${model}"`, result);
 
     await db.close();
     return result.id;
@@ -264,10 +243,6 @@ async function addMouse(length, width, height, weight, sensor_type, dpi, max_acc
 
 async function addMonitor(width,height,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers,aspect_ratio_y,aspect_ratio_x,id){
     const db = await open();
-
-    console.log(`INSERT INTO monitor (id,resolution_x,resolution_y,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers,aspect_ratio_y,aspect_ratio_x) 
-    VALUES ("${id}","${width}","${height}","${size}", "${panel_type}","${refresh_rate}","${response_time}","${brightness}","${color}","${wide_screen}","${curve_screen}",
-    "${speakers}", "${aspect_ratio_y}", "${aspect_ratio_x}")`);
 
     await db.run(`INSERT INTO monitor (id,resolution_x,resolution_y,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers,aspect_ratio_y,aspect_ratio_x) 
     VALUES ("${id}","${width}","${height}","${size}", "${panel_type}","${refresh_rate}","${response_time}","${brightness}","${color}","${wide_screen}","${curve_screen}",
