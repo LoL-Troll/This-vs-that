@@ -430,7 +430,6 @@ app.post('/device', async (req, res) => {
 });
 
 app.get("/modify.html", async (req, res) => {
-<<<<<<< Updated upstream
     if (req.user && req.user.usertype === "admin") {
         if (!req.query.id) {
             res.render("modify.html");
@@ -442,19 +441,7 @@ app.get("/modify.html", async (req, res) => {
         }
     } else {
         res.redirect("/");
-=======
-    if (!req.query.id) {
-        res.render("modify.html");
     }
-    else {
-        let device = (await db.getDeviceByID(req.query.id))[0];
-
-        res.render("modify.html", { device: device });
->>>>>>> Stashed changes
-    }
-
-
-
 });
 
 app.post('/getDevice', async (req, res) => {
@@ -601,16 +588,10 @@ app.post("/signup", async (req, res) => {
     res.redirect("/signin.html");
 });
 
-<<<<<<< Updated upstream
 
 app.post("/modifyingPrdouct/:id", async (req, res) => {
 
-
     var category = req.body.category.toLowerCase();
-
-=======
-app.post("/postingProduct", async (req, res) => {
->>>>>>> Stashed changes
 
     //General Information
     var id = req.params.id;
