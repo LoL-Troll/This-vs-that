@@ -1,45 +1,60 @@
-{% extends "layout.html" %}
-
-{% block title %} This vs That | Contact {% endblock %}
-
+{% extends "layout.html" %} {% block title %} This vs That | Contact {% endblock
+%} 
 {% block pageStyle %}
-    <link rel="stylesheet" href="/styles/contact.css">
+<link rel="stylesheet" href="/styles/contact.css" />
+{% endblock %} {% block pageScripts %}
+<script src="scripts/contact.js"></script>
+<script
+  type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+></script>
+<script type="text/javascript">
+  (function () {
+    emailjs.init("0YWkTORQbSjV9FMWd");
+  })();
+</script>
+<!-- meow -->
 {% endblock %}
-
 {% block content %}
-    <main class="p-5">
-        <div class="text-center">
-            <img src="assets/contact.png" class="img-center" alt=""/>
-        </div>
-        <h1 class="text-center">We want to hear from YOU!</h1>
-        <div class="container my-5 py-5">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-12 col-lg-10 col-xl-8">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex flex-column justify-content-between">
-                                <div>
-                                    <label for="Options">Select your option</label>
-                                    <select class="form-select" aria-label="Select Option">
-                                        <option value="" disabled selected> Select your option</option>
-                                        <option value="1">Technical issues</option>
-                                        <option value="2">Comment violations</option>
-                                        <option value="3">Others</option>
-                                    </select>
-                                </div>
+<main class="p-5">
+  <div class="text-center">
+    <img src="assets/contact.png" class="img-center" alt="" />
+  </div>
+  <h1 class="text-center">We want to hear from YOU!</h1>
+  <div class="container my-5 py-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xl-8">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column justify-content-between">
+              <div>
+                <label for="Options">Select your option</label>
+                <select class="form-select" aria-label="Select Option" id="issue_type">
+                  <option value="" disabled selected>Select your option</option>
+                  <option value="1">Technical issues</option>
+                  <option value="2">Comment violations</option>
+                  <option value="3">Others</option>
+                </select>
+              </div>
 
-                                <div class="mb-3 mt-3">
-                                    <label for="exampleFormControlTextarea1" class="form-label">Describe your issue</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <a class="btn btn-primary"> Submit </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <div class="mb-3 mt-3">
+                <label for="exampleFormControlTextarea1" class="form-label"
+                  >Describe your issue</label
+                >
+                <textarea
+                  class="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="5"
+                ></textarea>
+              </div>
             </div>
+            <div class="text-center">
+              <button class="btn btn-primary" onclick="sendmails()"> Submit </button>
+            </div>
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
+  </div>
+</main>
 {% endblock %}

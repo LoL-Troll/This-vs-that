@@ -19,22 +19,22 @@
                     <h3 class="card-header">Category</h3>
                     <div class="card-body">
                         <div class="d-flex flex-column">
-                            <div class="form-group">
+                            <!-- <div class="form-group"> -->
                                 <label class="col-md-6 control-label" for="product_categorie">Product Category</label>
                                 <div class="col-md-6">
-                                    <select id="product_categorie" name="product_categorie" class="form-control"
-                                        onchange="updatePage();">
+                                    <select class = "form-select" id="product_categorie" name="product_categorie" class="form-control"
+                                        onchange="updatePage();" >
                                         <option value="" disabled selected>
                                             Select your option
                                         </option>
                                         <option value="phone">Phone</option>
-                                        <option value="mouse">Mouse (No Data At the moment)</option>
-                                        <option value="keyboard">Keyboard (No Data At the moment)</option>
-                                        <option value="headphone">Headphone (No Data At the moment)</option>
-                                        <option value="monitor">Monitor (No Data At the moment)</option>
+                                        <option value="mouse">Mouse</option>
+                                        <option value="keyboard">Keyboard</option>
+                                        <option value="headphone">Headphone</option>
+                                        <option value="monitor">Monitor</option>
                                     </select>
                                 </div>
-                            </div>
+                            <!-- </div> -->
                         </div>
 
                         <!-- Section for monitors options -->
@@ -205,7 +205,160 @@
                         </div>
                     </div>
                 </div>
+                
+     <div id="phone-information" class="card mb-4 device-information ApplePhoneIphone11"
+                    name="ApplePhoneIphone11">
+                    <h3 class="card-header">Mobile Information</h3>
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                           
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="resolution">Resolution (px)</label>
+                                <!-- Resolution -->
+                                <div class="col-md-6 d-flex">
+                                    <input name="horizontal" placeholder="Horizontal (px)"
+                                        class="form-control input-md m-1" required="" type="text" value="828">
 
+                                    <input name="vertical" placeholder="Vertical (px)" class="form-control input-md m-1"
+                                        required="" type="text" value="1792">
+                                </div>
+                            </div>
+
+                            <!-- Screen Size -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="screen-size">Screen Size (inch)</label>
+                                <div class="col-md-6">
+                                    <input name="screen-size" placeholder="Example: 32" class="form-control input-md"
+                                        required="" type="text" value="6.1 inches">
+                                </div>
+                            </div>
+
+                            <!-- Refresh Rate -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="refresh-rate">Refresh Rate (Hz)</label>
+                                <div class="col-md-6">
+                                    <input name="refresh-rate" placeholder="Example: 1" class="form-control input-md"
+                                        required="" type="text" value="60 hz">
+                                </div>
+                            </div>
+
+                            <!-- Pixel Density -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="respose-time">Pixel Density (ppi)</label>
+                                <div class="col-md-6">
+                                    <input name="respose-time" placeholder="Example: 137" class="form-control input-md"
+                                        required="" type="text" value="326">
+                                </div>
+                            </div>
+
+                            <!-- RAM -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="ram">RAM (GB)</label>
+                                <div class="col-md-6">
+                                    <input name="ram" placeholder="Example: 2" class="form-control input-md" required=""
+                                        type="text" value="4 GB">
+                                </div>
+                            </div>
+
+                            <!-- Battery Capacity -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="battery-capacity">Battery Capacity
+                                    (mAh)</label>
+                                <div class="col-md-6">
+                                    <input name="battery-capacity" placeholder="Example: 3500"
+                                        class="form-control input-md" required="" type="text" value="3110">
+                                </div>
+                            </div>
+
+                            <!-- Internal Storage -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="internal-storage">Internal Storage
+                                    (GB)</label>
+                                <div class="col-md-6">
+                                    <input name="internal-storage" placeholder="Example: 256"
+                                        class="form-control input-md" required="" type="text" value="64/128/256 GB">
+                                </div>
+                            </div>
+
+                            <!-- Mega Pixels -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="mega-pixels">Mega Pixels (MP)</label>
+                                <div class="col-md-6">
+                                    <input name="mega-pixels" placeholder="Example: 48" class="form-control input-md"
+                                        required="" type="text" value="12MP">
+                                </div>
+                            </div>
+
+                            <!-- SIM -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="sim">Number of SIMs</label>
+                                <div class="col-md-6">
+                                    <input name="sim" placeholder="Example: 1 SIM" class="form-control input-md"
+                                        required="" type="text" value="1">
+                                </div>
+                            </div>
+
+                            <!-- Charging Speed -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="charging-speed">Charging Speed (W)</label>
+                                <div class="col-md-6">
+                                    <input name="charging-speed" placeholder="Example: 65" class="form-control input-md"
+                                        required="" type="text" value="15W">
+                                </div>
+                            </div>
+
+                            <!-- Brightness -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="brightness">Brightness (nits)</label>
+                                <div class="col-md-6">
+                                    <input name="brightness" placeholder="Example: 300" class="form-control input-md"
+                                        required="" type="text" value="625 nits">
+                                </div>
+                            </div>
+
+                            <!-- Water and Dust Resistant -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="water-resistant">Water and Dust
+                                    Resistant</label>
+                                <div class="col-md-6">
+                                    <input name="brightness" placeholder="Example: IP64" class="form-control input-md"
+                                        required="" type="text" value="IP68">
+                                </div>
+                            </div>
+
+                            <!-- Wireless Charging -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="wireless-charging">Wireless Charging</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="wireless-charging" value="true">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input checked type="radio" name="wireless-charging" value="false">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Fingerprint Reader -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="Fingerprint">Fingerprint Reader</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="Fingerprint" value="true">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input checked type="radio" name="Fingerprint" value="false">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 <!-- Monitor Specs -->
                 <div id="display-information" class="card mb-4 device-information">
                     <h3 class="card-header">Display Information</h3>
@@ -460,159 +613,7 @@
                     </div>
                 </div>
 
-                <div id="phone-information" class="card mb-4 device-information ApplePhoneIphone11"
-                    name="ApplePhoneIphone11">
-                    <h3 class="card-header">Mobile Information</h3>
-                    <div class="card-body">
-                        <div class="d-flex flex-column">
-                            <!-- Resolution -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="resolution">Resolution (px)</label>
-
-                                <div class="col-md-6 d-flex">
-                                    <input name="horizontal" placeholder="Horizontal (px)"
-                                        class="form-control input-md m-1" required="" type="text" value="828">
-
-                                    <input name="vertical" placeholder="Vertical (px)" class="form-control input-md m-1"
-                                        required="" type="text" value="1792">
-                                </div>
-                            </div>
-
-                            <!-- Screen Size -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="screen-size">Screen Size (inch)</label>
-                                <div class="col-md-6">
-                                    <input name="screen-size" placeholder="Example: 32" class="form-control input-md"
-                                        required="" type="text" value="6.1 inches">
-                                </div>
-                            </div>
-
-                            <!-- Refresh Rate -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="refresh-rate">Refresh Rate (Hz)</label>
-                                <div class="col-md-6">
-                                    <input name="refresh-rate" placeholder="Example: 1" class="form-control input-md"
-                                        required="" type="text" value="60 hz">
-                                </div>
-                            </div>
-
-                            <!-- Pixel Density -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="respose-time">Pixel Density (ppi)</label>
-                                <div class="col-md-6">
-                                    <input name="respose-time" placeholder="Example: 137" class="form-control input-md"
-                                        required="" type="text" value="326">
-                                </div>
-                            </div>
-
-                            <!-- RAM -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="ram">RAM (GB)</label>
-                                <div class="col-md-6">
-                                    <input name="ram" placeholder="Example: 2" class="form-control input-md" required=""
-                                        type="text" value="4 GB">
-                                </div>
-                            </div>
-
-                            <!-- Battery Capacity -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="battery-capacity">Battery Capacity
-                                    (mAh)</label>
-                                <div class="col-md-6">
-                                    <input name="battery-capacity" placeholder="Example: 3500"
-                                        class="form-control input-md" required="" type="text" value="3110">
-                                </div>
-                            </div>
-
-                            <!-- Internal Storage -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="internal-storage">Internal Storage
-                                    (GB)</label>
-                                <div class="col-md-6">
-                                    <input name="internal-storage" placeholder="Example: 256"
-                                        class="form-control input-md" required="" type="text" value="64/128/256 GB">
-                                </div>
-                            </div>
-
-                            <!-- Mega Pixels -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="mega-pixels">Mega Pixels (MP)</label>
-                                <div class="col-md-6">
-                                    <input name="mega-pixels" placeholder="Example: 48" class="form-control input-md"
-                                        required="" type="text" value="12MP">
-                                </div>
-                            </div>
-
-                            <!-- SIM -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="sim">Number of SIMs</label>
-                                <div class="col-md-6">
-                                    <input name="sim" placeholder="Example: 1 SIM" class="form-control input-md"
-                                        required="" type="text" value="1">
-                                </div>
-                            </div>
-
-                            <!-- Charging Speed -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="charging-speed">Charging Speed (W)</label>
-                                <div class="col-md-6">
-                                    <input name="charging-speed" placeholder="Example: 65" class="form-control input-md"
-                                        required="" type="text" value="15W">
-                                </div>
-                            </div>
-
-                            <!-- Brightness -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="brightness">Brightness (nits)</label>
-                                <div class="col-md-6">
-                                    <input name="brightness" placeholder="Example: 300" class="form-control input-md"
-                                        required="" type="text" value="625 nits">
-                                </div>
-                            </div>
-
-                            <!-- Water and Dust Resistant -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="water-resistant">Water and Dust
-                                    Resistant</label>
-                                <div class="col-md-6">
-                                    <input name="brightness" placeholder="Example: IP64" class="form-control input-md"
-                                        required="" type="text" value="IP68">
-                                </div>
-                            </div>
-
-                            <!-- Wireless Charging -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="wireless-charging">Wireless Charging</label>
-                                <div class="col-md-6">
-                                    <div class="mx-2">
-                                        <input type="radio" name="wireless-charging" value="true">
-                                        <label>Yes</label>
-                                    </div>
-                                    <div class="mx-2">
-                                        <input checked type="radio" name="wireless-charging" value="false">
-                                        <label>No</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Fingerprint Reader -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="Fingerprint">Fingerprint Reader</label>
-                                <div class="col-md-6">
-                                    <div class="mx-2">
-                                        <input type="radio" name="Fingerprint" value="true">
-                                        <label>Yes</label>
-                                    </div>
-                                    <div class="mx-2">
-                                        <input checked type="radio" name="Fingerprint" value="false">
-                                        <label>No</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
+           
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary text-center p-3">Submit</button>

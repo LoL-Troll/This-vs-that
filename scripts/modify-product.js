@@ -1,4 +1,5 @@
 function updatePage() {
+    
     var s = document.getElementsByName('product_categorie')[0];
     var option = s.options[s.selectedIndex].text;
 
@@ -11,6 +12,7 @@ function updatePage() {
     }
 
     if (option === "Monitor") {
+        
         document.getElementById('phoneContainer').style.display = 'none';
 
         document.getElementById('monitorContainer').style.display = 'block';

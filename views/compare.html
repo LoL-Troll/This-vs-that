@@ -12,18 +12,21 @@
 
 {% block content %}
 <div class="container">
+  <form action="/compare" method="post">
+  <div class="column">
   <div class="row">
 
       <!-- Device card -->
       {% for data in devices %}
-      <div class="col" id="device-{{data["id"]}}">
+     
+      <div class="col" id="device-{{data["id"]}}"  name = "{{data["id"]}}">
         <section class="mx-auto my-5" style="max-width: 23rem">
 
             <div class="card">
                 <div class="card-body">
                     <img src={{data["picture"]}} class="card-img-top" alt="..."/>
                     <h2 class="card-title font-weight-bold text-center">{{data["name"]}}</h2>
-
+                    <input type="hidden" name = "id" value="{{data["id"]}}">
                 </div>
                 <div class="collapse" id="collapseContent{{data["id"]}}">
                     <div class="container">
@@ -626,7 +629,13 @@
             </div>
         </section>
      </div>
+
      {% endfor %}
   </div>
+  <div class="text-center">
+    <button type="submit"  class="btn btn-primary text-center p-3">Save Comparison</button>
+</div>
+</div>
+</form>
 </div>
 {% endblock %}

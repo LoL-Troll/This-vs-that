@@ -240,6 +240,84 @@ async function addMouse(length, width, height, weight, sensor_type, dpi, max_acc
 
     await db.close();
 }
+async function deleteDevice(id){
+    const db = await open();
+    db.run(`DELETE FROM device where id = ${id} `);
+    await db.close();
+}
+
+async function addPhone(phone_video,IP_rating,resolution_h,resolution_h,length,width,depth,screen_size,display_type,screen_to_body_ratio,weight,frequency,ppi,cpu,chipset,gpu,ram,battery,camera,phone_selfie_camera,sensors,charging_speed,water_resistant,os,headphone_jack,colors,id){
+    const db = await open();
+    const result = await db.run(
+    `INSERT INTO phone (phone_video,IP_rating,resolution_h,resolution_h,length,width,depth,screen_size,display_type,screen_to_body_ratio,weight,frequency,ppi,cpu,chipset,gpu,ram,battery,camera,phone_selfie_camera,sensors,charging_speed,water_resistant,os,headphone_jack,colors,id) VALUES ("${phone_video}","${IP_rating}",${resolution_h},${resolution_v},${length},${width},${depth},${screen_size},"${display_type}",${screen_to_body_ratio},${weight},${frequency},${ppi},"${cpu}","${chipset}","${gpu}","${ram}",${battery},${camera},${phone_selfie_camera},"${sensors}",${charging_speed},"${water_resistant}","${os}","${headphone_jack}",${colors},${id})`
+    );
+    await db.close();
+}
+
+async function addKeyboard(style,switch_type,backlit,tenkeyless,connection_type,color,id){
+    const db = await open();
+    const result = await db.run(`INSERT INTO keyboard (style,switch_type,backlit,tenkeyless,connection_type,color) VALUES ("${style}","${switch_type}","${backlit}","${tenkeyless}","${connection_type}","${color},${id})`);
+    await db.close();
+}
+async function addMouse(length,width,height,weight,sensor_type,dpi,max_acceleration,max_tracking_speed,polling_rate,connectivity,number_of_buttons,color,onboard_memory,led_lighting,adjustable_weight){
+    const db = await open();
+
+    db.run(`INSERT INTO mouse (length,width,height,weight,sensor_type,dpi,max_acceleration,max_tracking_speed,polling_rate,connectivity,
+        number_of_buttons,color,onboard_memory,led_lighting,adjustable_weight) 
+    VALUES ("${length}","${width}","${height}", "${weight}","${sensor_type}","${dpi}","${max_acceleration}","${max_tracking_speed}","${polling_rate}","${connectivity}",
+    "${number_of_buttons}","${color}","${onboard_memory}","${led_lighting}","${adjustable_weight}")`);
+
+    await db.close();
+}
+
+async function addMonitor(width,height,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers){
+    const db = await open();
+
+    db.run(`INSERT INTO monitor (width,height,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers) 
+    VALUES ("${width}","${height}","${size}", "${panel_type}","${refresh_rate}","${response_time}","${brightness}","${color}","${wide_screen}","${curve_screen}",
+    "${speakers}")`);
+
+    await db.close();
+}
+
+async function addHeadset(type,max_frequency_response,michrophone, wireless ,encloser_type,color, active_noise_cancelling, channels, sensitivity, impedance){
+    const db = await open();
+
+    db.run(`INSERT INTO headset (type,max_frequency_response,michrophone, wireless ,encloser_type,color, active_noise_cancelling, channels, sensitivity, impedance) 
+    VALUES ("${type}","${max_frequency_response}","${michrophone}", "${wireless}","${encloser_type}","${color}","${active_noise_cancelling}","${channels}","${sensitivity}",
+    "${impedance}")`);
+
+    await db.close();
+}
+
+
+async function addComparison(user,id1,id2,id3,id4){
+    const db = await open();
+    
+    db.run(`INSERT INTO comparison (userID,device1ID,device2ID,device3ID,device4ID) VALUES ("${user}",${id1},${id2},${id3},${id4})`);
+    await db.close();
+}
+
+async function deleteComparison(comparisonID){
+    const db = await open();
+    
+    db.run(`DELETE FROM comparison WHERE comparisonID= ${comparisonID}`);
+    await db.close();
+}
+async function getComparisons(userID){
+    const db = await open();
+
+    let comparisonIDs = db.all(`SELECT comparisonid,name,picture,id FROM comparison JOIN device ON device1id = device.id or  device2id = device.id or  device3id = device.id OR  device4id = device.id WHERE userid = ${userID};`);
+    await db.close();
+    return comparisonIDs
+}
+
+async function getComparisonsIDs(comparisonID){
+    const db = await open();
+    let comparisonsIDs = db.all(`select device1ID,device2ID,device3ID,device4ID from comparison where comparisonID = ${comparisonID}`);
+    await db.close();
+    return comparisonsIDs;
+}
 
 async function addMonitor(width,height,size,panel_type,refresh_rate,response_time,brightness,color,wide_screen,curve_screen,speakers,aspect_ratio_y,aspect_ratio_x,id){
     const db = await open();
@@ -360,6 +438,17 @@ module.exports = {
     updateHistory,
     getHistory,
     getDeviceByBrand,
+    deleteDevice,
+    addPhone,
+    addKeyboard,
+    getDeviceID,
+    addMouse,
+    addMonitor,
+    addHeadset,
+    addComparison,
+    getComparisons,
+    getComparisonsIDs,
+    deleteComparison,
     deleteReview,
     addDevice,
     getDeviceID,
@@ -375,6 +464,5 @@ module.exports = {
     updatePhone,
     updateKeyboard
 }
-
 
 

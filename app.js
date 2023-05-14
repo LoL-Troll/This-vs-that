@@ -7,7 +7,7 @@ const db = require("./db.js");
 const dataParser = require("./dataParser.js");
 
 const app = express();
-const port = 8000;
+const port = 8001;
 
 app.use("/styles", express.static('styles'));
 app.use("/assets", express.static('assets'));
@@ -319,8 +319,28 @@ app.get("/compare", async (req, res) => {
     for (const id in req.query) {
         devices.push((await db.getDeviceByID(req.query[id]))[0]);
     }
+    // console.log(devices)
     res.render('compare.html', { user: req.user, devices: devices });
 });
+
+app.post("/compare", async (req,res)=>{
+    if(req.user) {
+    for(i=0;i<4;i++){
+        if(!req.body.id[i]){
+            req.body.id[i]= null;
+        }
+        
+    }
+    
+    let compare =  await db.addComparison(req.user.userid,req.body.id[0],req.body.id[1],req.body.id[2],req.body.id[3]);
+    res.redirect("/saved-comparison.html");
+    }
+    else{
+        res.redirect("/signin.html");
+    }
+});
+
+
 
 app.get("/contact.html", (req, res) => {
     res.render('contact.html', { user: req.user });
@@ -328,6 +348,7 @@ app.get("/contact.html", (req, res) => {
 
 app.get("/history.html", async (req, res) => {
     // user only
+
 
     if (req.user) {
         let devicesHistory = await db.getHistory(req.user.userid);
@@ -408,6 +429,7 @@ app.get("/item/:id", async (req, res) => {
 
 
 app.post("/postingReview", async (req, res) => {
+
     let comment = req.body.comment;
     let rating = req.body.rating;
     let deviceid = req.body.deviceid;
@@ -419,6 +441,7 @@ app.post("/postingReview", async (req, res) => {
 
 app.post('/brand', async (req, res) => {
     let brands = await db.getDeviceBrands(req.body.catagoery);
+
     res.json(brands);
 });
 
@@ -430,6 +453,7 @@ app.post('/device', async (req, res) => {
 });
 
 app.get("/modify.html", async (req, res) => {
+
     if (req.user && req.user.usertype === "admin") {
         if (!req.query.id) {
             res.render("modify.html");
@@ -518,12 +542,47 @@ app.get("/profile.html", (req, res) => {
     }
 });
 
-app.get("/saved-comparison.html", (req, res) => {
+app.get("/saved-comparison.html", async (req, res) => {
     if (req.user) {
-        res.render('saved-comparsion.html', { user: req.user });
+        
+        let temp = [];
+        let comparisons = [];
+        let comparisonsIDs = await db.getComparisons(req.user.userid);
+        let prev = comparisonsIDs[0]["comparisonID"];   
+        temp.push(comparisonsIDs[0]);
+        for (i=1;i<comparisonsIDs.length;i++) {
+            if(comparisonsIDs[i]["comparisonID"] === prev ){
+                temp.push(comparisonsIDs[i]);
+            }
+            else{
+                comparisons.push(temp);
+
+                temp = [];
+                temp.push(comparisonsIDs[i]);
+                prev = comparisonsIDs[i]["comparisonID"];
+                
+            }
+            
+        }
+        comparisons.push(temp);      
+        res.render('saved-comparsion.html', { user: req.user, comparisons:comparisons });
+
     } else {
         res.redirect("/");
     }
+});
+
+app.post("/comparisonID", async (req,res)=>{
+    let ids = await db.getComparisonsIDs(req.body.comparisonID);
+    
+    
+
+    console.log(ids[0]);
+    res.json((ids[0]));
+});
+app.delete("/comparisonID", async (req,res)=>{
+    let ids = await db.deleteComparison(req.body.comparisonID);
+    res.status(200).send();
 });
 
 app.post("/search", async (req, res) => {
@@ -587,6 +646,13 @@ app.post("/signup", async (req, res) => {
     await db.registeringUsers(username, email, password);
     res.redirect("/signin.html");
 });
+
+
+app.delete('/delete', async (req,res) =>{
+
+    let deleteDevice = db.deleteDevice(req.body.id); 
+    res.status(200).send();
+})
 
 
 app.post("/modifyingPrdouct/:id", async (req, res) => {
@@ -728,9 +794,6 @@ app.post("/modifyingPrdouct/:id", async (req, res) => {
     }
 });
 
+app.post("/save",async(req,res)=>{
 
-
-
-
-
-
+});
