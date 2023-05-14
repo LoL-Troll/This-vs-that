@@ -72,7 +72,6 @@ app.get("/", async (req, res) => {
 });
 
 app.delete('/item/:id', async (req, res) => {
-    console.log("HELLO")
     const review_id = req.params.id;
     const review_data = await db.deleteReview(review_id);
 
