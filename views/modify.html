@@ -82,7 +82,8 @@
 
 
             {% if device %}
-            <form action="/modifyingPrdouct/{{device.id}}/{{device.category}}" method=  "POST">
+            <form action="/modifyingPrdouct/{{device.id}}" method=  "POST">
+            <input type="hidden" name="category" value="{{device.category}}">
             <div id="common-information" class="device-information">
                 <!-- product image -->
                 <div class="card mb-4">
@@ -114,27 +115,53 @@
 
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="resolution">Resolution (px)</label>
-                                <!-- Resolution -->
-                                <div class="col-md-6 d-flex">
-                                    <input name="resolution_h" placeholder="Horizontal (px)"
-                                        class="form-control input-md m-1" required="" type="text" value="{{device.resolution_h}}">
-
-                                    <input name="resolution_v" placeholder="Vertical (px)" class="form-control input-md m-1"
-                                        required="" type="text" value="{{device.resolution_v}}">
+                                <!-- length -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="length">Length (mm)</label>
+                                <div class="col-md-6">
+                                    <input name="length" class="form-control input-md"
+                                        required="" type="text" value = "{{device.length}}">
                                 </div>
                             </div>
+
+                            <!-- width -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="resolution">Dimensions</label>
-                                <!-- Resolution -->
+                                <label class="col-md-6 control-label" for="width">Width (mm)</label>
+                                <div class="col-md-6">
+                                    <input name="width" class="form-control input-md"
+                                        required="" type="text" value = "{{device.width}}">
+                                </div>
+                            </div>
+
+                            <!-- depth -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="depth">Depth (mm)</label>
+                                <div class="col-md-6">
+                                    <input name="depth" class="form-control input-md"
+                                        required="" type="text" value = "{{device.depth}}">
+                                </div>
+                            </div>
+
+                            <!-- weight -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="weight">Weight (g)</label>
+                                <div class="col-md-6">
+                                    <input name="weight" class="form-control input-md"
+                                        required="" type="text" value = "{{device.weight}}">
+                                </div>
+                            </div>
+
+
+                            <!-- Resolution -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="resolution">Resolution (px)</label>
+
                                 <div class="col-md-6 d-flex">
-                                    <input name="length" placeholder="length"
-                                        class="form-control input-md m-1" required="" type="text" value="{{device.length}}">
+                                    <input name="resolution_h" placeholder="Horizontal (px)"
+                                        class="form-control input-md m-1" required="" type="text" value = "{{device.resolution_h}}">
 
-                                    <input name="width" placeholder="width" class="form-control input-md m-1"
-                                        required="" type="text" value="{{device.width}}">
-
-                                    <input name="depth" placeholder="depth" class="form-control input-md m-1"
-                                        required="" type="text" value="{{device.depth}}">
+                                    <input name="resolution_v" placeholder="Vertical (px)"
+                                        class="form-control input-md m-1" required="" type="text" value = "{{device.resolution_v}}">
                                 </div>
                             </div>
 
@@ -142,36 +169,27 @@
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="screen_size">Screen Size (inch)</label>
                                 <div class="col-md-6">
-                                    <input name="screen_size" placeholder="Example: 6.1" class="form-control input-md"
-                                        required="" type="text" value="{{device.screen_size}}">
+                                    <input name="screen_size" placeholder="Example: 32" class="form-control input-md"
+                                        required="" type="text" value = "{{device.screen_size}}">
                                 </div>
                             </div>
 
-                            <!-- Screen Size -->
+                            <!-- screen_to_body_ratio -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="screen_to_body_ratio">Screen to body
+                                    ratio</label>
+                                <div class="col-md-6">
+                                    <input name="screen_to_body_ratio" placeholder="Example: 80%"
+                                        class="form-control input-md" required="" type="text" value = "{{device.screen_to_body_ratio}}">
+                                </div>
+                            </div>
+
+                            <!-- display_type -->
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="display_type">Display type</label>
                                 <div class="col-md-6">
-                                    <input name="display_type" placeholder="Example: LCD" class="form-control input-md"
-                                        required="" type="text" value="{{device.display_tyep}}">
-                                </div>
-                            </div>
-
-                            <!-- Screen to body ration -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="screen_to_body_ratio">Screen / Body ration</label>
-                                <div class="col-md-6">
-                                    <input name="screen_to_body_ratio" placeholder="Example: 32" class="form-control input-md"
-                                        required="" type="text" value="{{device.screen_to_body_ratio}}">
-                                </div>
-                            </div>
-
-
-                            <!-- Weight -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="weight">Weight (gram)</label>
-                                <div class="col-md-6">
-                                    <input name="weight" placeholder="Example: 32" class="form-control input-md"
-                                        required="" type="text" value="{{device.weight}}">
+                                    <input name="display_type" placeholder="Example: OLED" class="form-control input-md"
+                                        required="" type="text" value = "{{device.display_type}}">
                                 </div>
                             </div>
 
@@ -180,53 +198,25 @@
                                 <label class="col-md-6 control-label" for="frequency">Refresh Rate (Hz)</label>
                                 <div class="col-md-6">
                                     <input name="frequency" placeholder="Example: 1" class="form-control input-md"
-                                        required="" type="text" value="{{device.frequency}}">
+                                        required="" type="text" value = "{{device.frequency}}">
                                 </div>
                             </div>
 
                             <!-- Pixel Density -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="ppi">Pixel Density (ppi)</label>
+                                <label class="col-md-6 control-label" for="pixel_density">Pixel Density (ppi)</label>
                                 <div class="col-md-6">
-                                    <input name="ppi" placeholder="Example: 137" class="form-control input-md"
-                                        required="" type="text" value="{{device.pixel_density}}">
+                                    <input name="pixel_density" placeholder="Example: 137" class="form-control input-md"
+                                        required="" type="text" value = "{{device.pixel_density}}">
                                 </div>
                             </div>
 
-                            <!-- CPU -->
+                            <!-- RAM -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="cpu">CPU</label>
+                                <label class="col-md-6 control-label" for="memory">Memory (GB)</label>
                                 <div class="col-md-6">
-                                    <input name="cpu" placeholder="Example : Hexa-core 2.39 GHz (2x Monsoon + 4x Mistral)" class="form-control input-md"
-                                        required="" type="text" value="{{device.cpu}}">
-                                </div>
-                            </div>
-
-                            <!-- Chipset -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="Chipset">Chipset</label>
-                                <div class="col-md-6">
-                                    <input name="chipset" placeholder="Example: Apple A11 Bionic (10 nm)" class="form-control input-md"
-                                        required="" type="text" value="{{device.chipset}}">
-                                </div>
-                            </div>
-
-                            <!-- GPU -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="gpu">GPU</label>
-                                <div class="col-md-6">
-                                    <input name="gpu" placeholder="Example: Apple GPU (three-core graphics)" class="form-control input-md"
-                                        required="" type="text" value="{{device.gpu}}">
-                                </div>
-                            </div>
-
-                            
-                            <!-- Internal storage / RAM -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="ram">Internal storage, RAM (GB)</label>
-                                <div class="col-md-6">
-                                    <input name="ram" placeholder="Example: 2" class="form-control input-md" required=""
-                                        type="text" value="{{device.memory}}">
+                                    <input name="memory" placeholder="Example: 2" class="form-control input-md"
+                                        required="" type="text" value = "{{device.memory}}">
                                 </div>
                             </div>
 
@@ -235,89 +225,161 @@
                                 <label class="col-md-6 control-label" for="battery">Battery Capacity
                                     (mAh)</label>
                                 <div class="col-md-6">
-                                    <input name="battery" placeholder="Example: 3500"
-                                        class="form-control input-md" required="" type="text" value="{{device.battery}}">
+                                    <input name="battery" placeholder="Example: 3500" class="form-control input-md"
+                                        required="" type="text" value = "{{device.battery}}">
                                 </div>
                             </div>
 
-                            
-                            
                             <!-- Mega Pixels -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="mega_pixels">Camera Mega Pixels (MP)</label>
+                                <label class="col-md-6 control-label" for="camera">Camera (MP)</label>
                                 <div class="col-md-6">
-                                    <input name="mega_pixels" placeholder="Example: 48" class="form-control input-md"
-                                        required="" type="text" value="{{device.camera}}">
+                                    <input name="camera" placeholder="Example: 48" class="form-control input-md"
+                                        required="" type="text" value = "{{device.camera}}">
                                 </div>
                             </div>
 
-                            <!-- Front Mega Pixels -->
+                            <!-- os -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="phone_selfie_camera">Front Camera Mega Pixels (MP)</label>
+                                <label class="col-md-6 control-label" for="os">OS</label>
                                 <div class="col-md-6">
-                                    <input name="phone_selfie_camera" placeholder="Example: 32" class="form-control input-md"
-                                        required="" type="text" value="{{device.phone_selfie_camera}}">
+                                    <input name="os" placeholder="Example: IOS" class="form-control input-md"
+                                        required="" type="text" value = "{{device.os}}">
                                 </div>
                             </div>
-
-                            <!-- Phone video -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="phone_video">Phone video</label>
-                                <div class="col-md-6">
-                                    <input name="phone_video" placeholder="Example: 32" class="form-control input-md"
-                                        required="" type="text" value="{{device.phone_video}}">
-                                </div>
-                            </div>
-
-                            <!-- sensors -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="sensors">Sensors</label>
-                                <div class="col-md-6">
-                                    <input name="sensors" placeholder="Example: Face ID, barometer" class="form-control input-md"
-                                        required="" type="text" value="{{device.sensors}}">
-                                </div>
-                            </div>
-                            
 
                             <!-- Charging Speed -->
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="charging_speed">Charging Speed (W)</label>
                                 <div class="col-md-6">
                                     <input name="charging_speed" placeholder="Example: 65" class="form-control input-md"
-                                        required="" type="text" value="{{device.charging_speed}}">
+                                        required="" type="text" value = "{{device.charging_speed}}">
                                 </div>
                             </div>
 
-                            <!-- Water and Dust Resistant -->
+
+                            <!-- Water and Dust  -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="water_resistant">Water and Dust
-                                    Resistant</label>
+                                <label class="col-md-6 control-label" for="IP_rating">IP rating
+                                </label>
                                 <div class="col-md-6">
-                                    <input name="water_resistant" placeholder="Example: IP64" class="form-control input-md"
-                                        required="" type="text" value="{{device.ip_rating}}">
+                                    <input name="IP_rating" placeholder="Example: IP64" class="form-control input-md"
+                                        required="" type="text" value = "{{device.IP_rating}}">
                                 </div>
                             </div>
 
-                            <!-- operating -->
+                            <!-- cpu -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="os">Operating system</label>
+                                <label class="col-md-6 control-label" for="cpu">CPU
+                                </label>
                                 <div class="col-md-6">
-                                    <input name="os" placeholder="Example: iOS 11.1.1, up to iOS 16.4.1 " class="form-control input-md"
-                                        required="" type="text" value="{{device.os}}">
+                                    <input name="cpu" placeholder="Example: Octa-core" class="form-control input-md"
+                                        required="" type="text" value = "{{device.cpu}}">
                                 </div>
                             </div>
 
-                            <!-- headphone jack -->
+                            <!-- chipset -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="chipset">Chipset
+                                </label>
+                                <div class="col-md-6">
+                                    <input name="chipset" placeholder="Example: Qualcomm" class="form-control input-md"
+                                        required="" type="text" value = "{{device.chipset}}">
+                                </div>
+                            </div>
+
+                            <!-- gpu -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="gpu">GPU
+                                </label>
+                                <div class="col-md-6">
+                                    <input name="gpu" placeholder="Example: Adreno" class="form-control input-md"
+                                        required="" type="text" value = "{{device.gpu}}">
+                                </div>
+                            </div>
+
+                            <!-- phone_video -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="phone_video">Phone video
+                                </label>
+                                <div class="col-md-6">
+                                    <input name="phone_video" placeholder="Example: 8k, 4k"
+                                        class="form-control input-md" required="" type="text" value = "{{device.phone_video}}">
+                                </div>
+                            </div>
+
+                            <!-- phone_selfie_camera -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="phone_selfie_camera">Phone selfie camera
+                                </label>
+                                <div class="col-md-6">
+                                    <input name="phone_selfie_camera" placeholder="Example: 32"
+                                        class="form-control input-md" required="" type="text" value = "{{device.phone_selfie_camera}}">
+                                </div>
+                            </div>
+
+                            <!-- sensors -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="sensors">Sensors
+                                </label>
+                                <div class="col-md-6">
+                                    <input name="sensors" placeholder="Example: Fingerprint"
+                                        class="form-control input-md" required="" type="text" value = "{{device.sensors}}">
+                                </div>
+                            </div>
+
+                            <!-- colors -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="colors">Colors
+                                </label>
+                                <div class="col-md-6">
+                                    <input name="colors" placeholder="Example: Black" class="form-control input-md"
+                                        required="" type="text" value = "{{device.colors}}">
+                                </div>
+                            </div>
+
+                            <!-- Wireless Charging -->
+                            {% if device.wirless_charging == "Yes"%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="wireless-charging">Wireless Charging</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="wireless_charging" value="Yes" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="wireless_charging" value="No">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="wireless-charging">Wireless Charging</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="wireless_charging" value="Yes">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="wireless_charging" value="No" checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+
+                            <!--  headphone_jack -->
                             {% if device.headphone_jack == "Yes"%}
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="headphone_jack">Headphone jack</label>
                                 <div class="col-md-6">
                                     <div class="mx-2">
-                                        <input type="radio" name="headphone_jack" value="true" checked>
+                                        <input type="radio" name="headphone_jack" value="Yes" checked>
                                         <label>Yes</label>
                                     </div>
                                     <div class="mx-2">
-                                        <input type="radio" name="headphone_jack" value="false">
+                                        <input type="radio" name="headphone_jack" value="No">
                                         <label>No</label>
                                     </div>
                                 </div>
@@ -327,25 +389,18 @@
                                 <label class="col-md-6 control-label" for="headphone_jack">Headphone jack</label>
                                 <div class="col-md-6">
                                     <div class="mx-2">
-                                        <input type="radio" name="headphone_jack" value="true">
+                                        <input type="radio" name="headphone_jack" value="Yes">
                                         <label>Yes</label>
                                     </div>
                                     <div class="mx-2">
-                                        <input  type="radio" name="headphone_jack" value="false"  checked>
+                                        <input type="radio" name="headphone_jack" value="No" checked>
                                         <label>No</label>
                                     </div>
                                 </div>
                             </div>
-                            {%endif%}
 
-                            <!-- colors -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="colors">Colors</label>
-                                <div class="col-md-6">
-                                    <input name="colors" placeholder="Example: Space Gray, Silver" class="form-control input-md"
-                                        required="" type="text" value="{{device.colors}}">
-                                </div>
-                            </div>
+                            {%endif%}
+                            
 
 
                         </div>
@@ -358,178 +413,168 @@
                     <div class="card-body">
                         <div class="d-flex flex-column">
 
-                            <!-- type -->
+                           <!-- type -->
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="type">Type</label>
                                 <div class="col-md-6">
-                                    <input name="type" placeholder="Example: 32" class="form-control input-md"
-                                        required="" type="text" value="{{device.type}}">
+                                    <input name="type" placeholder="Example: Circumaural" class="form-control input-md"
+                                        required="" type="text" value = "{{device.type}}">
                                 </div>
                             </div>
 
-                            <!-- Max frequency response -->
+                            <!-- max_frequency_response -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="max_frequency_response">Max frequency response</label>
+                                <label class="col-md-6 control-label" for="max_frequency_response">Max frequency
+                                    response</label>
                                 <div class="col-md-6">
-                                    <input name="max_frequency_response" placeholder="Example: 20" class="form-control input-md"
-                                        required="" type="text" value="{{device.max_frequency_response}}">
+                                    <input name="max_frequency_response" placeholder="Example: 40"
+                                        value = "{{device.max_frequency_response}}" class="form-control input-md" required="" type="text">
                                 </div>
                             </div>
-                            <!-- microphone -->
-                            {% if device.michrophone == "Yes"%}
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="michrophone">Microphone</label>
-                                <div class="col-md-6">
-                                    <div class="mx-2">
-                                        <input type="radio" name="michrophone" value="true" checked>
-                                        <label>Yes</label>
-                                    </div>
-                                    <div class="mx-2">
-                                        <input type="radio" name="michrophone" value="false">
-                                        <label>No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            {%else%}
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="michrophone">Microphone</label>
-                                <div class="col-md-6">
-                                    <div class="mx-2">
-                                        <input type="radio" name="michrophone" value="true" checked>
-                                        <label>Yes</label>
-                                    </div>
-                                    <div class="mx-2">
-                                        <input type="radio" name="michrophone" value="false">
-                                        <label>No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            {%endif%}
-                            <!-- wirless -->
-                            {% if device.wireless == "Yes"%}
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="wireless">Wireless</label>
-                                <div class="col-md-6">
-                                    <div class="mx-2">
-                                        <input type="radio" name="wireless" value="true" checked>
-                                        <label>Yes</label>
-                                    </div>
-                                    <div class="mx-2">
-                                        <input type="radio" name="wireless" value="false">
-                                        <label>No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            {%else%}
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="wireless">Wireless</label>
-                                <div class="col-md-6">
-                                    <div class="mx-2">
-                                        <input type="radio" name="wireless" value="true">
-                                        <label>Yes</label>
-                                    </div>
-                                    <div class="mx-2">
-                                        <input  type="radio" name="wireless" value="false"  checked>
-                                        <label>No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            {%endif%}
 
-                            <!-- encloser type -->
-                            {% if device.encloser_type == "Close"%}
+                            <!-- encloser_type -->
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="encloser_type">Encloser type</label>
                                 <div class="col-md-6">
-                                    <div class="mx-2">
-                                        <input type="radio" name="encloser_type" value="true" checked>
-                                        <label>Close</label>
-                                    </div>
-                                    <div class="mx-2">
-                                        <input type="radio" name="encloser_type" value="false">
-                                        <label>Open</label>
-                                    </div>
+                                    <input name="encloser_type" placeholder="Example: Closed"
+                                        value = "{{device.encloser_type}}" class="form-control input-md" required="" type="text">
                                 </div>
                             </div>
-                            {%else%}
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="encloser_type">Encloser type</label>
-                                <div class="col-md-6">
-                                    <div class="mx-2">
-                                        <input type="radio" name="encloser_type" value="true">
-                                        <label>Close</label>
-                                    </div>
-                                    <div class="mx-2">
-                                        <input  type="radio" name="encloser_type" value="false"  checked>
-                                        <label>Open</label>
-                                    </div>
-                                </div>
-                            </div>
-                            {%endif%}
+
                             <!-- color -->
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="color">Color</label>
                                 <div class="col-md-6">
-                                    <input name="color" placeholder="Example: White" class="form-control input-md"
-                                        required="" type="text" value="{{device.color}}">
-                                </div>
-                            </div>
-                            <!-- active noise cancellation -->
-                            {% if device.active_noise_cancelling == "Yes"%}
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="active_noise_cancelling">Active noise cancellation</label>
-                                <div class="col-md-6">
-                                    <div class="mx-2">
-                                        <input type="radio" name="active_noise_cancelling" value="true" checked>
-                                        <label>Yes</label>
-                                    </div>
-                                    <div class="mx-2">
-                                        <input type="radio" name="active_noise_cancelling" value="false">
-                                        <label>No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            {%else%}
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="active_noise_cancelling">Active noise cancellation</label>
-                                <div class="col-md-6">
-                                    <div class="mx-2">
-                                        <input type="radio" name="active_noise_cancelling" value="true">
-                                        <label>Yes</label>
-                                    </div>
-                                    <div class="mx-2">
-                                        <input  type="radio" name="active_noise_cancelling" value="false"  checked>
-                                        <label>No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            {%endif%}
-                            <!-- channels -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="screen-size">Channels</label>
-                                <div class="col-md-6">
-                                    <input name="channels" placeholder="Example: 71" class="form-control input-md"
-                                        required="" type="text" value="{{device.channels}}">
+                                    <input name="color" placeholder="Example: Black" class="form-control input-md"
+                                        value = "{{device.color}}" required="" type="text">
                                 </div>
                             </div>
 
-                            <!-- sensivity -->
+                            <!-- channels -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="sensitivity">sensivity</label>
+                                <label class="col-md-6 control-label" for="channels">Channels
+                                </label>
+                                <div class="col-md-6">
+                                    <input name="channels" placeholder="Example: 7.1" class="form-control input-md"
+                                        value = "{{device.channels}}" required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- sensitivity -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="sensitivity">Sensitivity
+                                </label>
                                 <div class="col-md-6">
                                     <input name="sensitivity" placeholder="Example: 93" class="form-control input-md"
-                                        required="" type="text" value="{{device.sensitivity}}">
+                                        value = "{{device.sensitivity}}" required="" type="text">
                                 </div>
                             </div>
 
                             <!-- impedance -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="impedance">Impedance</label>
+                                <label class="col-md-6 control-label" for="impedance">Impedance
+                                </label>
                                 <div class="col-md-6">
-                                    <input name="impedance" placeholder="Example: 39" class="form-control input-md"
-                                        required="" type="text" value="{{device.impedance}}">
+                                    <input name="impedance" placeholder="Example: 32" class="form-control input-md"
+                                        value = "{{device.impedance}}" required="" type="text">
                                 </div>
                             </div>
+
+                            <!-- active_noise_cancelling -->
+                            {% if device.active_noise_cancelling == "Yes"%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="active_noise_cancelling">Active noise
+                                    cancelling</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="active_noise_cancelling" value="Yes" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="active_noise_cancelling" value="No">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {% else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="active_noise_cancelling">Active noise
+                                    cancelling</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="active_noise_cancelling" value="Yes">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="active_noise_cancelling" value="No" checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+
+                            <!-- wireless -->
+                            {% if device.wireless == "Yes" %}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="wireless">Wireless</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="wireless" value="Yes" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="wireless" value="No">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="wireless">Wireless</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="wireless" value="Yes">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="wireless" value="No" checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+
+                            <!-- microphone -->
+                            {% if device.microphone == "Yes"%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="microphone">Microphone</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="microphone" value="Yes" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="microphone" value="No">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="microphone">Microphone</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="microphone" value="Yes" >
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="microphone" value="No" checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
                             
 
                         </div>
@@ -540,16 +585,22 @@
                     <h3 class="card-header">Display Information</h3>
                     <div class="card-body">
                         <div class="d-flex flex-column">
+
                             <!-- length -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="resolution">Dimensions</label>
+                                <label class="col-md-6 control-label" for="length">Length</label>
+                                <div class="col-md-6">
+                                    <input name="length" placeholder="Example: 10cm" class="form-control input-md"
+                                        value = "{{device.length}}" required="" type="text">
+                                </div>
+                            </div>
 
-                                <div class="col-md-6 d-flex">
-                                    <input name="length" placeholder="Length"
-                                        class="form-control input-md m-1" required="" type="text" value = "{{device.length}}">
-
-                                    <input name="width" placeholder="Width" class="form-control input-md m-1"
-                                        required="" type="text" value = "{{device.width}}">
+                            <!-- width -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="width">Width</label>
+                                <div class="col-md-6">
+                                    <input name="width" placeholder="Example: 5cm" class="form-control input-md"
+                                        value = "{{device.width}}" required="" type="text">
                                 </div>
                             </div>
 
@@ -557,55 +608,56 @@
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="height">Height</label>
                                 <div class="col-md-6">
-                                    <input name="height" placeholder="Example: 32cm" class="form-control input-md"
-                                        required="" type="text" value = "{{device.height}}">
+                                    <input name="height" placeholder="Example: 5cm" class="form-control input-md"
+                                        value = "{{device.height}}" required="" type="text">
                                 </div>
                             </div>
-
 
                             <!-- weight -->
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="weight">Weight</label>
                                 <div class="col-md-6">
-                                    <input name="weight" placeholder="Example: 50g" class="form-control input-md"
-                                        required="" type="text" value = "{{device.weight}}">
+                                    <input name="weight" placeholder="Example: 20g" class="form-control input-md"
+                                        value = "{{device.weight}}" required="" type="text">
                                 </div>
                             </div>
 
                             <!-- sensor_type -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="sensor_type">Sensor type</label>
+                                <label class="col-md-6 control-label" for="sensor_type">Sensor type
+                                </label>
                                 <div class="col-md-6">
-                                    <input name="sensor_type" placeholder="Example: 1 Hz" class="form-control input-md"
-                                        required="" type="text" value = "{{device.sensor_type}}">
+                                    <input name="sensor_type" placeholder="Example: Optical"
+                                        value = "{{device.sensor_type}}" class="form-control input-md" required="" type="text">
                                 </div>
                             </div>
 
                             <!-- dpi -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="dpi">DPI</label>
+                                <label class="col-md-6 control-label" for="dpi">dpi
+                                </label>
                                 <div class="col-md-6">
-                                    <input name="dpi" placeholder="Example: 200-700" class="form-control input-md"
-                                        required="" type="text" value = "{{device.dpi}}">
+                                    <input name="dpi" placeholder="Example: 400-2000" class="form-control input-md"
+                                        value = "{{device.dpi}}" required="" type="text">
                                 </div>
                             </div>
-
 
                             <!-- max_acceleration -->
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="max_acceleration">Max acceleration</label>
                                 <div class="col-md-6">
-                                    <input name="max_acceleration" placeholder="Example: 50"
-                                        class="form-control input-md" required="" type="text" value = "{{device.max_acceleration}}">
+                                    <input name="max_acceleration" placeholder="Example: 48"
+                                        value = "{{device.max_acceleration}}" class="form-control input-md" required="" type="text">
                                 </div>
                             </div>
 
                             <!-- max_tracking_speed -->
                             <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="max_tracking_speed">Max tracking speed</label>
+                                <label class="col-md-6 control-label" for="max_tracking_speed">Max tracking
+                                    speed</label>
                                 <div class="col-md-6">
-                                    <input name="max_tracking_speed" placeholder="Example: 400"
-                                        class="form-control input-md" required="" type="text" value = "{{device.max_tracking_speed}}">
+                                    <input name="max_tracking_speed" placeholder="Example: 100"
+                                        value = "{{device.max_tracking_speed}}" class="form-control input-md" required="" type="text">
                                 </div>
                             </div>
 
@@ -613,17 +665,8 @@
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="polling_rate">Polling rate</label>
                                 <div class="col-md-6">
-                                    <input name="polling_rate" placeholder="Example: 1000"
-                                        class="form-control input-md" required="" type="text" value = "{{device.polling_rate}}">
-                                </div>
-                            </div>
-
-                            <!-- connectivity -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="connectivity">Connectivity</label>
-                                <div class="col-md-6">
-                                    <input name="connectivity" placeholder="Example: wired/wirless"
-                                        class="form-control input-md" required="" type="text" value = "{{device.connectivity}}">
+                                    <input name="polling_rate" placeholder="Example: 1000" class="form-control input-md"
+                                        value = "{{device.polling_rate}}" required="" type="text">
                                 </div>
                             </div>
 
@@ -631,8 +674,17 @@
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="number_of_buttons">Number of buttons</label>
                                 <div class="col-md-6">
-                                    <input name="number_of_buttons" placeholder="Example: 4"
-                                        class="form-control input-md" required="" type="text" value = "{{device.number_of_buttons}}">
+                                    <input name="number_of_buttons" placeholder="Example: 300"
+                                        value = "{{device.number_of_buttons}}" class="form-control input-md" required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- connectivity -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="connectivity">Connectivity</label>
+                                <div class="col-md-6">
+                                    <input name="connectivity" placeholder="Example: Wired"
+                                        value = "{{device.connectivity}}" class="form-control input-md" required="" type="text">
                                 </div>
                             </div>
 
@@ -640,67 +692,68 @@
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="color">Color</label>
                                 <div class="col-md-6">
-                                    <input name="color" placeholder="Example: black"
-                                        class="form-control input-md" required="" type="text" value = "{{device.color}}">
+                                    <input name="color" placeholder="Example: Black" class="form-control input-md"
+                                        value = "{{device.color}}" required="" type="text">
                                 </div>
                             </div>
 
                             <!-- onboard_memory -->
-                            {%if device.onboard_memory == "Yes" %}
+                            {% if device.onboard_memory == "Yes"%}
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="onboard_memory">Onboard memory</label>
                                 <div class="col-md-6">
                                     <div class="mx-2">
-                                        <input type="radio" name="onboard_memory" value="true" checked>
+                                        <input type="radio" name="onboard_memory" value="Yes" checked>
                                         <label>Yes</label>
                                     </div>
                                     <div class="mx-2">
-                                        <input type="radio" name="onboard_memory" value="false">
+                                        <input type="radio" name="onboard_memory" value="No">
                                         <label>No</label>
                                     </div>
                                 </div>
                             </div>
-                            {%else%}
+                            {% else%}
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="onboard_memory">Onboard memory</label>
                                 <div class="col-md-6">
                                     <div class="mx-2">
-                                        <input type="radio" name="onboard_memory" value="true">
+                                        <input type="radio" name="onboard_memory" value="Yes" >
                                         <label>Yes</label>
                                     </div>
                                     <div class="mx-2">
-                                        <input type="radio" name="onboard_memory" value="false" checked>
+                                        <input type="radio" name="onboard_memory" value="No" checked>
                                         <label>No</label>
                                     </div>
                                 </div>
                             </div>
                             {%endif%}
 
+
                             <!-- led_lighting -->
-                            {%if device.led_lighting == "Yes" %}
+                            {% if device.led_lighting == "Yes"%}
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="led_lighting">Led lighting</label>
                                 <div class="col-md-6">
                                     <div class="mx-2">
-                                        <input type="radio" name="led_lighting" value="true" checked>
+                                        <input type="radio" name="led_lighting" value="Yes" checked>
                                         <label>Yes</label>
                                     </div>
                                     <div class="mx-2">
-                                        <input type="radio" name="led_lighting" value="false">
+                                        <input type="radio" name="led_lighting" value="No">
                                         <label>No</label>
                                     </div>
                                 </div>
                             </div>
-                            {%else%}
+                            {% else %}
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="led_lighting">Led lighting</label>
                                 <div class="col-md-6">
                                     <div class="mx-2">
-                                        <input type="radio" name="led_lighting" value="true">
+                                        <input type="radio" name="led_lighting" value="Yes">
                                         <label>Yes</label>
                                     </div>
                                     <div class="mx-2">
-                                        <input type="radio" name="led_lighting" value="false" checked>
+                                        <input type="radio" name="led_lighting" value="No" checked>
                                         <label>No</label>
                                     </div>
                                 </div>
@@ -708,30 +761,30 @@
                             {%endif%}
 
                             <!-- adjustable_weight -->
-                            {%if device.adjustable_weight == "Yes" %}
+                            {% if device.adjustable_weight == "Yes"%}
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="adjustable_weight">Adjustable weight</label>
                                 <div class="col-md-6">
                                     <div class="mx-2">
-                                        <input type="radio" name="adjustable_weight" value="true" checked>
+                                        <input type="radio" name="adjustable_weight" value="Yes" cheked>
                                         <label>Yes</label>
                                     </div>
                                     <div class="mx-2">
-                                        <input type="radio" name="adjustable_weight" value="false">
+                                        <input type="radio" name="adjustable_weight" value="No">
                                         <label>No</label>
                                     </div>
                                 </div>
                             </div>
-                            {%else%}
+                            {% else %}
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="adjustable_weight">Adjustable weight</label>
                                 <div class="col-md-6">
                                     <div class="mx-2">
-                                        <input type="radio" name="adjustable_weight" value="true">
+                                        <input type="radio" name="adjustable_weight" value="Yes">
                                         <label>Yes</label>
                                     </div>
                                     <div class="mx-2">
-                                        <input type="radio" name="adjustable_weight" value="false" checked>
+                                        <input type="radio" name="adjustable_weight" value="No" checked>
                                         <label>No</label>
                                     </div>
                                 </div>
@@ -755,16 +808,16 @@
                                 <label class="col-md-6 control-label" for="style">Style</label>
                                 <div class="col-md-6">
                                     <input name="style" placeholder="Example: Gaming" class="form-control input-md"
-                                        required="" type="text" value="{{device.style}}">
+                                        value = "{{device.style}}" required="" type="text">
                                 </div>
                             </div>
 
-                            <!-- switch type -->
+                            <!-- switch_type -->
                             <div class="form-group mb-3">
                                 <label class="col-md-6 control-label" for="switch_type">Switch type</label>
                                 <div class="col-md-6">
-                                    <input name="switch_type" placeholder="Example: Cherry MX Blue" class="form-control input-md"
-                                        required="" type="text" value="{{device.switch_type}}">
+                                    <input name="switch_type" placeholder="Example: Razer yellow"
+                                        value = "{{device.switch_type}}" class="form-control input-md" required="" type="text">
                                 </div>
                             </div>
 
@@ -773,46 +826,7 @@
                                 <label class="col-md-6 control-label" for="backlit">Backlit</label>
                                 <div class="col-md-6">
                                     <input name="backlit" placeholder="Example: RGB" class="form-control input-md"
-                                        required="" type="text" value="{{device.backlit}}">
-                                </div>
-                            </div>
-                            <!-- {# tenkeyless #} -->
-                            {% if device.tenkeyless == "Yes"%}
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="tenkeyless">Tenkeyless</label>
-                                <div class="col-md-6">
-                                    <div class="mx-2">
-                                        <input type="radio" name="tenkeyless" value="true" checked>
-                                        <label>Yes</label>
-                                    </div>
-                                    <div class="mx-2">
-                                        <input type="radio" name="tenkeyless" value="false">
-                                        <label>No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            {%else%}
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="tenkeyless">Tenkeyless</label>
-                                <div class="col-md-6">
-                                    <div class="mx-2">
-                                        <input type="radio" name="tenkeyless" value="true">
-                                        <label>Yes</label>
-                                    </div>
-                                    <div class="mx-2">
-                                        <input  type="radio" name="tenkeyless" value="false"  checked>
-                                        <label>No</label>
-                                    </div>
-                                </div>
-                            </div>
-                            {%endif%}
-
-                            <!-- Connection type -->
-                            <div class="form-group mb-3">
-                                <label class="col-md-6 control-label" for="connection_type">Connection type</label>
-                                <div class="col-md-6">
-                                    <input name="connection_type" placeholder="Example: Wired" class="form-control input-md"
-                                        required="" type="text" value="{{device.connection_type}}">
+                                        value = "{{device.backlit}}" required="" type="text">
                                 </div>
                             </div>
 
@@ -821,9 +835,50 @@
                                 <label class="col-md-6 control-label" for="color">Color</label>
                                 <div class="col-md-6">
                                     <input name="color" placeholder="Example: Black" class="form-control input-md"
-                                        required="" type="text" value="{{device.color}}">
+                                        value = "{{device.color}}" required="" type="text">
                                 </div>
                             </div>
+
+                            <!-- connection_type -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="connection_type">Connection type
+                                </label>
+                                <div class="col-md-6">
+                                    <input name="connection_type" placeholder="Example: Optical"
+                                        value = "{{device.connection_type}}" class="form-control input-md" required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- tenkeyless -->
+                            {% if device.tenkeyless == "Yes" %}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="tenkeyless">Tenkeyless</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="tenkeyless" value="Yes" checked> 
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="tenkeyless" value="No">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="tenkeyless">Tenkeyless</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="tenkeyless" value="Yes"> 
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="tenkeyless" value="No" checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
 
                         </div>
                     </div>
@@ -833,170 +888,190 @@
                             <h3 class="card-header">Display Information</h3>
                             <div class="card-body">
                                 <div class="d-flex flex-column">
-                                    <!-- Resolution -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="resolution">Resolution (px)</label>
+                            <!-- Resolution -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="resolution">Resolution (px)</label>
 
-                                        <div class="col-md-6 d-flex">
-                                            <input name="resolution_x" placeholder="Horizontal (px)"
-                                                class="form-control input-md m-1" required="" type="text" value = "{{device.resolution_x}}">
+                                <div class="col-md-6 d-flex">
+                                    <input name="resolution_x" placeholder="Horizontal (px)"
+                                        value = "{{device.resolution_x}}" class="form-control input-md m-1" required="" type="text">
 
-                                            <input name="resolution_y" placeholder="Vertical (px)" class="form-control input-md m-1"
-                                                required="" type="text" value = "{{device.resolution_y}}">
-                                        </div>
-                                    </div>
-
-                                    <!-- Screen Size -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="size">Screen Size (inch)</label>
-                                        <div class="col-md-6">
-                                            <input name="size" placeholder="Example: 32" class="form-control input-md"
-                                                required="" type="text" value = "{{device.size}}">
-                                        </div>
-                                    </div>
-
-
-                                    <!-- Panel Type -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="panel_type">Panel Type</label>
-                                        <div class="col-md-6">
-                                            <input name="panel_type" placeholder="Example: IPS, VA" class="form-control input-md"
-                                                required="" type="text" value = "{{device.panel_type}}">
-                                        </div>
-                                    </div>
-
-                                    <!-- Refresh Rate -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="refresh_rate">Refresh Rate (Hz)</label>
-                                        <div class="col-md-6">
-                                            <input name="refresh_rate" placeholder="Example: 1 Hz" class="form-control input-md"
-                                                required="" type="text" value = "{{device.refresh_rate}}">
-                                        </div>
-                                    </div>
-
-                                    <!-- Respose Time -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="response_time">Respose Time (ms)</label>
-                                        <div class="col-md-6">
-                                            <input name="response_time" placeholder="Example: 4 ms" class="form-control input-md"
-                                                required="" type="text" value = "{{device.response_time}}">
-                                        </div>
-                                    </div>
-
-
-                                    <!-- Brightness -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="brightness">Brightness (nits)</label>
-                                        <div class="col-md-6">
-                                            <input name="brightness" placeholder="Example: 300 nits"
-                                                class="form-control input-md" required="" type="text" value = "{{device.brightness}}">
-                                        </div>
-                                    </div>
-
-                                    <!-- Color -->
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="color">Color</label>
-                                        <div class="col-md-6">
-                                            <input name="color" placeholder="Example: black"
-                                                class="form-control input-md" required="" type="text" value = "{{device.color}}">
-                                        </div>
-                                    </div>
-
-                                    <!-- wide_screen -->
-                                    {%if device.wide_screen == "Yes" %}
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="wide_screen">Touch Support:</label>
-                                        <div class="col-md-6">
-                                            <div class="mx-2">
-                                                <input type="radio" name="wide_screen" value="true" checked>
-                                                <label>Yes</label>
-                                            </div>
-                                            <div class="mx-2">
-                                                <input type="radio" name="wide_screen" value="false">
-                                                <label>No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {%else%}
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="wide_screen">Touch Support:</label>
-                                        <div class="col-md-6">
-                                            <div class="mx-2">
-                                                <input type="radio" name="wide_screen" value="true">
-                                                <label>Yes</label>
-                                            </div>
-                                            <div class="mx-2">
-                                                <input type="radio" name="wide_screen" value="false" checked>
-                                                <label>No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {%endif%}
-
-                                    <!-- wide_screen -->
-                                    {%if device.curve_screen == "Yes" %}
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="curve_screen">Touch Support:</label>
-                                        <div class="col-md-6">
-                                            <div class="mx-2">
-                                                <input type="radio" name="curve_screen" value="true" checked>
-                                                <label>Yes</label>
-                                            </div>
-                                            <div class="mx-2">
-                                                <input type="radio" name="curve_screen" value="false">
-                                                <label>No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {%else%}
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="curve_screen">Touch Support:</label>
-                                        <div class="col-md-6">
-                                            <div class="mx-2">
-                                                <input type="radio" name="curve_screen" value="true">
-                                                <label>Yes</label>
-                                            </div>
-                                            <div class="mx-2">
-                                                <input type="radio" name="curve_screen" value="false" checked>
-                                                <label>No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {%endif%}
-
-                                    <!-- speakers -->
-                                    {%if device.speakers == "Yes" %}
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="speakers">Touch Support:</label>
-                                        <div class="col-md-6">
-                                            <div class="mx-2">
-                                                <input type="radio" name="speakers" value="true" checked>
-                                                <label>Yes</label>
-                                            </div>
-                                            <div class="mx-2">
-                                                <input type="radio" name="speakers" value="false">
-                                                <label>No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {%else%}
-                                    <div class="form-group mb-3">
-                                        <label class="col-md-6 control-label" for="speakers">Touch Support:</label>
-                                        <div class="col-md-6">
-                                            <div class="mx-2">
-                                                <input type="radio" name="speakers" value="true">
-                                                <label>Yes</label>
-                                            </div>
-                                            <div class="mx-2">
-                                                <input type="radio" name="speakers" value="false" checked>
-                                                <label>No</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {%endif%}
-
-
+                                    <input name="resolution_y" placeholder="Vertical (px)"
+                                        value = "{{device.resolution_y}}" class="form-control input-md m-1" required="" type="text">
                                 </div>
+                            </div>
+
+                            <!-- Screen Size -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="size">Screen Size (inch)</label>
+                                <div class="col-md-6">
+                                    <input name="size" placeholder="Example: 32" class="form-control input-md"
+                                        value = "{{device.size}}" required="" type="text">
+                                </div>
+                            </div>
+
+
+
+                            <!-- Panel Type -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="panel_type">Panel Type</label>
+                                <div class="col-md-6">
+                                    <input name="panel_type" placeholder="Example: IPS, VA"
+                                        value = "{{device.panel_type}}" class="form-control input-md" required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- Refresh Rate -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="refresh_rate">Refresh Rate (Hz)</label>
+                                <div class="col-md-6">
+                                    <input name="refresh_rate" placeholder="Example: 1 Hz" class="form-control input-md"
+                                        value = "{{device.refresh_rate}}" required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- Respose Time -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="response_time">Respose Time (ms)</label>
+                                <div class="col-md-6">
+                                    <input name="response_time" placeholder="Example: 4 ms"
+                                        value = "{{device.response_time}}" class="form-control input-md" required="" type="text">
+                                </div>
+                            </div>
+
+
+
+                            <!-- Brightness -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="brightness">Brightness (nits)</label>
+                                <div class="col-md-6">
+                                    <input name="brightness" placeholder="Example: 300 nits"
+                                        value = "{{device.brightness}}" class="form-control input-md" required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- aspect_ratio_x -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="aspect_ratio_x">Aspect ratio x</label>
+                                <div class="col-md-6">
+                                    <input name="aspect_ratio_x" placeholder="Example: 16 nits"
+                                        value = "{{device.aspect_ratio_x}}" class="form-control input-md" required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- aspect_ratio_y -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="aspect_ratio_y">Aspect ratio y</label>
+                                <div class="col-md-6">
+                                    <input name="aspect_ratio_y" placeholder="Example: 16 nits"
+                                        value = "{{device.aspect_ratio_y}}" class="form-control input-md" required="" type="text">
+                                </div>
+                            </div>
+
+                            <!-- color -->
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="color">Color</label>
+                                <div class="col-md-6">
+                                    <input name="color" placeholder="Example: 16 nits" class="form-control input-md"
+                                        value = "{{device.color}}" required="" type="text">
+                                </div>
+                            </div>
+                            
+
+                            <!-- speakers -->
+                            {%if device.speakers == "Yes"%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="speakers">Speakers</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="speakers" value="Yes" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="speakers" value="No">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="speakers">Speakers</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="speakers" value="Yes" >
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="speakers" value="No"checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+
+                            <!-- curve_screen -->
+                            {%if device.curve_screen == "Yes"%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="curve_screen">Curve screen</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="curve_screen" value="Yes" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="curve_screen" value="No">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="curve_screen">Curve screen</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="curve_screen" value="Yes">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="curve_screen" value="No" checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+                            <!-- wide_screen -->
+                            {%if device.wide_screen == "Yes"%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="wide_screen">Wide screen</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="wide_screen" value="Yes" checked>
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="wide_screen" value="No">
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%else%}
+                            <div class="form-group mb-3">
+                                <label class="col-md-6 control-label" for="wide_screen">Wide screen</label>
+                                <div class="col-md-6">
+                                    <div class="mx-2">
+                                        <input type="radio" name="wide_screen" value="Yes">
+                                        <label>Yes</label>
+                                    </div>
+                                    <div class="mx-2">
+                                        <input type="radio" name="wide_screen" value="No"checked>
+                                        <label>No</label>
+                                    </div>
+                                </div>
+                            </div>
+                            {%endif%}
+
+
+                </div>
                             </div>
                         </div>
                 {% endif %}

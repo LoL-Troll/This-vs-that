@@ -9,7 +9,6 @@ async function removeAllChildNodes(parent, text) {
 async function submitCat() {
     const selectElement = document.getElementById("product_category");
     const selectedValue = selectElement.value;
-    console.log(JSON.stringify({ catagoery: selectedValue }));
 
     const res = await fetch("/brand", {
         method: "POST",
@@ -29,7 +28,6 @@ async function submitCat() {
 async function showBrands(brands) {
 
     const container = document.getElementById("product_brand");
-    console.log(brands);
 
     for (brand of brands) {
         container.appendChild(new Option(brand.manufacturer, brand.manufacturer));
