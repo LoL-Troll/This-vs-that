@@ -43,7 +43,6 @@ app.use(async (req, res, next) => {
     if (req.session && req.session.userId) {
         const user = await db.getUserById(req.session.userId);
 
-        // TODO cache
         req.user = user;
     }
     next();
@@ -259,6 +258,7 @@ app.get("/browse.html", async (req, res) => {
     let phoneBrands = await db.getDeviceBrands("phone");
     let monitorBrands = await db.getDeviceBrands("monitor");
 
+
     res.render('browse.html', {
         user: req.user,
         items: devices,
@@ -276,6 +276,7 @@ app.get('/browse-select.html', async (req, res) => {
     let type = req.query.Type;
     let id = req.query.id;
 
+    
 
     let mouse_brand = req.query.mouse_brand;
     let keyboard_brand = req.query.keyboard_brand;
@@ -300,6 +301,7 @@ app.get('/browse-select.html', async (req, res) => {
     let keyboardBrands = await db.getDeviceBrands("keyboard");
     let phoneBrands = await db.getDeviceBrands("phone");
     let monitorBrands = await db.getDeviceBrands("monitor");
+
     res.render('browse-select.html', {
         items: devices,
         headsetBrands: headsetBrands,
@@ -319,23 +321,20 @@ app.get("/compare", async (req, res) => {
     for (const id in req.query) {
         devices.push((await db.getDeviceByID(req.query[id]))[0]);
     }
-    // console.log(devices)
     res.render('compare.html', { user: req.user, devices: devices });
 });
 
-app.post("/compare", async (req,res)=>{
-    if(req.user) {
-    for(i=0;i<4;i++){
-        if(!req.body.id[i]){
-            req.body.id[i]= null;
+app.post("/compare", async (req, res) => {
+    if (req.user) {
+        for (i = 0; i < 4; i++) {
+            if (!req.body.id[i]) {
+                req.body.id[i] = null;
+            }
         }
-        
+        let compare = await db.addComparison(req.user.userid, req.body.id[0], req.body.id[1], req.body.id[2], req.body.id[3]);
+        res.redirect("/saved-comparison.html");
     }
-    
-    let compare =  await db.addComparison(req.user.userid,req.body.id[0],req.body.id[1],req.body.id[2],req.body.id[3]);
-    res.redirect("/saved-comparison.html");
-    }
-    else{
+    else {
         res.redirect("/signin.html");
     }
 });
@@ -359,7 +358,6 @@ app.get("/history.html", async (req, res) => {
     }
 });
 
-/////////////////////////////
 app.get("/item/:id", async (req, res) => {
     let id = req.params.id;
 
@@ -408,6 +406,7 @@ app.get("/item/:id", async (req, res) => {
     var type = `'${device['category']}'`
 
     let sort = "AZname"
+
 
     let similar_devices = await db.getAllDevices
         (type, {
@@ -461,7 +460,7 @@ app.get("/modify.html", async (req, res) => {
         else {
             let device = (await db.getDeviceByID(req.query.id))[0];
 
-            res.render("modify.html", { device: device , user: req.user});
+            res.render("modify.html", { device: device, user: req.user });
         }
     } else {
         res.redirect("/");
@@ -544,43 +543,40 @@ app.get("/profile.html", (req, res) => {
 
 app.get("/saved-comparison.html", async (req, res) => {
     if (req.user) {
-        
+
         let temp = [];
         let comparisons = [];
         let comparisonsIDs = await db.getComparisons(req.user.userid);
-        let prev = comparisonsIDs[0]["comparisonID"];   
+        let prev = comparisonsIDs[0]["comparisonID"];
         temp.push(comparisonsIDs[0]);
-        for (i=1;i<comparisonsIDs.length;i++) {
-            if(comparisonsIDs[i]["comparisonID"] === prev ){
+        for (i = 1; i < comparisonsIDs.length; i++) {
+            if (comparisonsIDs[i]["comparisonID"] === prev) {
                 temp.push(comparisonsIDs[i]);
             }
-            else{
+            else {
                 comparisons.push(temp);
 
                 temp = [];
                 temp.push(comparisonsIDs[i]);
                 prev = comparisonsIDs[i]["comparisonID"];
-                
+
             }
-            
+
         }
-        comparisons.push(temp);      
-        res.render('saved-comparsion.html', { user: req.user, comparisons:comparisons });
+        comparisons.push(temp);
+        res.render('saved-comparsion.html', { user: req.user, comparisons: comparisons });
 
     } else {
         res.redirect("/");
     }
 });
 
-app.post("/comparisonID", async (req,res)=>{
+app.post("/comparisonID", async (req, res) => {
     let ids = await db.getComparisonsIDs(req.body.comparisonID);
-    
-    
 
-    console.log(ids[0]);
     res.json((ids[0]));
 });
-app.delete("/comparisonID", async (req,res)=>{
+app.delete("/comparisonID", async (req, res) => {
     let ids = await db.deleteComparison(req.body.comparisonID);
     res.status(200).send();
 });
@@ -604,15 +600,12 @@ app.post("/signin.html", async (req, res) => {
     if (user) { // if correct
         req.session.userId = user.userid;
 
-        // !!!!!!!!!!!!!!!!
         pageData.userData = user;
         res.redirect("/");
     } else { // if not correct
         res.redirect("/signin.html");
     }
 
-
-    // res.render('signin.html');
 });
 
 app.get("/signout", (req, res) => {
@@ -648,9 +641,9 @@ app.post("/signup", async (req, res) => {
 });
 
 
-app.delete('/delete', async (req,res) =>{
+app.delete('/delete', async (req, res) => {
 
-    let deleteDevice = db.deleteDevice(req.body.id); 
+    let deleteDevice = db.deleteDevice(req.body.id);
     res.status(200).send();
 })
 
@@ -680,7 +673,6 @@ app.post("/modifyingPrdouct/:id", async (req, res) => {
     }
 
     if (category === "monitor") {
-        console.log("monitor")
         var width = req.body.resolution_x;
         var height = req.body.resolution_y;
         var size = req.body.size;
@@ -694,14 +686,12 @@ app.post("/modifyingPrdouct/:id", async (req, res) => {
         var wide_screen = req.body.wide_screen;
         var curve_screen = req.body.curve_screen;
         var speakers = req.body.speakers;
-        console.log(width, height, size, panel_type, refresh_rate, response_time, brightness, color, wide_screen, curve_screen, speakers, aspect_ratio_y, aspect_ratio_x, id)
         await db.updateDevice(name, model, brand, image, category, jarir_link, noon_link);
         await db.updateMonitor(width, height, size, panel_type, refresh_rate, response_time, brightness, color, wide_screen, curve_screen, speakers, aspect_ratio_y, aspect_ratio_x, id);
         res.redirect("/modify.html");
     }
 
     else if (category === "phone") {
-        console.log("phone")
         var length = req.body.length;
         var width = req.body.width;
         var depth = req.body.depth;
@@ -728,7 +718,6 @@ app.post("/modifyingPrdouct/:id", async (req, res) => {
         var headphone_jack = req.body.headphone_jack;
         var colors = req.body.colors;
 
-        console.log(phone_video, IP_rating, resolution_x, resolution_y, length, width, depth, screen_size, display_type, screen_to_body_ratio, weight, frequency, ppi, cpu, chipset, gpu, memory, battery, camera, phone_selfie_camera, sensors, charging_speed, os, headphone_jack, colors, id)
 
         await db.updateDevice(name, model, brand, image, category, jarir_link, noon_link);
         await db.updatePhone(phone_video, IP_rating, resolution_x, resolution_y, length, width, depth, screen_size, display_type, screen_to_body_ratio, weight, frequency, ppi, cpu, chipset, gpu, memory, battery, camera, phone_selfie_camera, sensors, charging_speed, os, headphone_jack, colors, id);
@@ -736,7 +725,6 @@ app.post("/modifyingPrdouct/:id", async (req, res) => {
     }
 
     else if (category === "mouse") {
-        console.log("mouse")
         var length = req.body.length;
         var width = req.body.width;
         var height = req.body.height;
@@ -753,14 +741,12 @@ app.post("/modifyingPrdouct/:id", async (req, res) => {
         var led_lighting = req.body.led_lighting;
         var adjustable_weight = req.body.adjustable_weight;
 
-        console.log(length, width, height, weight, sensor_type, dpi, max_acceleration, max_tracking_speed, polling_rate, connectivity, number_of_buttons, color, onboard_memory, led_lighting, adjustable_weight, id)
         await db.updateDevice(name, model, brand, image, category, jarir_link, noon_link);
         await db.updateMouse(length, width, height, weight, sensor_type, dpi, max_acceleration, max_tracking_speed, polling_rate, connectivity, number_of_buttons, color, onboard_memory, led_lighting, adjustable_weight, id);
         res.redirect("/modify.html");
     }
 
     else if (category === "keyboard") {
-        console.log("keyboard")
         var style = req.body.style;
         var switch_type = req.body.switch_type;
         var backlit = req.body.backlit;
@@ -769,14 +755,12 @@ app.post("/modifyingPrdouct/:id", async (req, res) => {
         var color = req.body.color;
 
 
-        console.log(style, switch_type, backlit, tenkeyless, connection_type, color, id)
         await db.updateDevice(name, model, brand, image, category, jarir_link, noon_link);
         await db.updateKeyboard(style, switch_type, backlit, tenkeyless, connection_type, color, id);
         res.redirect("/modify.html");
     }
 
     else {
-        console.log("headset")
         var type = req.body.type;
         var max_frequency_response = req.body.max_frequency_response;
         var microphone = req.body.microphone;
@@ -787,13 +771,12 @@ app.post("/modifyingPrdouct/:id", async (req, res) => {
         var channels = req.body.channels;
         var sensitivity = req.body.sensitivity;
         var impedance = req.body.impedance;
-        console.log(type, max_frequency_response, microphone, wireless, encloser_type, color, active_noise_cancelling, channels, sensitivity, impedance, id)
         await db.updateDevice(name, model, brand, image, category, jarir_link, noon_link);
         await db.updateHeadset(type, max_frequency_response, microphone, wireless, encloser_type, color, active_noise_cancelling, channels, sensitivity, impedance, id);
         res.redirect("/modify.html");
     }
 });
 
-app.post("/save",async(req,res)=>{
+app.post("/save", async (req, res) => {
 
 });
